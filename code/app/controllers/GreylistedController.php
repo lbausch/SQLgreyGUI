@@ -19,9 +19,7 @@ class GreylistedController extends \BaseController {
     public function __construct(ConnectRepositoryInterface $repo) {
         $this->repo = $repo;
         
-        Assets::add('dataTables.bootstrap.css');
-        Assets::add('jquery.dataTables.js');
-        Assets::add('dataTables.bootstrap.js');
+        Assets::add('dataTable');
     }
 
     /**

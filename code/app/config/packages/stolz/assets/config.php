@@ -71,6 +71,12 @@ return array(
                 'bootstrap.js',
                 'bootstrap.css',
             ],
+            
+            'dataTable' => [
+                'dataTables.bootstrap.css',
+                'jquery.dataTables.js',
+                'dataTables.bootstrap.js',
+            ],
         ),
 
 	/*

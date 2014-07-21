@@ -5,7 +5,11 @@
 {% endblock %}
 
 {% block content %}
-    <h1><i class="fa fa-clock-o fa-fw"></i> Greylisted</h1>
+    <h3><i class="fa fa-clock-o fa-fw"></i> Greylisted</h3>
+
+    <div class="alert alert-info">
+        <i class="fa fa-fw fa-info-circle"></i> This senders have been greylisted recently
+    </div>
 
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover" id="greylisted-table">
@@ -24,8 +28,8 @@
                         <td>{{ item.getSenderName() }}</td>
                         <td>{{ item.getSenderDomain() }}</td>
                         <td>{{ item.getSource() }}</td>
-                        <td class="center">{{ item.getRecipient() }}</td>
-                        <td class="center">{{ item.getFirstSeen() }}</td>
+                        <td>{{ item.getRecipient() }}</td>
+                        <td>{{ item.getFirstSeen() }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

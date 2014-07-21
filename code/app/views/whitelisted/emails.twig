@@ -5,5 +5,43 @@
 {% endblock %}
 
 {% block content %}
-    <h1><i class="fa fa-thumbs-o-up fa-fw"></i> Whitelisted > <i class="fa fa-envelope-o fa-fw"></i> eMails</h1>
+    <h3><i class="fa fa-thumbs-o-up fa-fw"></i> Whitelisted > <i class="fa fa-envelope-o fa-fw"></i> eMails</h3>
+
+    <div class="alert alert-info">
+        <i class="fa fa-fw fa-info-circle"></i> List of auto-whitelisted eMails
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover" id="whitelisted-emails-table">
+            <thead>
+                <tr>
+                    <th>Sender name</th>
+                    <th>Sender domain</th>
+                    <th>IP address</th>
+                    <th>First seen</th>
+                    <th>Last seen</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for email in whitelisted_emails %}
+                    <tr>
+                        <td>{{ email.getSenderName() }}</td>
+                        <td>{{ email.getSenderDomain() }}</td>
+                        <td>{{ email.getSource() }}</td>
+                        <td>{{ email.getFirstSeen() }}</td>
+                        <td>{{ email.getLastSeen() }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(document).ready(function() {
+            $('#whitelisted-emails-table').dataTable({
+            });
+        });
+    </script>
 {% endblock %}
