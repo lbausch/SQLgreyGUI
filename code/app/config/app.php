@@ -122,6 +122,10 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
+
+                // Twig
+                'TwigBridge\ServiceProvider',
+
 	),
 
 	/*
@@ -188,6 +192,10 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+
+
+                // Twig
+                'Twig' => 'TwigBridge\Facade\Twig',
 
 	),
 
