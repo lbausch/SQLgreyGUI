@@ -5,13 +5,21 @@
     "license": "MIT",
     "require": {
         "laravel/framework": "4.2.*",
-        "rcrowe/twigbridge": "0.6.*@dev"
+        "rcrowe/twigbridge": "0.6.*@dev",
+        "stolz/assets": "dev-master",
+        "components/jquery": "1.11.*@dev",
+        "twbs/bootstrap": "3.2.*",
+        "components/font-awesome": "4.1.*@dev",
+        "afarkas/html5shiv": "dev-master",
+        "rogeriopradoj/respond": "dev-composer",
+        "kwipi/famfamfam-flags": "dev-master"
     },
     "autoload": {
         "classmap": [
             "app/commands",
             "app/controllers",
             "app/models",
+            "app/repositories",
             "app/database/migrations",
             "app/database/seeds",
             "app/tests/TestCase.php"

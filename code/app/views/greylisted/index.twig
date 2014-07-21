@@ -1,0 +1,44 @@
+{% extends "layouts.base" %}
+
+{% block title %}
+    {{ parent() }}Greylisted
+{% endblock %}
+
+{% block content %}
+    <h1><i class="fa fa-clock-o fa-fw"></i> Greylisted</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover" id="greylisted-table">
+            <thead>
+                <tr>
+                    <th>Sender Name</th>
+                    <th>Sender Domain</th>
+                    <th>IP address</th>
+                    <th>Recipient</th>
+                    <th>Seen at</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in greylisted %}
+                    <tr>
+                        <td>{{ item.getSenderName() }}</td>
+                        <td>{{ item.getSenderDomain() }}</td>
+                        <td>{{ item.getSource() }}</td>
+                        <td class="center">{{ item.getRecipient() }}</td>
+                        <td class="center">{{ item.getFirstSeen() }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(document).ready(function() {
+            $('#greylisted-table').dataTable({
+                'order': [4, 'desc'],
+            });
+        });
+    </script>
+{% endblock %}

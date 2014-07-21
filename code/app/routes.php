@@ -1,17 +1,32 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
+// Dashboard
+Route::get('/', 'DashboardController@index');
+Route::get('dashboard', 'DashboardController@index');
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+
+// Greylisted
+Route::get('greylisted', 'GreylistedController@index');
+
+
+// Whitelisted
+Route::get('whitelisted/emails', 'WhitelistedController@showEmails');
+Route::get('whitelisted/domains', 'WhitelistedController@showDomains');
+
+
+// OptOut
+Route::get('optout/emails', 'OptoutController@showEmails');
+Route::get('optout/domains', 'OptoutController@showDomains');
+
+
+// OptIn
+Route::get('optin/emails', 'OptinController@showEmails');
+Route::get('optin/domains', 'OptinController@showDomains');
+
+
+// About
+Route::get('about', 'AboutController@index');
+
+
+// Login & Logout
+Route::get('logout', 'AuthController@logout');

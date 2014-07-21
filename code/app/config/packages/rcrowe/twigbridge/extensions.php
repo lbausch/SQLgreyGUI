@@ -69,7 +69,11 @@ return [
     | in order to be marked as safe.
     |
     */
-    'facades' => [],
+    'facades' => [
+        'Assets' => [
+            'is_safe' => ['css', 'js'],
+        ]
+    ],
 
     /*
     |--------------------------------------------------------------------------

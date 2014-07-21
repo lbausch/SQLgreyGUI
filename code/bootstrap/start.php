@@ -59,6 +59,11 @@ $framework = $app['path.base'].
 
 require $framework.'/Illuminate/Foundation/start.php';
 
+
+// binding
+require __DIR__ . '/ioc.php';
+
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

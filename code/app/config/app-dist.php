@@ -126,6 +126,9 @@ return array(
                 // Twig
                 'TwigBridge\ServiceProvider',
 
+                // Assets
+                'Stolz\Assets\ManagerServiceProvider',
+
 	),
 
 	/*

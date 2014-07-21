@@ -12,3 +12,11 @@ Thumbs.db
 /app/config/app.php
 /app/config/database.php
 /app/config/mail.php
+
+
+# components
+/components
+
+
+# assets
+/public/assets/minified
