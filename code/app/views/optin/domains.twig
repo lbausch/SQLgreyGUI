@@ -5,5 +5,20 @@
 {% endblock %}
 
 {% block content %}
-    <h1><i class="fa fa-plus-square fa-fw"></i> OptIn > <i class="fa fa-globe fa-fw"></i> Domains</h1>
+    <h3><i class="fa fa-plus-square fa-fw"></i> OptIn > <i class="fa fa-globe fa-fw"></i> Domains</h3>
+    
+    <div class="alert alert-info">
+        <i class="fa fa-fw fa-info-circle"></i> These domains are always greylisted unless they are listed in the optout list
+    </div>
+    
+    {{ html_list_domains(domains) }}
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(document).ready(function() {
+            $('#opt-domain-table').dataTable({
+            });
+        });
+    </script>
 {% endblock %}

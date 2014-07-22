@@ -5,5 +5,20 @@
 {% endblock %}
 
 {% block content %}
-    <h1><i class="fa fa-minus-square fa-fw"></i> OptOut > <i class="fa fa-envelope-o fa-fw"></i> eMails</h1>
+    <h3><i class="fa fa-minus-square fa-fw"></i> OptOut > <i class="fa fa-envelope-o fa-fw"></i> eMails</h3>
+    
+    <div class="alert alert-info">
+        <i class="fa fa-fw fa-info-circle"></i> eMails for these recipients will never be greylisted
+    </div>
+    
+    {{ html_list_emails(emails) }}
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(document).ready(function() {
+            $('#opt-email-table').dataTable({
+            });
+        });
+    </script>
 {% endblock %}

@@ -15,13 +15,13 @@ Route::get('whitelisted/domains', 'WhitelistedController@showDomains');
 
 
 // OptOut
-Route::get('optout/emails', 'OptoutController@showEmails');
-Route::get('optout/domains', 'OptoutController@showDomains');
+Route::get('optout/emails', 'OptOutController@showEmails');
+Route::get('optout/domains', 'OptOutController@showDomains');
 
 
 // OptIn
-Route::get('optin/emails', 'OptinController@showEmails');
-Route::get('optin/domains', 'OptinController@showDomains');
+Route::get('optin/emails', 'OptInController@showEmails');
+Route::get('optin/domains', 'OptInController@showDomains');
 
 
 // About
