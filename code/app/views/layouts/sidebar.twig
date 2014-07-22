@@ -20,17 +20,17 @@
             </li>
 
             <li>
-                <a class="{{ html_nav_class('greylisted') }}" href="{{ action('GreylistedController@index') }}"><i class="fa fa-clock-o fa-fw"></i> Greylisted</a>
+                <a class="{{ html_nav_class('greylist') }}" href="{{ action('GreylistController@index') }}"><i class="fa fa-clock-o fa-fw"></i> Greylist</a>
             </li>
 
-            <li class="{{ html_nav_class('whitelisted') }}">
-                <a href="#"><i class="fa fa-thumbs-o-up fa-fw"></i> Whitelisted<span class="fa arrow"></span></a>
+            <li class="{{ html_nav_class('whitelist') }}">
+                <a href="#"><i class="fa fa-thumbs-o-up fa-fw"></i> Auto-Whitelist<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a class="{{ html_nav_class('whitelisted/emails') }}" href="{{ action('WhitelistedController@showEmails') }}"><i class="fa fa-envelope-o fa-fw"></i> eMails</a>
+                        <a class="{{ html_nav_class('whitelist/emails') }}" href="{{ action('WhitelistController@showEmails') }}"><i class="fa fa-envelope-o fa-fw"></i> eMails</a>
                     </li>
                     <li>
-                        <a class="{{ html_nav_class('whitelisted/domains') }}" href="{{ action('WhitelistedController@showDomains') }}"><i class="fa fa-globe fa-fw"></i> Domains</a>
+                        <a class="{{ html_nav_class('whitelist/domains') }}" href="{{ action('WhitelistController@showDomains') }}"><i class="fa fa-globe fa-fw"></i> Domains</a>
                     </li>
                 </ul>
             </li>

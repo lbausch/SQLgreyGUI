@@ -1,11 +1,11 @@
 {% extends "layouts.base" %}
 
 {% block title %}
-    {{ parent() }}Greylisted
+    {{ parent() }}Greylist
 {% endblock %}
 
 {% block content %}
-    <h3><i class="fa fa-clock-o fa-fw"></i> Greylisted</h3>
+    <h3><i class="fa fa-clock-o fa-fw"></i> Greylist</h3>
 
     <div class="alert alert-info">
         <i class="fa fa-fw fa-info-circle"></i> This senders have been greylisted recently
@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for item in greylisted %}
+                {% for item in greylist %}
                     <tr>
                         <td>{{ item.getSenderName() }}</td>
                         <td>{{ item.getSenderDomain() }}</td>

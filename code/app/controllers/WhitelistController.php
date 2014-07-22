@@ -3,7 +3,7 @@
 use Bausch\Repositories\FromAwlRepositoryInterface;
 use Bausch\Repositories\DomainAwlRepositoryInterface;
 
-class WhitelistedController extends \BaseController {
+class WhitelistController extends \BaseController {
 
     /**
      * from repository
@@ -40,8 +40,8 @@ class WhitelistedController extends \BaseController {
     public function showEmails() {
         $emails = $this->from_repo->findAll();
 
-        return View::make('whitelisted.emails')
-                        ->with('whitelisted_emails', $emails);
+        return View::make('whitelist.emails')
+                        ->with('whitelist_emails', $emails);
     }
 
     /**
@@ -52,8 +52,8 @@ class WhitelistedController extends \BaseController {
     public function showDomains() {
         $domains = $this->domain_repo->findAll();
 
-        return View::make('whitelisted.domains')
-                        ->with('whitelisted_domains', $domains);
+        return View::make('whitelist.domains')
+                        ->with('whitelist_domains', $domains);
     }
 
 }

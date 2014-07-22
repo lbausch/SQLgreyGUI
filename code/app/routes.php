@@ -6,12 +6,12 @@ Route::get('dashboard', 'DashboardController@index');
 
 
 // Greylisted
-Route::get('greylisted', 'GreylistedController@index');
+Route::get('greylist', 'GreylistController@index');
 
 
 // Whitelisted
-Route::get('whitelisted/emails', 'WhitelistedController@showEmails');
-Route::get('whitelisted/domains', 'WhitelistedController@showDomains');
+Route::get('whitelist/emails', 'WhitelistController@showEmails');
+Route::get('whitelist/domains', 'WhitelistController@showDomains');
 
 
 // OptOut

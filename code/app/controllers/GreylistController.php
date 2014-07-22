@@ -2,7 +2,7 @@
 
 use Bausch\Repositories\ConnectRepositoryInterface;
 
-class GreylistedController extends \BaseController {
+class GreylistController extends \BaseController {
 
     /**
      * Repository
@@ -30,8 +30,8 @@ class GreylistedController extends \BaseController {
     public function index() {
         $data = $this->repo->findAll();
 
-        return View::make('greylisted.index')
-                        ->with('greylisted', $data);
+        return View::make('greylist.index')
+                        ->with('greylist', $data);
     }
 
 }
