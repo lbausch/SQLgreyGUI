@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for email in whitelisted_emails %}
+                {% for email in whitelist_emails %}
                     <tr>
                         <td>{{ email.getSenderName() }}</td>
                         <td>{{ email.getSenderDomain() }}</td>

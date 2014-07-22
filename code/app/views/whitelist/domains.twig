@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for domain in whitelisted_domains %}
+                {% for domain in whitelist_domains %}
                     <tr>
                         <td>{{ domain.getSenderDomain() }}</td>
                         <td>{{ domain.getSource() }}</td>

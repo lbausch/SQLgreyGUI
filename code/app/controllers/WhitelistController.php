@@ -39,7 +39,7 @@ class WhitelistController extends \BaseController {
      */
     public function showEmails() {
         $emails = $this->email_repo->findAll();
-
+        
         return View::make('whitelist.emails')
                         ->with('whitelist_emails', $emails);
     }
