@@ -1,6 +1,6 @@
 <?php
 
-use Bausch\Repositories\ConnectRepositoryInterface;
+use Bausch\Repositories\GreylistRepositoryInterface;
 
 class GreylistController extends \BaseController {
 
@@ -14,9 +14,9 @@ class GreylistController extends \BaseController {
     /**
      * Constructor 
      * 
-     * @param \Bausch\Repositories\ConnectRepositoryInterface $repo
+     * @param \Bausch\Repositories\GreylistRepositoryInterface $repo
      */
-    public function __construct(ConnectRepositoryInterface $repo) {
+    public function __construct(GreylistRepositoryInterface $repo) {
         $this->repo = $repo;
         
         Assets::add('dataTable');

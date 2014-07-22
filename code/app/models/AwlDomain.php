@@ -4,7 +4,7 @@ namespace Bausch\Models;
 
 use Eloquent;
 
-class DomainAwl extends Eloquent {
+class AwlDomain extends Eloquent {
 
     /**
      * The database table used by the model.

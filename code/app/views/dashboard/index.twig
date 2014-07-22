@@ -6,4 +6,157 @@
 
 {% block content %}
     <h3><i class="fa fa-dashboard fa-fw"></i> Dashboard</h3>
+
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-clock-o fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{ dashboard.greylist }}</div>
+                            <div>Greylisted hosts and domains</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ action('GreylistController@index') }}">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-thumbs-o-up fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{ dashboard.awl_emails }} / {{ dashboard.awl_domains }}</div>
+                            <div>Auto-Whitelisted eMails / Domains</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ action('WhitelistController@showEmails') }}">
+                    <div class="panel-footer">
+                        <span class="pull-left">View eMails</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+                <a href="{{ action('WhitelistController@showDomains') }}">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Domains</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-minus-square fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{ dashboard.optout_emails }} / {{ dashboard.optout_domains }}</div>
+                            <div>OptOut eMails / Domains</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ action('OptOutController@showEmails') }}">
+                    <div class="panel-footer">
+                        <span class="pull-left">View eMails</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+                <a href="{{ action('OptOutController@showDomains') }}">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Domains</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-plus-square fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{ dashboard.optin_emails }} / {{ dashboard.optin_domains }}</div>
+                            <div>OptIn eMails / Domains</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ action('OptInController@showEmails') }}">
+                    <div class="panel-footer">
+                        <span class="pull-left">View eMails</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+                <a href="{{ action('OptInController@showDomains') }}">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Domains</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-clock-o fa-fw"></i> Greylist: Last 30 days
+                </div>
+                <div class="panel-body">
+                    <div id="greylist-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(function() {
+
+            Morris.Area({
+                element: 'greylist-chart',
+                data: [
+                {% for day,entries in dashboard.greylist_stats %}
+                    {
+                        day: '{{ day }}',
+                        entries: {{ entries }}
+                    },
+                {% endfor %}
+                ],
+                xkey: 'day',
+                ykeys: ['entries'],
+                labels: ['Entries'],
+                pointSize: 2,
+                hideHover: 'auto',
+                resize: true
+            });
+
+
+        });
+    </script>
 {% endblock %}

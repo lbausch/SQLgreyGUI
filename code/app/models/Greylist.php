@@ -4,14 +4,14 @@ namespace Bausch\Models;
 
 use Eloquent;
 
-class FromAwl extends Eloquent {
+class Greylist extends Eloquent {
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'from_awl';
+    protected $table = 'connect';
 
     /**
      * get sender name
@@ -41,20 +41,20 @@ class FromAwl extends Eloquent {
     }
 
     /**
+     * get recipient
+     * 
+     * @return string
+     */
+    public function getRecipient() {
+        return $this->rcpt;
+    }
+
+    /**
      * get first seen
      * 
      * @return string
      */
     public function getFirstSeen() {
-        return $this->first_seen;
-    }
-
-    /**
-     * get last seen
-     * 
-     * @return string
-     */
-    public function getLastSeen() {
         return $this->first_seen;
     }
 

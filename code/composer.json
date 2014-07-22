@@ -12,7 +12,8 @@
         "components/font-awesome": "4.1.*@dev",
         "afarkas/html5shiv": "dev-master",
         "rogeriopradoj/respond": "dev-composer",
-        "kwipi/famfamfam-flags": "dev-master"
+        "kwipi/famfamfam-flags": "dev-master",
+        "nesbot/Carbon": "*"
     },
     "autoload": {
         "classmap": [

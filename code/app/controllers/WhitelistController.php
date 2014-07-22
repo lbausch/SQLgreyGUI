@@ -1,34 +1,34 @@
 <?php
 
-use Bausch\Repositories\FromAwlRepositoryInterface;
-use Bausch\Repositories\DomainAwlRepositoryInterface;
+use Bausch\Repositories\AwlEmailRepositoryInterface;
+use Bausch\Repositories\AwlDomainRepositoryInterface;
 
 class WhitelistController extends \BaseController {
 
     /**
-     * from repository
+     * email repository
      * 
-     * @var FromAwlRepositoryInterface
+     * @var AwlEmailRepositoryInterface
      */
-    private $from_repo;
+    private $email_repo;
 
     /**
      * domain repository
      * 
-     * @var DomainAwlRepositoryInterface
+     * @var AwlDomainRepositoryInterface
      */
     private $domain_repo;
 
     /**
      * Constructor
      * 
-     * @param \Bausch\Repositories\FromAwlRepositoryInterface $from_repo
-     * @param \Bausch\Repositories\DomainAwlRepositoryInterface $domain_repo
+     * @param \Bausch\Repositories\AwlEmailRepositoryInterface $email_repo
+     * @param \Bausch\Repositories\AwlDomainRepositoryInterface $domain_repo
      */
-    public function __construct(FromAwlRepositoryInterface $from_repo, DomainAwlRepositoryInterface $domain_repo) {
-        $this->from_repo = $from_repo;
+    public function __construct(AwlEmailRepositoryInterface $email_repo, AwlDomainRepositoryInterface $domain_repo) {
+        $this->email_repo = $email_repo;
         $this->domain_repo = $domain_repo;
-        
+
         Assets::add('dataTable');
     }
 
@@ -38,7 +38,7 @@ class WhitelistController extends \BaseController {
      * @return Response
      */
     public function showEmails() {
-        $emails = $this->from_repo->findAll();
+        $emails = $this->email_repo->findAll();
 
         return View::make('whitelist.emails')
                         ->with('whitelist_emails', $emails);

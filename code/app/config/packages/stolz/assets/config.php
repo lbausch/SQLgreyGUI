@@ -77,6 +77,12 @@ return array(
                 'jquery.dataTables.js',
                 'dataTables.bootstrap.js',
             ],
+            
+            'morris' => [
+                'raphael.js',
+                'morris.js',
+                'morris.css',
+            ]
         ),
 
 	/*
