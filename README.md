@@ -5,7 +5,6 @@ Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel]
 
 
 ## Features
-
 * quick overview of greylisted hosts and domains
 * show auto-whitelisted senders and domains
 * exclude recipients and domains from greylisting (Opt-out)
@@ -14,16 +13,14 @@ Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel]
 
 
 ## Requirements
-
 * working SQLgrey setup
 * Webserver (e.g. Apache) and Database (e.g. MySQL)
 * PHP >= 5.4.0
 
 
 ## Installation in 7 steps
-
 1. grab a copy of the code (download [master.zip](https://github.com/lbausch/SQLgreyGUI/archive/master.zip) or use `git clone https://github.com/lbausch/SQLgreyGUI.git`)
-2. make your webserver uses the `/code/public/` directory as document root
+2. make your webserver use the `/code/public/` directory as document root
 3. rename `/code/config-dist.php` to `/code/config.php`, `/code/app/config/app-dist.php` to `/code/app/config/app.php` and `/code/app/config/mail-dist.php` to `/code/app/config/mail.php`. Adjust the settings
 4. run `composer update` to install all necessary dependencies
 5. run `php artisan migrate --force` to create the database tables
