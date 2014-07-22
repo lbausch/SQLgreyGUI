@@ -8,8 +8,12 @@ class AwlEmailRepositoryEloquent implements AwlEmailRepositoryInterface {
 
     public function findAll() {
         $data = Email::orderBy('sender_name', 'asc')->get();
-        
+
         return $data;
+    }
+
+    public function instance($data = array()) {
+        return new Email($data);
     }
 
 }

@@ -8,11 +8,10 @@ composer.lock
 Thumbs.db
 
 
-# config files
+# config file(s)
 /app/config/app.php
-/app/config/database.php
 /app/config/mail.php
-
+/config.php
 
 # components
 /components

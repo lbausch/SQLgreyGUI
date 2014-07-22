@@ -26,6 +26,8 @@ class WhitelistController extends \BaseController {
      * @param \Bausch\Repositories\AwlDomainRepositoryInterface $domain_repo
      */
     public function __construct(AwlEmailRepositoryInterface $email_repo, AwlDomainRepositoryInterface $domain_repo) {
+        parent::__construct();
+
         $this->email_repo = $email_repo;
         $this->domain_repo = $domain_repo;
 

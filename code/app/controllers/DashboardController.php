@@ -20,6 +20,8 @@ class DashboardController extends BaseController {
     private $optin_domain_repo;
 
     public function __construct(GreylistRepositoryInterface $greylist_repo, AwlEmailRepositoryInterface $awl_email_repo, AwlDomainRepositoryInterface $awl_domain_repo, OptOutEmailRepositoryInterface $optput_email_repo, OptOutDomainRepositoryInterface $optout_domain_repo, OptInEmailRepositoryInterface $optin_email_repo, OptInDomainRepositoryInterface $optin_domain_repo) {
+        parent::__construct();
+        
         $this->greylist_repo = $greylist_repo;
         $this->awl_email_repo = $awl_email_repo;
         $this->awl_domain_repo = $awl_domain_repo;

@@ -2,9 +2,7 @@
 
 namespace Bausch\Models;
 
-use Eloquent;
-
-class OptOutDomain extends Eloquent {
+class OptOutDomain extends SQLgreyConnection {
 
     use OptDomain;
 

@@ -2,9 +2,7 @@
 
 namespace Bausch\Models;
 
-use Eloquent;
-
-class AwlDomain extends Eloquent {
+class AwlDomain extends SQLgreyConnection {
 
     /**
      * The database table used by the model.

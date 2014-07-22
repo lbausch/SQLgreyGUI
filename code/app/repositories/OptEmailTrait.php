@@ -4,14 +4,22 @@ namespace Bausch\Repositories;
 
 trait OptEmailTrait {
 
-    public function findAll() {
-        $model = 'Bausch\Models\\' . $this->model;
+    private $model_class;
 
-        $model = new $model;
+    public function findAll() {
+        $this->model_class = 'Bausch\Models\\' . $this->model;
+
+        $model = new $this->model_class;
 
         $data = $model::orderBy('email', 'asc')->get();
 
         return $data;
+    }
+
+    public function instance($data = array()) {
+        $model = $this->model_class;
+
+        return $model::create($data);
     }
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+App::bind('Bausch\Repositories\UserRepositoryInterface', 'Bausch\Repositories\UserRepositoryEloquent');
+
 App::bind('Bausch\Repositories\GreylistRepositoryInterface', 'Bausch\Repositories\GreylistRepositoryEloquent');
 App::bind('Bausch\Repositories\AwlEmailRepositoryInterface', 'Bausch\Repositories\AwlEmailRepositoryEloquent');
 App::bind('Bausch\Repositories\AwlDomainRepositoryInterface', 'Bausch\Repositories\AwlDomainRepositoryEloquent');

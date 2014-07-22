@@ -2,9 +2,7 @@
 
 namespace Bausch\Models;
 
-use Eloquent;
-
-class Greylist extends Eloquent {
+class Greylist extends SQLgreyConnection {
 
     /**
      * The database table used by the model.

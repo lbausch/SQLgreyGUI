@@ -2,9 +2,7 @@
 
 namespace Bausch\Models;
 
-use Eloquent;
-
-class AwlEmail extends Eloquent {
+class AwlEmail extends SQLgreyConnection {
 
     /**
      * The database table used by the model.

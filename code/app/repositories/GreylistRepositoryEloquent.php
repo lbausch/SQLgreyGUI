@@ -39,4 +39,8 @@ class GreylistRepositoryEloquent implements GreylistRepositoryInterface {
         return $data;
     }
 
+    public function instance($data = array()) {
+        return new Greylist($data);
+    }
+
 }

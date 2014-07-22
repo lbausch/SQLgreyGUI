@@ -2,9 +2,7 @@
 
 namespace Bausch\Models;
 
-use Eloquent;
-
-class OptInEmail extends Eloquent {
+class OptInEmail extends SQLgreyConnection {
 
     use OptEmail;
 

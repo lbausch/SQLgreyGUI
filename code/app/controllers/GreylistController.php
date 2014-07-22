@@ -17,6 +17,8 @@ class GreylistController extends \BaseController {
      * @param \Bausch\Repositories\GreylistRepositoryInterface $repo
      */
     public function __construct(GreylistRepositoryInterface $repo) {
+        parent::__construct();
+        
         $this->repo = $repo;
         
         Assets::add('dataTable');

@@ -26,7 +26,6 @@ class OptInController extends \OptController {
      * @param Bausch\Repositories\OptInEmailRepositoryInterface $email_repo
      */
     public function __construct(OptInDomainRepositoryInterface $domain_repo, OptInEmailRepositoryInterface $email_repo) {
-
         parent::__construct();
 
         $this->domain_repo = $domain_repo;

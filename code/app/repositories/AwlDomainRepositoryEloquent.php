@@ -12,4 +12,8 @@ class AwlDomainRepositoryEloquent implements AwlDomainRepositoryInterface {
         return $data;
     }
 
+    public function instance($data = array()) {
+        return new Domain($data);
+    }
+
 }

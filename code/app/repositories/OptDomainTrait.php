@@ -4,14 +4,22 @@ namespace Bausch\Repositories;
 
 trait OptDomainTrait {
 
-    public function findAll() {
-        $model = 'Bausch\Models\\' . $this->model;
+    private $model_class;
 
-        $data = new $model;
+    public function findAll() {
+        $this->model_class = 'Bausch\Models\\' . $this->model;
+
+        $data = new $this->model_class;
 
         $data = $data::orderBy('domain', 'asc')->get();
 
         return $data;
+    }
+
+    public function instance($data = array()) {
+        $model = $this->model_class;
+
+        return $model::create($data);
     }
 
 }

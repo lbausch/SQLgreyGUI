@@ -63,6 +63,9 @@ require $framework.'/Illuminate/Foundation/start.php';
 // binding
 require __DIR__ . '/ioc.php';
 
+// adjust database settings
+require __DIR__ . '/database.php';
+
 
 /*
 |--------------------------------------------------------------------------
