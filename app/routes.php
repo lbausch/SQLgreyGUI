@@ -24,6 +24,8 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('settings', 'SettingController@index');
     Route::get('settings/password', 'SettingController@changePassword');
     Route::post('settings/password', 'SettingController@password');
+    Route::get('settings/email', 'SettingController@changeEmail');
+    Route::post('settings/email', 'SettingController@email');
 
     // About
     Route::get('about', 'AboutController@index');

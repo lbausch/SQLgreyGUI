@@ -75,4 +75,43 @@ class SettingController extends \BaseController {
         return Redirect::action('SettingController@changePassword')->withErrors($validator);
     }
 
+    /**
+     * show form
+     * 
+     * @return Response
+     */
+    public function changeEmail() {
+        return View::make('setting.email');
+    }
+
+    /**
+     * change email
+     * 
+     * @return Response
+     */
+    public function email() {
+        $input = array(
+            'email' => Input::get('email'),
+        );
+
+        $rules = array(
+            'email' => 'required|email',
+        );
+
+        // Validate eMail
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->passes()) {
+            $teh_user = $this->users->findById($this->userid);
+
+            $teh_user->setEmail($input['email']);
+
+            $this->users->update($teh_user);
+
+            return Redirect::action('SettingController@index');
+        }
+
+        return Redirect::action('SettingController@changeEmail')->withErrors($validator);
+    }
+
 }
