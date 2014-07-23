@@ -9,14 +9,21 @@
 
     {{ html_alert('info', 'These domains are never greylisted') }}
     
-    {{ html_list_domains(domains) }}
+    {{ html_list_domains(domains, 'OptOutController@deleteDomains') }}
 {% endblock %}
 
 {% block javascript %}
     <script>
         $(document).ready(function() {
             $('#opt-domain-table').dataTable({
+                order: [1, 'asc'],
+                aoColumnDefs: [
+                    {bSortable: false, aTargets: [0]}
+                ],
             });
+            
+            addCheckboxTrigger('#opt-domain-table tbody tr');
+            addSelectAllTrigger('#opt-domain-select_all', '#opt-domain-table tbody tr td');
         });
     </script>
 {% endblock %}

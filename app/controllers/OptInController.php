@@ -45,6 +45,26 @@ class OptInController extends \OptController {
     }
 
     /**
+     * delete emails
+     * 
+     * @return Respone
+     */
+    public function deleteEmails() {
+        $items = $this->parseEntries('emails', 'Bausch\Repositories\OptInEmailRepositoryInterface');
+
+        $message = array();
+
+        foreach ($items as $key => $val) {
+            $this->email_repo->destroy($val);
+
+            $message[] = '<li>' . $val->getEmail() . '</li>';
+        }
+
+        return Redirect::action('OptInController@showEmails')
+                        ->with('success', 'deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
+    }
+
+    /**
      * show domains
      *
      * @return Response
@@ -54,6 +74,26 @@ class OptInController extends \OptController {
 
         return View::make('optin.domains')
                         ->with('domains', $domains);
+    }
+
+    /**
+     * delete domains
+     * 
+     * @return Respone
+     */
+    public function deleteDomains() {
+        $items = $this->parseEntries('domains', 'Bausch\Repositories\OptInDomainRepositoryInterface');
+
+        $message = array();
+
+        foreach ($items as $key => $val) {
+            $this->domain_repo->destroy($val);
+
+            $message[] = '<li>' . $val->getDomain() . '</li>';
+        }
+
+        return Redirect::action('OptInController@showDomains')
+                        ->with('success', 'deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
     }
 
 }

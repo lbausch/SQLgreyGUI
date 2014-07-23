@@ -9,14 +9,21 @@
     
     {{ html_alert('info', 'eMails for these recipients will always be greylisted unless they are present in the opt-out list') }}
     
-    {{ html_list_emails(emails) }}
+    {{ html_list_emails(emails, 'OptInController@deleteEmails') }}
 {% endblock %}
 
 {% block javascript %}
     <script>
         $(document).ready(function() {
             $('#opt-email-table').dataTable({
+                order: [1, 'asc'],
+                aoColumnDefs: [
+                    {bSortable: false, aTargets: [0]}
+                ],
             });
+
+            addCheckboxTrigger('#opt-email-table tbody tr');
+            addSelectAllTrigger('#opt-email-select_all', '#opt-email-table tbody tr td');
         });
     </script>
 {% endblock %}

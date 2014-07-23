@@ -26,15 +26,17 @@ HTML::macro('navClass', function($items) {
 });
 
 // list emails
-HTML::macro('listEmails', function($emails) {
+HTML::macro('listEmails', function($emails, $target) {
     return View::make('macros.list_emails')
-                    ->with('emails', $emails);
+                    ->with('emails', $emails)
+                    ->with('target', $target);
 });
 
 // list domains
-HTML::macro('listDomains', function($domains) {
+HTML::macro('listDomains', function($domains, $target) {
     return View::make('macros.list_domains')
-                    ->with('domains', $domains);
+                    ->with('domains', $domains)
+                    ->with('target', $target);
 });
 
 // this basically generates a base64-json-representation of a model

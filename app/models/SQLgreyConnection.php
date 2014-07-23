@@ -13,4 +13,11 @@ class SQLgreyConnection extends Eloquent {
      */
     protected $connection = 'sqlgrey';
 
+    /**
+     * guarded attributes
+     * 
+     * @var array
+     */
+    protected $guarded = array();
+
 }

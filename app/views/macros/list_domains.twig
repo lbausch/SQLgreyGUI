@@ -1,16 +1,32 @@
-<div class="table-responsive">
-    <table class="table table-striped table-bordered table-hover table-condensed" id="opt-domain-table">
-        <thead>
-            <tr>
-                <th>Domain</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for domain in domains %}
+{% macro buttons() %}
+    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa fa-trash-o"></i> delete selected</button>
+{% endmacro %}
+
+{{ form_open({ action: target}) }}
+<fieldset>
+    {{ _self.buttons() }}
+
+    <br /><br />
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover table-condensed" id="opt-domain-table">
+            <thead>
                 <tr>
-                    <td>{{ domain.getDomain() }}</td>
+                    <th>{{ form_checkbox('select_all', '', false, { id: 'opt-domain-select_all' }) }}</th>
+                    <th>Domain</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                {% for domain in domains %}
+                    <tr>
+                        <td>{{ form_checkbox('domains[]', html_cval(domain)) }}</td>
+                        <td>{{ domain.getDomain() }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {{ _self.buttons() }}
+</fieldset>
+{{ form_close() }}
