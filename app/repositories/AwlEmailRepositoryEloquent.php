@@ -26,4 +26,11 @@ class AwlEmailRepositoryEloquent implements AwlEmailRepositoryInterface {
         ));
     }
 
+    public function destroy(Email $email) {
+        return Email::where('sender_name', $email->getSenderName())
+                        ->where('sender_domain', $email->getSenderDomain())
+                        ->where('src', $email->getSource())
+                        ->delete();
+    }
+
 }

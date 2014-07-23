@@ -16,4 +16,10 @@ class AwlDomainRepositoryEloquent implements AwlDomainRepositoryInterface {
         return new Domain($data);
     }
 
+    public function destroy(Domain $domain) {
+        return Domain::where('sender_domain', $domain->getSenderDomain())
+                        ->where('src', $domain->getSource())
+                        ->delete();
+    }
+
 }

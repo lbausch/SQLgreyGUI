@@ -34,4 +34,25 @@ class BaseController extends Controller {
         }
     }
 
+    /**
+     * parse provided entries
+     * 
+     * @return array
+     */
+    protected function parseEntries($input_identifier, $repository) {
+        $items_tmp = Input::get($input_identifier, array());
+
+        $items = array();
+
+        $repository = App::make($repository);
+
+        foreach ($items_tmp as $key => $val) {
+            $model = json_decode(base64_decode($val, $strict = true), $assoc = true);
+            
+            $items[] = $repository->instance($model);
+        }
+
+        return $items;
+    }
+
 }

@@ -37,9 +37,7 @@ HTML::macro('listDomains', function($domains) {
                     ->with('domains', $domains);
 });
 
-// generate identifier
-HTML::macro('cvalGreylist', function(\Bausch\Models\Greylist $greylist) {
-    $separator = Config::get('sqlgreygui.separator');
-
-    return base64_encode($greylist->getSenderName() . $separator . $greylist->getSenderDomain() . $separator . $greylist->getSource() . $separator . $greylist->getRecipient() . $separator . $greylist->getFirstSeen());
+// this basically generates a base64-json-representation of a model
+HTML::macro('cval', function($model) {
+    return base64_encode($model->toJson());
 });

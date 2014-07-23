@@ -37,7 +37,7 @@
                 <tbody>
                     {% for item in greylist %}
                         <tr>
-                            <td>{{ form_checkbox('greylist[]', html_cval_greylist(item)) }}</td>
+                            <td>{{ form_checkbox('greylist[]', html_cval(item)) }}</td>
                             <td>{{ item.getSenderName() }}</td>
                             <td>{{ item.getSenderDomain() }}</td>
                             <td>{{ item.getSource() }}</td>
@@ -60,25 +60,14 @@
         $(document).ready(function() {
             // data table
             $('#greylisted-table').dataTable({
-                iDisplayLength: 100,
                 order: [5, 'desc'], // default sorting "seen at"
                 aoColumnDefs: [
                     {bSortable: false, aTargets: [0]}
                 ],
             });
 
-            // select corresponding checkbox when clicking on table row
-            $('#greylisted-table tbody tr').click(function(event) {
-                if (event.target.type != 'checkbox') {
-                    var cbox = $(this).find(':checkbox')
-                    cbox.prop('checked', !cbox.prop('checked'));
-                }
-            });
-
-            // select all checkboxes at once
-            $('#greylist_select_all').click(function() {
-                $('#greylisted-table tbody tr td :checkbox').prop('checked', $(this).prop('checked'));
-            });
+            addCheckboxTrigger('#greylisted-table tbody tr');
+            addSelectAllTrigger('#greylist_select_all', '#greylisted-table tbody tr td');
         });
     </script>
 {% endblock %}

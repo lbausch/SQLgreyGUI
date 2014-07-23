@@ -42,13 +42,18 @@ class GreylistController extends \BaseController {
      * @return Response
      */
     public function delete() {
-        $items = $this->parseEntries();
+        $items = $this->parseEntries('greylist', 'Bausch\Repositories\GreylistRepositoryInterface');
+
+        $message = array();
 
         foreach ($items as $key => $val) {
             $this->repo->destroy($val);
+
+            $message[] = '<li>' . $val->getSenderName() . '@' . $val->getSenderDomain() . ' from ' . $val->getSource() . ' for ' . $val->getRecipient() . '</li>';
         }
 
-        return Redirect::action('GreylistController@index')->with('success', 'deleted');
+        return Redirect::action('GreylistController@index')
+                        ->with('success', 'deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
     }
 
     /**
@@ -62,7 +67,7 @@ class GreylistController extends \BaseController {
         $whitelist = App::make('Bausch\Repositories\AwlEmailRepositoryInterface');
 
         foreach ($items as $key => $val) {
-            
+
             // convert Greylist to AwlEmail
             $email = $whitelist->instance(array(
                 'sender_name' => $val->getSenderName(),
@@ -82,35 +87,6 @@ class GreylistController extends \BaseController {
         }
 
         return Redirect::action('GreylistController@index');
-    }
-
-    /**
-     * parse provided entries
-     * 
-     * @return array
-     */
-    private function parseEntries() {
-        $items_tmp = Input::get('greylist', array());
-
-        $items = array();
-
-        foreach ($items_tmp as $key => $val) {
-            $identifier = explode(Config::get('sqlgreygui.separator'), base64_decode($val, $strict = true));
-
-            if (count($identifier) !== 5) {
-                continue;
-            }
-
-            $items[] = $this->repo->instance(array(
-                'sender_name' => $identifier[0],
-                'sender_domain' => $identifier[1],
-                'src' => $identifier[2],
-                'rcpt' => $identifier[3],
-                'first_seen' => $identifier[4],
-            ));
-        }
-
-        return $items;
     }
 
 }

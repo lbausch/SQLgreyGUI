@@ -76,6 +76,7 @@ return array(
                 'dataTables.bootstrap.css',
                 'jquery.dataTables.js',
                 'dataTables.bootstrap.js',
+                'app.dataTable.js',
             ],
             
             'morris' => [
@@ -101,6 +102,7 @@ return array(
             'font-awesome.css',
             'SBAdmin2',
             'style.css',
+            'app.js',
         ),
 
 	/*

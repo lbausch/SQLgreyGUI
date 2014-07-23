@@ -41,9 +41,29 @@ class WhitelistController extends \BaseController {
      */
     public function showEmails() {
         $emails = $this->email_repo->findAll();
-        
+
         return View::make('whitelist.emails')
                         ->with('whitelist_emails', $emails);
+    }
+
+    /**
+     * delete emails
+     * 
+     * @return Response
+     */
+    public function deleteEmails() {
+        $items = $this->parseEntries('whitelist_emails', 'Bausch\Repositories\AwlEmailRepositoryInterface');
+
+        $message = array();
+
+        foreach ($items as $key => $val) {
+            $this->email_repo->destroy($val);
+
+            $message[] = '<li>' . $val->getSenderName() . '@' . $val->getSenderDomain() . ' from ' . $val->getSource() . '</li>';
+        }
+
+        return Redirect::action('WhitelistController@showEmails')
+                        ->with('success', 'deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
     }
 
     /**
@@ -56,6 +76,26 @@ class WhitelistController extends \BaseController {
 
         return View::make('whitelist.domains')
                         ->with('whitelist_domains', $domains);
+    }
+
+    /**
+     * delete domains
+     * 
+     * @return Response
+     */
+    public function deleteDomains() {
+        $items = $this->parseEntries('whitelist_domains', 'Bausch\Repositories\AwlDomainRepositoryInterface');
+        
+        $message = array();
+
+        foreach ($items as $key => $val) {
+            $this->domain_repo->destroy($val);
+
+            $message[] = '<li>' . $val->getSenderDomain() . ' from ' . $val->getSource() . '</li>';
+        }
+
+        return Redirect::action('WhitelistController@showDomains')
+                        ->with('success', 'deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
     }
 
 }

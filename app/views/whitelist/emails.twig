@@ -4,42 +4,66 @@
     {{ parent() }}Auto-Whitelist > eMails
 {% endblock %}
 
+{% macro buttons() %}
+    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa fa-trash-o"></i> delete selected</button>
+{% endmacro %}
+
 {% block content %}
     <h3 class="page-header"><i class="fa fa-thumbs-o-up fa-fw"></i> Auto-Whitelist > <i class="fa fa-envelope-o fa-fw"></i> eMails</h3>
 
     {{ html_alert('info', 'List of auto-whitelisted eMails') }}
-    
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover table-condensed" id="whitelisted-emails-table">
-            <thead>
-                <tr>
-                    <th>Sender name</th>
-                    <th>Sender domain</th>
-                    <th>IP address</th>
-                    <th>First seen</th>
-                    <th>Last seen</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for email in whitelist_emails %}
+
+    {{ form_open({ action: 'WhitelistController@deleteEmails'}) }}
+
+    {{ _self.buttons() }}
+
+    <br /><br />
+
+    <fieldset>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-condensed" id="whitelist-emails-table">
+                <thead>
                     <tr>
-                        <td>{{ email.getSenderName() }}</td>
-                        <td>{{ email.getSenderDomain() }}</td>
-                        <td>{{ email.getSource() }}</td>
-                        <td>{{ email.getFirstSeen() }}</td>
-                        <td>{{ email.getLastSeen() }}</td>
+                        <th>{{ form_checkbox('select_all', '', false, { id: 'whitelist-emails-select_all' }) }}</th>
+                        <th>Sender name</th>
+                        <th>Sender domain</th>
+                        <th>IP address</th>
+                        <th>First seen</th>
+                        <th>Last seen</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    {% for email in whitelist_emails %}
+                        <tr>
+                            <td>{{ form_checkbox('whitelist_emails[]', html_cval(email)) }}</td>
+                            <td>{{ email.getSenderName() }}</td>
+                            <td>{{ email.getSenderDomain() }}</td>
+                            <td>{{ email.getSource() }}</td>
+                            <td>{{ email.getFirstSeen() }}</td>
+                            <td>{{ email.getLastSeen() }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {{ _self.buttons() }}
+    </fieldset>
+    {{ form_close() }}
 {% endblock %}
 
 {% block javascript %}
     <script>
         $(document).ready(function() {
-            $('#whitelisted-emails-table').dataTable({
+            $('#whitelist-emails-table').dataTable({
+                order: [1, 'asc'],
+                aoColumnDefs: [
+                    {bSortable: false, aTargets: [0]}
+                ],
             });
+
+            addCheckboxTrigger('#whitelist-emails-table tbody tr');
+            addSelectAllTrigger('#whitelist-emails-select_all', '#whitelist-emails-table tbody tr td');
         });
     </script>
 {% endblock %}
