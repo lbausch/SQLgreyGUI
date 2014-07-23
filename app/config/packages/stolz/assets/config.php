@@ -100,6 +100,7 @@ return array(
             'bootstrap',
             'font-awesome.css',
             'SBAdmin2',
+            'style.css',
         ),
 
 	/*

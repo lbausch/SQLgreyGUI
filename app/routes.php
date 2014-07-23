@@ -20,6 +20,11 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('optin/emails', 'OptInController@showEmails');
     Route::get('optin/domains', 'OptInController@showDomains');
 
+    // Settings
+    Route::get('settings', 'SettingController@index');
+    Route::get('settings/password', 'SettingController@changePassword');
+    Route::post('settings/password', 'SettingController@password');
+
     // About
     Route::get('about', 'AboutController@index');
 });

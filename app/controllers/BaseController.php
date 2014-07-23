@@ -3,6 +3,13 @@
 class BaseController extends Controller {
 
     /**
+     * the user id
+     * 
+     * @var int
+     */
+    protected $userid = 0;
+
+    /**
      * Constructor
      * 
      * @return void
