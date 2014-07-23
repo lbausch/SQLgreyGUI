@@ -16,4 +16,14 @@ class AwlEmailRepositoryEloquent implements AwlEmailRepositoryInterface {
         return new Email($data);
     }
 
+    public function store(Email $email) {
+        return Email::insert(array(
+                    'sender_name' => $email->getSenderName(),
+                    'sender_domain' => $email->getSenderDomain(),
+                    'src' => $email->getSource(),
+                    'first_seen' => $email->getFirstSeen(),
+                    'last_seen' => $email->getLastSeen(),
+        ));
+    }
+
 }

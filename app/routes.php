@@ -7,6 +7,8 @@ Route::group(array('before' => 'auth'), function() {
 
     // Greylist
     Route::get('greylist', 'GreylistController@index');
+    Route::post('greylist/delete', 'GreylistController@delete');
+    Route::post('greylist/move', 'GreylistController@move');
 
     // Whitelist
     Route::get('whitelist/emails', 'WhitelistController@showEmails');

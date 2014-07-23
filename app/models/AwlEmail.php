@@ -12,6 +12,13 @@ class AwlEmail extends SQLgreyConnection {
     protected $table = 'from_awl';
 
     /**
+     * guarded attributes
+     * 
+     * @var array
+     */
+    protected $guarded = array();
+
+    /**
      * get sender name
      * 
      * @return string

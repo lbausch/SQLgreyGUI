@@ -11,37 +11,68 @@
         <i class="fa fa-fw fa-info-circle"></i> This senders have been greylisted recently
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover table-condensed" id="greylisted-table">
-            <thead>
-                <tr>
-                    <th>Sender Name</th>
-                    <th>Sender Domain</th>
-                    <th>IP address</th>
-                    <th>Recipient</th>
-                    <th>Seen at</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in greylist %}
+    {{ form_open() }}
+    <fieldset>
+        <button type="submit" onclick="$(this).parents('form').attr('action', '{{ action('GreylistController@delete') }}').submit();
+                return false;" class="btn btn-danger btn-sm"><i class="fa fa fa-trash-o"></i> delete selected</button>
+        <button type="submit" onclick="$(this).parents('form').attr('action', '{{ action('GreylistController@move') }}').submit();
+                return false;" class="btn btn-primary btn-sm"><i class="fa fa fa-thumbs-o-up"></i> move selected to whitelist</button>
+        <br /><br />
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-condensed" id="greylisted-table">
+                <thead>
                     <tr>
-                        <td>{{ item.getSenderName() }}</td>
-                        <td>{{ item.getSenderDomain() }}</td>
-                        <td>{{ item.getSource() }}</td>
-                        <td>{{ item.getRecipient() }}</td>
-                        <td>{{ item.getFirstSeen() }}</td>
+                        <th>{{ form_checkbox('select_all', '', false, { id: 'greylist_select_all' }) }}</th>
+                        <th>Sender Name</th>
+                        <th>Sender Domain</th>
+                        <th>IP address</th>
+                        <th>Recipient</th>
+                        <th>Seen at</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    {% for item in greylist %}
+                        <tr>
+                            <td>{{ form_checkbox('greylist[]', html_cval_greylist(item)) }}</td>
+                            <td>{{ item.getSenderName() }}</td>
+                            <td>{{ item.getSenderDomain() }}</td>
+                            <td>{{ item.getSource() }}</td>
+                            <td>{{ item.getRecipient() }}</td>
+                            <td>{{ item.getFirstSeen() }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </fieldset>
+    {{ form_close() }}
 {% endblock %}
 
 {% block javascript %}
     <script>
         $(document).ready(function() {
+            // data table
             $('#greylisted-table').dataTable({
-                'order': [4, 'desc'],
+                iDisplayLength: 100,
+                order: [5, 'desc'], // default sorting "seen at"
+                aoColumnDefs: [
+                    {bSortable: false, aTargets: [0]}
+                ],
+            });
+
+            // select corresponding checkbox when clicking on table row
+            $('#greylisted-table tbody tr').click(function(event) {
+                if (event.target.type != 'checkbox') {
+                    var cbox = $(this).find(':checkbox')
+                    cbox.prop('checked', !cbox.prop('checked'));
+                }
+            });
+
+            // select all checkboxes at once
+            $('#greylist_select_all').click(function() {
+                $('#greylisted-table tbody tr td :checkbox').prop('checked', $(this).prop('checked'));
             });
         });
     </script>

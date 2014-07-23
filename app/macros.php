@@ -17,7 +17,6 @@ HTML::macro('navClass', function($items) {
     }
 });
 
-
 // list emails
 HTML::macro('listEmails', function($emails) {
     return View::make('macros.list_emails')
@@ -28,4 +27,12 @@ HTML::macro('listEmails', function($emails) {
 HTML::macro('listDomains', function($domains) {
     return View::make('macros.list_domains')
                     ->with('domains', $domains);
+});
+
+
+// generate identifier
+HTML::macro('cvalGreylist', function(\Bausch\Models\Greylist $greylist) {
+    $separator = Config::get('sqlgreygui.separator');
+
+    return base64_encode($greylist->getSenderName() . $separator . $greylist->getSenderDomain() . $separator . $greylist->getSource() . $separator . $greylist->getRecipient() . $separator . $greylist->getFirstSeen());
 });

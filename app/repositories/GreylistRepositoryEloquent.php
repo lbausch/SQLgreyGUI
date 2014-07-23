@@ -43,4 +43,12 @@ class GreylistRepositoryEloquent implements GreylistRepositoryInterface {
         return new Greylist($data);
     }
 
+    public function destroy(Greylist $greylist) {
+        return Greylist::where('sender_name', $greylist->getSenderName())
+                        ->where('sender_domain', $greylist->getSenderDomain())
+                        ->where('src', $greylist->getSource())
+                        ->where('rcpt', $greylist->getRecipient())
+                        ->delete();
+    }
+
 }

@@ -12,6 +12,13 @@ class Greylist extends SQLgreyConnection {
     protected $table = 'connect';
 
     /**
+     * mass assignment: guarded attributes
+     * 
+     * @var array 
+     */
+    protected $guarded = array();
+
+    /**
      * get sender name
      * 
      * @return string
