@@ -2,6 +2,8 @@
 
 use Bausch\Repositories\AwlEmailRepositoryInterface;
 use Bausch\Repositories\AwlDomainRepositoryInterface;
+use Bausch\Models\AwlEmail as Email;
+use Bausch\Models\AwlDomain as Domain;
 
 class WhitelistController extends \BaseController {
 
@@ -47,6 +49,32 @@ class WhitelistController extends \BaseController {
     }
 
     /**
+     * add email
+     * 
+     * @return Response
+     */
+    public function addEmail() {
+        $input = Input::all();
+
+        $validator = Validator::make($input, Email::$rules);
+
+        if ($validator->passes()) {
+            $new_email = $this->email_repo->instance($input);
+
+
+
+            $this->email_repo->store($new_email);
+
+            return Redirect::action('WhitelistController@showEmails')
+                            ->withSuccess($new_email->getSenderName() . '@' . $new_email->getSenderDomain() . ' from ' . $new_email->getSource() . ' added');
+        }
+
+        return Redirect::action('WhitelistController@showEmails')
+                        ->withInput($input)
+                        ->withErrors($validator);
+    }
+
+    /**
      * delete emails
      * 
      * @return Response
@@ -85,7 +113,7 @@ class WhitelistController extends \BaseController {
      */
     public function deleteDomains() {
         $items = $this->parseEntries('whitelist_domains', 'Bausch\Repositories\AwlDomainRepositoryInterface');
-        
+
         $message = array();
 
         foreach ($items as $key => $val) {

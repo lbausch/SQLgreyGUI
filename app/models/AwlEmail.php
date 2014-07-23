@@ -12,11 +12,28 @@ class AwlEmail extends SQLgreyConnection {
     protected $table = 'from_awl';
 
     /**
-     * guarded attributes
+     * fillable attributes
      * 
      * @var array
      */
-    protected $guarded = array();
+    protected $fillable = array(
+        'sender_name',
+        'sender_domain',
+        'src',
+        'first_seen',
+        'last_seen',
+    );
+
+    /**
+     * validation rules
+     * 
+     * @var array 
+     */
+    public static $rules = array(
+        'sender_name' => 'required',
+        'sender_domain' => 'required',
+        'src' => 'required',
+    );
 
     /**
      * get sender name

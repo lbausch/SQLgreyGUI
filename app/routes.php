@@ -12,6 +12,7 @@ Route::group(array('before' => 'auth'), function() {
 
     // Whitelist
     Route::get('whitelist/emails', 'WhitelistController@showEmails');
+    Route::post('whitelist/emails/add', 'WhitelistController@addEmail');
     Route::post('whitelist/deleteEmails', 'WhitelistController@deleteEmails');
     Route::get('whitelist/domains', 'WhitelistController@showDomains');
     Route::post('whitelist/deleteDomains', 'WhitelistController@deleteDomains');

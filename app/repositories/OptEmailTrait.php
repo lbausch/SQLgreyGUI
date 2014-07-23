@@ -27,7 +27,7 @@ trait OptEmailTrait {
 
     public function destroy($email) {
         $model = $this->model_class;
-        
+
         return $model::where('email', $email->getEmail())->delete();
     }
 
