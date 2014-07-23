@@ -7,9 +7,7 @@
 {% block content %}
     <h3 class="page-header"><i class="fa fa-thumbs-o-up fa-fw"></i> Auto-Whitelist > <i class="fa fa-globe fa-fw"></i> Domains</h3>
 
-    <div class="alert alert-info">
-        <i class="fa fa-fw fa-info-circle"></i> List of auto-whitelisted domains
-    </div>
+    {{ html_alert('info', 'List of auto-whitelisted domains') }}
 
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover table-condensed" id="whitelisted-domains-table">

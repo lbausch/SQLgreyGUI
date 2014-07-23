@@ -48,7 +48,7 @@ class GreylistController extends \BaseController {
             $this->repo->destroy($val);
         }
 
-        return Redirect::action('GreylistController@index')->withSuccess('');
+        return Redirect::action('GreylistController@index')->with('success', 'deleted');
     }
 
     /**

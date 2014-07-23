@@ -1,5 +1,13 @@
 <?php
 
+HTML::macro('alert', function($type = 'info', $message) {
+    if (!in_array($type, array('success', 'info', 'warning', 'danger'))) {
+        return false;
+    }
+
+    return View::make('macros.alert-' . $type)->with('message', $message);
+});
+
 // get the css class for navigation items
 HTML::macro('navClass', function($items) {
     if (!is_array($items)) {
@@ -28,7 +36,6 @@ HTML::macro('listDomains', function($domains) {
     return View::make('macros.list_domains')
                     ->with('domains', $domains);
 });
-
 
 // generate identifier
 HTML::macro('cvalGreylist', function(\Bausch\Models\Greylist $greylist) {

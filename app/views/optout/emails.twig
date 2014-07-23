@@ -6,11 +6,9 @@
 
 {% block content %}
     <h3 class="page-header"><i class="fa fa-minus-square fa-fw"></i> Opt-out > <i class="fa fa-envelope-o fa-fw"></i> eMails</h3>
-    
-    <div class="alert alert-info">
-        <i class="fa fa-fw fa-info-circle"></i> eMails for these recipients will never be greylisted
-    </div>
-    
+
+    {{ html_alert('info', 'eMails for these recipients will never be greylisted') }}
+
     {{ html_list_emails(emails) }}
 {% endblock %}
 

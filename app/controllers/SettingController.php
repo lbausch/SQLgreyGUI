@@ -68,7 +68,7 @@ class SettingController extends \BaseController {
             $teh_user->setPassword($passwords['password_new']);
             $this->users->update($teh_user);
 
-            return Redirect::action('SettingController@index')->withSuccess('Password has been changed');
+            return Redirect::action('SettingController@index')->with('success', 'Password has been changed');
         }
 
         // Something went wrong.
@@ -108,7 +108,7 @@ class SettingController extends \BaseController {
 
             $this->users->update($teh_user);
 
-            return Redirect::action('SettingController@index');
+            return Redirect::action('SettingController@index')->withSuccess('eMail has been updated');
         }
 
         return Redirect::action('SettingController@changeEmail')->withErrors($validator);
