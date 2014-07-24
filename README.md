@@ -26,3 +26,7 @@ Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel]
 5. run `php artisan migrate --force` to create the database tables
 6. run `php artisan db:seed --force` to create an admin user
 7. login with the username `admin` and the password `joh316`
+
+
+## Screenshots
+![Dasboard](/../screenshots/screenshots/dashboard.png?raw=true "Dashboard")
