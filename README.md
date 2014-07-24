@@ -29,5 +29,5 @@ Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel]
 
 
 ## Screenshots
-![Dasboard](/../screenshots/screenshots/dashboard.png?raw=true "Dashboard")
-![Auto-Whitelist](/../screenshots/screenshots/auto-whitelist.png?raw=true "Auto-Whitelist")
+![Dasboard](/../screenshots/dashboard.png?raw=true "Dashboard")
+![Auto-Whitelist](/../screenshots/auto-whitelist.png?raw=true "Auto-Whitelist")
