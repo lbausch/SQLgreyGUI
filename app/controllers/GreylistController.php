@@ -31,7 +31,7 @@ class GreylistController extends \BaseController {
      * @return Response
      */
     public function index() {
-        $carbon = new Carbon();
+        $carbon = Carbon::now();
         $timestamp = $carbon->getTimestamp();
 
         $data = $this->repo->findAll();

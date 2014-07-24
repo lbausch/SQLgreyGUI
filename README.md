@@ -7,6 +7,7 @@ Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel]
 ## Features
 * Dashboard: quick overview of eMails / domains in greylist, whitelist, opt-out and opt-in
 * Greylist: delete entries or move them to the whitelist
+* Greylist: new entries are displayed without the need to refresh periodically
 * Whitelist: add sender eMails or sender domains to prevent them from being greylisted and delivered directly
 * Opt-out: define eMails or Domains you don't want greylisting to be enabled for
 * Opt-in: define  eMails or Domains for which you want to enforce greylisting permanently
@@ -22,7 +23,7 @@ Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel]
 ## Installation in 7 steps
 1. grab a copy of the code (download [master.zip](https://github.com/lbausch/SQLgreyGUI/archive/master.zip) or use `git clone https://github.com/lbausch/SQLgreyGUI.git`)
 2. make your webserver use the `public` directory as document root
-3. rename `config-dist.php` to `config.php`, `app/config/app-dist.php` to `app/config/app.php` and `app/config/mail-dist.php` to `app/config/mail.php`. Adjust the settings to your needs.
+3. rename `config-dist.php` to `config.php`, `app/config/app-dist.php` to `app/config/app.php` and `app/config/mail-dist.php` to `app/config/mail.php`. Adjust the settings to your needs (check `timezone` setting in `app/config/app.php`!).
 4. run `composer update` to install all necessary dependencies
 5. run `php artisan migrate --force` to create the database tables
 6. run `php artisan db:seed --force` to create an admin user
