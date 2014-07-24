@@ -15,6 +15,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('whitelist/emails/add', 'WhitelistController@addEmail');
     Route::post('whitelist/deleteEmails', 'WhitelistController@deleteEmails');
     Route::get('whitelist/domains', 'WhitelistController@showDomains');
+    Route::post('whitelist/domains/add', 'WhitelistController@addDomain');
     Route::post('whitelist/deleteDomains', 'WhitelistController@deleteDomains');
 
     // OptOut

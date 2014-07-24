@@ -12,11 +12,26 @@ class AwlDomain extends SQLgreyConnection {
     protected $table = 'domain_awl';
 
     /**
-     * guarded attributes
+     * fillable attributes
      * 
      * @var array
      */
-    protected $guarded = array();
+    protected $fillable = array(
+        'sender_domain',
+        'src',
+        'first_seen',
+        'last_seen',
+    );
+
+    /**
+     * validation rules
+     * 
+     * @var array 
+     */
+    public static $rules = array(
+        'sender_domain' => 'required',
+        'src' => 'required',
+    );
 
     /**
      * get sender domain

@@ -6,12 +6,42 @@
 
 {% macro buttons() %}
     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa fa-trash-o"></i> delete selected</button>
+    <a href="#" onclick="$('#add_domain').slideToggle().find('input[type=text]:first').focus();
+            return false;" class="btn btn-success btn-sm"><i class="fa fa fa-plus-square-o"></i> add</a>
 {% endmacro %}
 
 {% block content %}
     <h3 class="page-header"><i class="fa fa-thumbs-o-up fa-fw"></i> Auto-Whitelist > <i class="fa fa-globe fa-fw"></i> Domains</h3>
 
     {{ html_alert('info', 'List of auto-whitelisted domains') }}
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary" id="add_domain" style="display:{{ errors.count() > 0 ? 'block' : 'none' }};">
+                <div class="panel-heading">add Domain</div>
+                <div class="panel-body">
+                    {{ form_open({ action: 'WhitelistController@addDomain', role: 'form', class: 'form-inline' }) }}
+                    <fieldset>
+                        <div class="form-group {%if errors.has('sender_domain') %}has-error{% endif %}">
+                            {{ form_text('sender_domain', input_old('sender_domain'), { class: 'form-control', placeholder: 'domain',  autofocus: 'autofocus' } ) }}
+                        </div>
+                        <div class="form-group {%if errors.has('src') %}has-error{% endif %}">
+                            {{ form_text('src', input_old('src'), { class: 'form-control', placeholder: 'Source (class C or D)' } ) }}
+                        </div>
+                        {{ form_submit('save', { class: 'btn btn-primary' } ) }}
+                    </fieldset>
+                    {{ form_close() }}
+
+                    {%if errors.has('sender_domain') %}
+                        <p class="text-danger">{{ errors.first('sender_domain') }}</p>
+                    {% endif %}
+                    {%if errors.has('src') %}
+                        <p class="text-danger">{{ errors.first('src') }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 
     {{ form_open({ action: 'WhitelistController@deleteDomains'}) }}
 

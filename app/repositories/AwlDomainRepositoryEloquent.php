@@ -16,6 +16,15 @@ class AwlDomainRepositoryEloquent implements AwlDomainRepositoryInterface {
         return new Domain($data);
     }
 
+    public function store(Domain $domain) {
+        return Domain::insert(array(
+                    'sender_domain' => $domain->getSenderDomain(),
+                    'src' => $domain->getSource(),
+                    'first_seen' => $domain->getFirstSeen(),
+                    'last_seen' => $domain->getLastSeen(),
+        ));
+    }
+
     public function destroy(Domain $domain) {
         return Domain::where('sender_domain', $domain->getSenderDomain())
                         ->where('src', $domain->getSource())

@@ -61,8 +61,6 @@ class WhitelistController extends \BaseController {
         if ($validator->passes()) {
             $new_email = $this->email_repo->instance($input);
 
-
-
             $this->email_repo->store($new_email);
 
             return Redirect::action('WhitelistController@showEmails')
@@ -104,6 +102,30 @@ class WhitelistController extends \BaseController {
 
         return View::make('whitelist.domains')
                         ->with('whitelist_domains', $domains);
+    }
+
+    /**
+     * add domain
+     * 
+     * @return Response
+     */
+    public function addDomain() {
+        $input = Input::all();
+
+        $validator = Validator::make($input, Domain::$rules);
+
+        if ($validator->passes()) {
+            $new_domain = $this->domain_repo->instance($input);
+
+            $this->domain_repo->store($new_domain);
+
+            return Redirect::action('WhitelistController@showDomains')
+                            ->withSuccess($new_domain->getSenderDomain() . ' from ' . $new_domain->getSource() . ' added');
+        }
+
+        return Redirect::action('WhitelistController@showDomains')
+                        ->withInput($input)
+                        ->withErrors($validator);
     }
 
     /**
