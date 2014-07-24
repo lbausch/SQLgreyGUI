@@ -13,6 +13,8 @@
         "afarkas/html5shiv": "dev-master",
         "rogeriopradoj/respond": "dev-composer",
         "kwipi/famfamfam-flags": "dev-master",
+        "datatables/datatables": "dev-master",
+        "sheillendra/raphael": "dev-master",
         "nesbot/Carbon": "*"
     },
     "autoload": {

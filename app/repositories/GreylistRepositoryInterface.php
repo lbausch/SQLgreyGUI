@@ -14,6 +14,14 @@ interface GreylistRepositoryInterface extends BaseRepositoryInterface {
     public function findByPeriod($period = null);
 
     /**
+     * if $end is omitted, the current timestamp is used
+     * 
+     * @param int $start
+     * @param int $end
+     */
+    public function findBetween($start, $end = null);
+
+    /**
      * delete
      * 
      * @param Greylist $greylist

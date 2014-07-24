@@ -13,6 +13,22 @@ class GreylistRepositoryEloquent implements GreylistRepositoryInterface {
         return $data;
     }
 
+    public function findBetween($start, $end = null) {
+        $start = Carbon::createFromTimestamp($start);
+
+        if (is_null($end)) {
+            $end = new Carbon($end);
+        } else {
+            $end = Carbon::createFromTimestamp($end);
+        }
+
+        $data = Greylist::where('first_seen', '>=', $start->toDateTimeString())
+                ->where('first_seen', '<=', $end->toDateTimeString())
+                ->get();
+
+        return $data;
+    }
+
     public function findByPeriod($period = null) {
         if (is_null($period)) {
             $period = '30d';

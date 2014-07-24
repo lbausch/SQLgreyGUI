@@ -1,6 +1,7 @@
 <?php
 
 use Bausch\Repositories\GreylistRepositoryInterface;
+use Carbon\Carbon;
 
 class GreylistController extends \BaseController {
 
@@ -30,10 +31,14 @@ class GreylistController extends \BaseController {
      * @return Response
      */
     public function index() {
+        $carbon = new Carbon();
+        $timestamp = $carbon->getTimestamp();
+
         $data = $this->repo->findAll();
 
         return View::make('greylist.index')
-                        ->with('greylist', $data);
+                        ->with('greylist', $data)
+                        ->with('timestamp', $timestamp);
     }
 
     /**
@@ -87,6 +92,43 @@ class GreylistController extends \BaseController {
         }
 
         return Redirect::action('GreylistController@index');
+    }
+
+    /**
+     * 
+     * @return json
+     */
+    public function live() {
+        $carbon = Carbon::now();
+        $now = $carbon->getTimestamp();
+
+        $timestamp = Input::get('timestamp');
+
+        $new_entries = $this->repo->findBetween($timestamp, $now);
+
+        // debug
+//        $new_entries->push($this->repo->instance(array(
+//                    'sender_name' => 'argl',
+//                    'first_seen' => $carbon->toDateTimeString(),
+//        )));
+
+        if ($new_entries->count() < 1) {
+            return Response::json(array('timestamp' => $now));
+        }
+
+        $payload = array();
+
+        $i = 0;
+        foreach ($new_entries as $key => $val) {
+            $payload[$i] = $val->toArray();
+            $payload[$i]['checkbox'] = Form::checkbox('greylist[]', HTML::cval($val));
+            $i++;
+        }
+
+        return Response::json(array(
+                    'timestamp' => $now,
+                    'payload' => $payload,
+        ));
     }
 
 }
