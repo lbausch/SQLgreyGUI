@@ -20,14 +20,18 @@ Route::group(array('before' => 'auth'), function() {
 
     // OptOut
     Route::get('optout/emails', 'OptOutController@showEmails');
+    Route::post('optout/emails/add', 'OptOutController@addEmail');
     Route::post('optout/emails/delete', 'OptOutController@deleteEmails');
     Route::get('optout/domains', 'OptOutController@showDomains');
+    Route::post('optout/domains/add', 'OptOutController@addDomain');
     Route::post('optout/domains/delete', 'OptOutController@deleteDomains');
 
     // OptIn
     Route::get('optin/emails', 'OptInController@showEmails');
+    Route::post('optin/emails/add', 'OptInController@addEmail');
     Route::post('optin/emails/delete', 'OptInController@deleteEmails');
     Route::get('optin/domains', 'OptInController@showDomains');
+    Route::post('optin/domains/add', 'OptInController@addDomain');
     Route::post('optin/domains/delete', 'OptInController@deleteDomains');
 
     // Settings

@@ -9,7 +9,7 @@
 
     {{ html_alert('info', 'These domains are always greylisted unless they are present in the opt-out list') }}
 
-    {{ html_list_domains(domains, 'OptInController@deleteDomains') }}
+    {{ html_list_domains(domains, 'OptInController') }}
 {% endblock %}
 
 {% block javascript %}

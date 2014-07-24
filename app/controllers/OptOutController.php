@@ -6,20 +6,6 @@ use Bausch\Repositories\OptOutEmailRepositoryInterface;
 class OptOutController extends \OptController {
 
     /**
-     * domain repository
-     * 
-     * @var OptOutDomainRepositoryInterface
-     */
-    private $domain_repo;
-
-    /**
-     * email repository
-     * 
-     * @var OptOutEmailRepositoryInterface
-     */
-    private $email_repo;
-
-    /**
      * Constructor
      *
      * @param OptOutDomainRepositoryInterface $domain_repo
@@ -30,18 +16,8 @@ class OptOutController extends \OptController {
 
         $this->domain_repo = $domain_repo;
         $this->email_repo = $email_repo;
-    }
 
-    /**
-     * show emails
-     *
-     * @return Response
-     */
-    public function showEmails() {
-        $emails = $this->email_repo->findAll();
-
-        return View::make('optout.emails')
-                        ->with('emails', $emails);
+        $this->template_folder = 'optout';
     }
 
     /**
@@ -62,18 +38,6 @@ class OptOutController extends \OptController {
 
         return Redirect::action('OptOutController@showEmails')
                         ->with('success', 'deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
-    }
-
-    /**
-     * show domains
-     *
-     * @return Response
-     */
-    public function showDomains() {
-        $domains = $this->domain_repo->findAll();
-
-        return View::make('optout.domains')
-                        ->with('domains', $domains);
     }
 
     /**

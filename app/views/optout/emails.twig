@@ -9,7 +9,7 @@
 
     {{ html_alert('info', 'eMails for these recipients will never be greylisted') }}
 
-    {{ html_list_emails(emails, 'OptOutController@deleteEmails') }}
+    {{ html_list_emails(emails, 'OptOutController') }}
 {% endblock %}
 
 {% block javascript %}

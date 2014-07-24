@@ -6,20 +6,6 @@ use Bausch\Repositories\OptInEmailRepositoryInterface;
 class OptInController extends \OptController {
 
     /**
-     * domain repository
-     * 
-     * @var OptInDomainRepositoryInterface
-     */
-    private $domain_repo;
-
-    /**
-     * email repository
-     * 
-     * @var OptInEmailRepositoryInterface
-     */
-    private $email_repo;
-
-    /**
      * Constructor
      *
      * @param Bausch\Repositories\OptInDomainRepositoryInterface $domain_repo
@@ -30,18 +16,8 @@ class OptInController extends \OptController {
 
         $this->domain_repo = $domain_repo;
         $this->email_repo = $email_repo;
-    }
 
-    /**
-     * show emails
-     *
-     * @return Response
-     */
-    public function showEmails() {
-        $emails = $this->email_repo->findAll();
-
-        return View::make('optin.emails')
-                        ->with('emails', $emails);
+        $this->template_folder = 'optin';
     }
 
     /**
@@ -62,18 +38,6 @@ class OptInController extends \OptController {
 
         return Redirect::action('OptInController@showEmails')
                         ->with('success', 'deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
-    }
-
-    /**
-     * show domains
-     *
-     * @return Response
-     */
-    public function showDomains() {
-        $domains = $this->domain_repo->findAll();
-
-        return View::make('optin.domains')
-                        ->with('domains', $domains);
     }
 
     /**

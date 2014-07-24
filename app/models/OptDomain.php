@@ -2,7 +2,25 @@
 
 namespace Bausch\Models;
 
-trait OptDomain {
+class OptDomain extends SQLgreyConnection {
+
+    /**
+     * fillable attributes
+     * 
+     * @var array
+     */
+    protected $fillable = array(
+        'domain',
+    );
+
+    /**
+     * validation rules
+     * 
+     * @var array
+     */
+    public $rules = array(
+        'domain' => 'required',
+    );
 
     /**
      * get domain

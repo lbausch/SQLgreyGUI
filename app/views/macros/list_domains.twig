@@ -1,9 +1,33 @@
 {% macro buttons() %}
-    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa fa-trash-o"></i> delete selected</button>
+    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash-o"></i> delete selected</button>
+    <a href="#" onclick="$('#add_domain').slideToggle().find('input[type=text]:first').focus();
+            return false;" class="btn btn-success btn-sm"><i class="fa fa-fw fa-plus-square-o"></i> add</a>
 {% endmacro %}
 
-{{ form_open({ action: target }) }}
-<fieldset>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-primary" id="add_domain" style="display:{{ errors.count() > 0 ? 'block' : 'none' }};">
+            <div class="panel-heading">add Domain</div>
+            <div class="panel-body">
+                {{ form_open({ action: targetController ~ '@addDomain', role: 'form', class: 'form-inline' }) }}
+                <fieldset>
+                    <div class="form-group {%if errors.has('domain') %}has-error{% endif %}">
+                        {{ form_text('domain', input_old('domain'), { class: 'form-control', placeholder: 'Domain', autofocus: 'autofocus' } ) }}
+                    </div>
+                    {{ form_submit('save', { class: 'btn btn-primary' } ) }}
+                </fieldset>
+                {{ form_close() }}
+
+                {%if errors.has('domain') %}
+                    <p class="text-danger">{{ errors.first('domain') }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ form_open({ action: targetController ~ '@deleteDomains' }) }}
+<fieldset>   
     {{ _self.buttons() }}
 
     <br /><br />

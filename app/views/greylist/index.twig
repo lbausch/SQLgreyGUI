@@ -6,9 +6,9 @@
 
 {% macro buttons() %}
     <button type="submit" onclick="$(this).parents('form').attr('action', '{{ action('GreylistController@delete') }}').submit();
-            return false;" class="btn btn-danger btn-sm"><i class="fa fa fa-trash-o"></i> delete selected</button>
+            return false;" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash-o"></i> delete selected</button>
     <button type="submit" onclick="$(this).parents('form').attr('action', '{{ action('GreylistController@move') }}').submit();
-            return false;" class="btn btn-primary btn-sm"><i class="fa fa fa-thumbs-o-up"></i> move selected to whitelist</button>
+            return false;" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-thumbs-o-up"></i> move selected to whitelist</button>
 {% endmacro %}
 
 {% block content %}

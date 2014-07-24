@@ -2,9 +2,7 @@
 
 namespace Bausch\Models;
 
-class OptInDomain extends SQLgreyConnection {
-
-    use OptDomain;
+class OptInDomain extends OptDomain {
 
     /**
      * The database table used by the model.

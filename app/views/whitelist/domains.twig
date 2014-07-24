@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% macro buttons() %}
-    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa fa-trash-o"></i> delete selected</button>
+    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash-o"></i> delete selected</button>
     <a href="#" onclick="$('#add_domain').slideToggle().find('input[type=text]:first').focus();
-            return false;" class="btn btn-success btn-sm"><i class="fa fa fa-plus-square-o"></i> add</a>
+            return false;" class="btn btn-success btn-sm"><i class="fa fa-fw fa-plus-square-o"></i> add</a>
 {% endmacro %}
 
 {% block content %}

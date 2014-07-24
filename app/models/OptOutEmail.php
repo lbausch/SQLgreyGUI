@@ -2,9 +2,7 @@
 
 namespace Bausch\Models;
 
-class OptOutEmail extends SQLgreyConnection {
-
-    use OptEmail;
+class OptOutEmail extends OptEmail {
 
     /**
      * The database table used by the model.

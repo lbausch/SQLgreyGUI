@@ -14,8 +14,6 @@ trait OptDomainTrait {
     }
 
     public function findAll() {
-        $this->model_class = 'Bausch\Models\\' . $this->model;
-
         $data = new $this->model_class;
 
         $data = $data::orderBy('domain', 'asc')->get();
@@ -33,6 +31,14 @@ trait OptDomainTrait {
         $model = $this->model_class;
 
         return $model::where('domain', $domain->getDomain())->delete();
+    }
+
+    public function store($domain) {
+        $model = $this->model_class;
+
+        return $model::insert(array(
+                    'domain' => $domain->getDomain(),
+        ));
     }
 
 }

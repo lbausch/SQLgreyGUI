@@ -10,4 +10,11 @@ interface OptEmailRepositoryInterface extends BaseRepositoryInterface {
      * @param Email $email
      */
     public function destroy($email);
+
+    /**
+     * store email
+     * 
+     * @param Email $email
+     */
+    public function store($email);
 }

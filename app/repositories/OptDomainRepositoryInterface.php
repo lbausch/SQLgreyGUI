@@ -10,4 +10,11 @@ interface OptDomainRepositoryInterface extends BaseRepositoryInterface {
      * @param Domain $domain
      */
     public function destroy($domain);
+
+    /**
+     * store domain
+     * 
+     * @param Domain $domain
+     */
+    public function store($domain);
 }
