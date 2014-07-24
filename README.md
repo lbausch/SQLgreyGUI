@@ -5,11 +5,12 @@ Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel]
 
 
 ## Features
-* quick overview of greylisted hosts and domains
-* show auto-whitelisted senders and domains
-* exclude recipients and domains from greylisting (Opt-out)
-* enforce greylisting for recipients and domains (Opt-in)
-* option of using seperate databases for SQLgrey and application
+* Dashboard: quick overview of eMails / domains in greylist, whitelist, opt-out and opt-in
+* Greylist: delete entries or move them to the whitelist
+* Whitelist: add sender eMails or sender domains to prevent them from being greylisted and delivered directly
+* Opt-out: define eMails or Domains you don't want greylisting to be enabled for
+* Opt-in: define  eMails or Domains for which you want to enforce greylisting permanently
+* Option of using seperate databases for SQLgrey and the application itself. This way you can maintain a user database in a single place and use it with all installations of SQLgreyGUI. In addition you don't need to alter the SQLgrey database at all.
 
 
 ## Requirements
