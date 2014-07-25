@@ -67,9 +67,11 @@ class GreylistController extends \BaseController {
      * @return Response
      */
     public function move() {
-        $items = $this->parseEntries();
+        $items = $this->parseEntries('greylist', 'Bausch\Repositories\GreylistRepositoryInterface');
 
         $whitelist = App::make('Bausch\Repositories\AwlEmailRepositoryInterface');
+
+        $messages = array();
 
         foreach ($items as $key => $val) {
 
@@ -89,9 +91,12 @@ class GreylistController extends \BaseController {
                 // insert into whitelist
                 $whitelist->store($email);
             });
+
+            $messages[] = '<li>' . $email->getSenderName() . '@' . $email->getSenderDomain() . ' from ' . $email->getSource() . '</li>';
         }
 
-        return Redirect::action('GreylistController@index');
+        return Redirect::action('GreylistController@index')
+                        ->withSuccess('moved the following entries to the Whitelist: <ul>' . implode(PHP_EOL, $messages) . '</ul>');
     }
 
     /**
