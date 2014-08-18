@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "laravel/framework": "4.2.*",
-        "rcrowe/twigbridge": "0.6.*@dev",
+        "rcrowe/twigbridge": "0.6.*",
         "stolz/assets": "dev-master",
         "components/jquery": "1.11.*@dev",
         "twbs/bootstrap": "3.2.*",
