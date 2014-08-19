@@ -2,7 +2,7 @@
 
 namespace Bausch\Repositories;
 
-use Bausch\Models\User;
+use Bausch\Models\User as User;
 
 interface UserRepositoryInterface extends BaseRepositoryInterface {
 
@@ -28,4 +28,11 @@ interface UserRepositoryInterface extends BaseRepositoryInterface {
      * @param \Bausch\Models\User $user
      */
     public function update(User $user);
+
+    /**
+     * destroy user
+     * 
+     * @param \Bausch\Models\User $user
+     */
+    public function destroy(User $user);
 }

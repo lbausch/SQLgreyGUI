@@ -2,7 +2,7 @@
 
 namespace Bausch\Repositories;
 
-use Bausch\Models\User;
+use Bausch\Models\User as User;
 
 class UserRepositoryEloquent implements UserRepositoryInterface {
 
@@ -15,7 +15,7 @@ class UserRepositoryEloquent implements UserRepositoryInterface {
     }
 
     public function findAll() {
-        $data = User::all()->get();
+        $data = User::all();
 
         return $data;
     }
@@ -30,6 +30,10 @@ class UserRepositoryEloquent implements UserRepositoryInterface {
 
     public function update(User $user) {
         return $user->save();
+    }
+
+    public function destroy(User $user) {
+        return $user->delete();
     }
 
 }

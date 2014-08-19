@@ -14,7 +14,7 @@
                 <!-- /input-group -->
             </li>#}
 
-            
+
             <li>
                 <a class="{{ html_nav_class('dashboard') }}" href="{{ action('DashboardController@index') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
@@ -55,6 +55,15 @@
                     </li>
                     <li>
                         <a class="{{ html_nav_class('optin/domains') }}" href="{{ action('OptInController@showDomains') }}"><i class="fa fa-globe fa-fw"></i> Domains</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="{{ html_nav_class('admin') }}">
+                <a href="#"><i class="fa fa-wrench fa-fw"></i> Administration<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a class="{{ html_nav_class('admin/users') }}" href="{{ action('UserController@index') }}"><i class="fa fa-users fa-fw"></i> Users</a>
                     </li>
                 </ul>
             </li>

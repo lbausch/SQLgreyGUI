@@ -121,7 +121,7 @@ return array(
 	| Default: false
 	*/
 
-	'pipeline' => false,
+	'pipeline' => true,
 
 	/*
 	|--------------------------------------------------------------------------

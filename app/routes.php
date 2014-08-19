@@ -42,6 +42,11 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('settings/email', 'SettingController@changeEmail');
     Route::post('settings/email', 'SettingController@email');
 
+    // Users
+    Route::resource('admin/users', 'UserController');
+    Route::post('admin/users/delete', 'UserController@deleteUsers');
+    Route::get('admin/usertable', 'UserController@getTable');
+
     // About
     Route::get('about', 'AboutController@index');
 });

@@ -8,6 +8,7 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Hash;
+use Carbon\Carbon;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
@@ -20,6 +21,39 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      * @var string
      */
     protected $table = 'users';
+
+    /**
+     * mass assignment: fillable attributes
+     * 
+     * @var array
+     */
+    protected $fillable = array(
+        'username',
+        'email',
+        'enabled'
+    );
+
+    /**
+     * validation rules
+     * 
+     * @var array 
+     */
+    public static $rules = array(
+        'store' => array(
+            'username' => 'required|unique:users,username',
+            'email' => 'required',
+            'enabled' => 'required',
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required_with:password',
+        ),
+        'update' => array(
+            'username' => 'required|unique:users,username,', // id is appended dynamically
+            'email' => 'required',
+            'enabled' => 'required',
+            'password' => 'sometimes|required|confirmed',
+            'password_confirmation' => 'sometimes|required_with:password',
+        ),
+    );
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -36,7 +70,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public function getId() {
         return intval($this->id);
     }
-    
+
     /**
      * get username
      * 
@@ -65,12 +99,30 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     /**
+     * get updated at
+     * 
+     * @return \Carbon\Carbon
+     */
+    public function getUpdatedAt() {
+        return new Carbon($this->updated_at);
+    }
+
+    /**
+     * get created at
+     * 
+     * @return \Carbon\Carbon
+     */
+    public function getCreatedAt() {
+        return new Carbon($this->created_at);
+    }
+
+    /**
      * is enabled
      * 
      * @return bool
      */
     public function isEnabled() {
-        return ($this->enabled === true) ? true : false;
+        return ($this->enabled == true) ? true : false;
     }
 
     /**

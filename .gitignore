@@ -18,4 +18,5 @@ Thumbs.db
 
 
 # assets
-/public/assets/minified
+/public/assets/minified/*.js
+/public/assets/minified/*.css

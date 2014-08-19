@@ -24,15 +24,15 @@ class AuthController extends \BaseController {
         // Get all the inputs
         $userdata = array(
             'username' => Input::get('username'),
-            'password' => Input::get('password')
+            'password' => Input::get('password'),
+            'enabled' => 1
         );
 
         // Declare the rules for the form validation.
         $rules = array(
             'username' => 'required',
-            'password' => 'required'
+            'password' => 'required',
         );
-
 
         $remember = (Input::get('rememberme') == 'yes') ? true : false;
 
@@ -45,15 +45,20 @@ class AuthController extends \BaseController {
             // Try to log the user in.
             if (Auth::attempt($userdata, $remember)) {
                 // Redirect to dashboard
-                return Redirect::intended('/')->with('success', 'You have logged in successfully');
+                return Redirect::intended('/')
+                                ->with('success', 'You have logged in successfully');
             } else {
                 // Redirect to the login page.
-                return Redirect::action('AuthController@showLogin')->withErrors(array('general' => 'Username/ Password invalid'))->withInput(Input::except('password'));
+                return Redirect::action('AuthController@showLogin')
+                                ->withErrors(array('general' => 'Username/ Password invalid'))
+                                ->withInput(Input::except('password'));
             }
         }
 
         // Something went wrong.
-        return Redirect::action('AuthController@showLogin')->withErrors($validator)->withInput(Input::except('password'));
+        return Redirect::action('AuthController@showLogin')
+                        ->withErrors($validator)
+                        ->withInput(Input::except('password'));
     }
 
     /**

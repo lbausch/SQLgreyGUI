@@ -77,4 +77,17 @@ class BaseController extends Controller {
         return $this->getController() . '@' . $action;
     }
 
+    /**
+     * is ajax request
+     * 
+     * @return boolean
+     */
+    protected function isAjax() {
+        if (Request::ajax()) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
