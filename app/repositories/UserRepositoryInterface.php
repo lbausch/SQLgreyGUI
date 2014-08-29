@@ -16,6 +16,13 @@ interface UserRepositoryInterface extends BaseRepositoryInterface {
     public function findById($id);
 
     /**
+     * find all users
+     * 
+     * @return Collection
+     */
+    public function findAll();
+
+    /**
      * store a user
      * 
      * @param \Bausch\Models\User $user

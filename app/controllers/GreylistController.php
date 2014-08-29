@@ -36,9 +36,20 @@ class GreylistController extends \BaseController {
 
         $data = $this->repo->findAll();
 
+        $user_repo = App::make('Bausch\Repositories\UserRepositoryInterface');
+
+        $users = $user_repo->findAll();
+
+        $user_emails = array();
+
+        foreach ($users as $key => $val) {
+            $user_emails[$val->getEmail()] = $val;
+        }
+
         return View::make('greylist.index')
                         ->with('greylist', $data)
-                        ->with('timestamp', $timestamp);
+                        ->with('timestamp', $timestamp)
+                        ->with('user_emails', $user_emails);
     }
 
     /**

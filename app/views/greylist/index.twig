@@ -41,7 +41,12 @@
                             <td>{{ item.getSenderName() }}</td>
                             <td>{{ item.getSenderDomain() }}</td>
                             <td>{{ item.getSource() }}</td>
-                            <td>{{ item.getRecipient() }}</td>
+                            <td>
+                                {{ item.getRecipient() }}
+                                {% if item.getRecipient() in  user_emails|keys %}
+                                    ({{ user_emails[item.getRecipient()].getUsername() }})
+                                {% endif %}
+                            </td>
                             <td>{{ item.getFirstSeen() }}</td>
                         </tr>
                     {% endfor %}
