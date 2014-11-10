@@ -8,7 +8,7 @@
         "rcrowe/twigbridge": "0.6.*",
         "stolz/assets": "dev-master",
         "components/jquery": "1.11.*@dev",
-        "twbs/bootstrap": "3.2.*",
+        "twbs/bootstrap": "3.3.*",
         "components/font-awesome": "4.1.*@dev",
         "afarkas/html5shiv": "dev-master",
         "rogeriopradoj/respond": "dev-composer",
