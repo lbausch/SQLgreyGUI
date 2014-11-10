@@ -8,21 +8,23 @@
     <h3 class="page-header"><i class="fa fa-minus-square fa-fw"></i> Opt-out > <i class="fa fa-globe fa-fw"></i> Domains</h3>
 
     {{ html_alert('info', 'These domains are never greylisted') }}
-    
+
     {{ html_list_domains(domains, 'OptOutController') }}
 {% endblock %}
 
 {% block javascript %}
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#opt-domain-table').dataTable({
                 order: [1, 'asc'],
                 aoColumnDefs: [
                     {bSortable: false, aTargets: [0]}
                 ],
+                fnDrawCallback: function (oSettings) {
+                    addCheckboxTrigger('#opt-domain-table tbody tr');
+                },
             });
-            
-            addCheckboxTrigger('#opt-domain-table tbody tr');
+
             addSelectAllTrigger('#opt-domain-select_all', '#opt-domain-table tbody tr td');
         });
     </script>

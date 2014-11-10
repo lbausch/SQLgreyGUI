@@ -14,15 +14,17 @@
 
 {% block javascript %}
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#opt-domain-table').dataTable({
                 order: [1, 'asc'],
                 aoColumnDefs: [
                     {bSortable: false, aTargets: [0]}
                 ],
+                fnDrawCallback: function (oSettings) {
+                    addCheckboxTrigger('#opt-domain-table tbody tr');
+                },
             });
-            
-            addCheckboxTrigger('#opt-domain-table tbody tr');
+
             addSelectAllTrigger('#opt-domain-select_all', '#opt-domain-table tbody tr td');
         });
     </script>

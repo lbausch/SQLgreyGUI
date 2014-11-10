@@ -81,15 +81,17 @@
 
 {% block javascript %}
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#whitelist-domains-table').dataTable({
                 order: [1, 'asc'],
                 aoColumnDefs: [
                     {bSortable: false, aTargets: [0]}
                 ],
+                fnDrawCallback: function (oSettings) {
+                    addCheckboxTrigger('#whitelist-domains-table tbody tr');
+                },
             });
 
-            addCheckboxTrigger('#whitelist-domains-table tbody tr');
             addSelectAllTrigger('#whitelist-domains-select_all', '#whitelist-domains-table tbody tr td');
         });
     </script>

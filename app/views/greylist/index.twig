@@ -62,16 +62,18 @@
 
 {% block javascript %}
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // data table
             $('#greylist-table').DataTable({
                 order: [5, 'desc'], // default sorting "seen at"
                 aoColumnDefs: [
                     {bSortable: false, aTargets: [0]}
                 ],
+                fnDrawCallback: function (oSettings) {
+                    addCheckboxTrigger('#greylist-table tbody tr');
+                },
             });
 
-            addCheckboxTrigger('#greylist-table tbody tr');
             addSelectAllTrigger('#greylist_select_all', '#greylist-table tbody tr td');
 
             pollGreylist('{{ action('GreylistController@live') }}', '{{ timestamp }}');

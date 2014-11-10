@@ -90,15 +90,17 @@
 
 {% block javascript %}
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#whitelist-emails-table').dataTable({
                 order: [1, 'asc'],
                 aoColumnDefs: [
                     {bSortable: false, aTargets: [0]}
                 ],
+                fnDrawCallback: function (oSettings) {
+                    addCheckboxTrigger('#whitelist-emails-table tbody tr');
+                },
             });
 
-            addCheckboxTrigger('#whitelist-emails-table tbody tr');
             addSelectAllTrigger('#whitelist-emails-select_all', '#whitelist-emails-table tbody tr td');
         });
     </script>

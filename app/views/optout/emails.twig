@@ -14,15 +14,17 @@
 
 {% block javascript %}
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#opt-email-table').dataTable({
                 order: [1, 'asc'],
                 aoColumnDefs: [
                     {bSortable: false, aTargets: [0]}
                 ],
+                fnDrawCallback: function (oSettings) {
+                    addCheckboxTrigger('#opt-email-table tbody tr');
+                },
             });
 
-            addCheckboxTrigger('#opt-email-table tbody tr');
             addSelectAllTrigger('#opt-email-select_all', '#opt-email-table tbody tr td');
         });
     </script>
