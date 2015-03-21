@@ -144,12 +144,6 @@ return array(
                 'metisMenu.css',
                 'metisMenu.js',
             ],
-            
-            'morris' => [
-                'raphael.js',
-                'morris.js',
-                'morris.css',
-            ],
 	],
 
 	/**
@@ -163,8 +157,8 @@ return array(
             'jquery',
             'bootstrap',
             'metisMenu',
+            'dataTables',
             'sb-admin-2.css',
-            'timeline.css',
             'sb-admin-2.js',
             'font-awesome',
             'app.css',

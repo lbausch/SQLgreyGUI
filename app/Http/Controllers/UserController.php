@@ -4,8 +4,7 @@ namespace SQLgreyGUI\Http\Controllers;
 
 use SQLgreyGUI\Repositories\UserRepositoryInterface as Users;
 use SQLgreyGUI\Models\User as User;
-use Assets,
-    Html,
+use Html,
     Input,
     Redirect,
     Validator,
@@ -53,8 +52,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        Assets::add('dataTables');
-
         return View::make('user.index')
                         ->with('users_table', $this->getTable());
     }

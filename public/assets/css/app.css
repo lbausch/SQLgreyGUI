@@ -7,10 +7,6 @@ a[target=_blank] {
     margin-top:15px;
 }
 
-#page-wrapper {
-    padding-bottom: 100px;
-}
-
 .scroll-top-wrapper {
     position: fixed;
     opacity: 0;

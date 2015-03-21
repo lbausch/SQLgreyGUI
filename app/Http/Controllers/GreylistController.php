@@ -5,7 +5,6 @@ namespace SQLgreyGUI\Http\Controllers;
 use SQLgreyGUI\Repositories\GreylistRepositoryInterface;
 use Carbon\Carbon;
 use App,
-    Assets,
     DB,
     Input,
     Redirect,
@@ -31,8 +30,6 @@ class GreylistController extends Controller
         parent::__construct();
 
         $this->repo = $repo;
-
-        Assets::add('dataTables');
     }
 
     /**

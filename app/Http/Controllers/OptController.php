@@ -2,8 +2,7 @@
 
 namespace SQLgreyGUI\Http\Controllers;
 
-use Assets,
-    Input,
+use Input,
     Redirect,
     Validator,
     View;
@@ -38,8 +37,6 @@ class OptController extends Controller
     public function __construct()
     {
         parent::__construct();
-
-        Assets::add('dataTables');
     }
 
     /**

@@ -6,8 +6,7 @@ use SQLgreyGUI\Repositories\AwlEmailRepositoryInterface;
 use SQLgreyGUI\Repositories\AwlDomainRepositoryInterface;
 use SQLgreyGUI\Models\AwlEmail as Email;
 use SQLgreyGUI\Models\AwlDomain as Domain;
-use Assets,
-    Input,
+use Input,
     Redirect,
     Validator,
     View;
@@ -41,8 +40,6 @@ class WhitelistController extends Controller
 
         $this->email_repo = $email_repo;
         $this->domain_repo = $domain_repo;
-
-        Assets::add('dataTables');
     }
 
     /**
