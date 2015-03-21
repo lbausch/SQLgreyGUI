@@ -1,4 +1,4 @@
-scrollToTop = function() {
+scrollToTop = function () {
     verticalOffset = typeof (verticalOffset) != 'undefined' ? verticalOffset : 0;
     element = $('body');
     offset = element.offset();
@@ -6,9 +6,9 @@ scrollToTop = function() {
     $('html, body').animate({scrollTop: offsetTop}, 500, 'linear');
 }
 
-addCheckboxTrigger = function(selector) {
+addCheckboxTrigger = function (selector) {
     // select corresponding checkbox when clicking on table row
-    $(selector).on('click', function(event) {
+    $(selector).on('click', function (event) {
         if (event.target.type !== 'checkbox') {
             var cbox = $(this).find(':checkbox')
             cbox.prop('checked', !cbox.prop('checked'));
@@ -16,15 +16,17 @@ addCheckboxTrigger = function(selector) {
     });
 }
 
-addSelectAllTrigger = function(target, selector) {
+addSelectAllTrigger = function (target, selector) {
     // select all checkboxes at once
-    $(target).click(function() {
+    $(target).click(function () {
         $(selector + ' :checkbox').prop('checked', $(this).prop('checked'));
     });
 }
 
-pollGreylist = function(target, timestamp) {
-    $.post(target, {timestamp: timestamp}, function(responseText, textStatus, jqXHR) {
+pollGreylist = function (target, timestamp) {
+    // @TODO: enable again, with working CSRF token
+    return;
+    $.post(target, {timestamp: timestamp}, function (responseText, textStatus, jqXHR) {
 
         //var response = $.parseJSON(responseText);
         var response = responseText;
@@ -56,8 +58,8 @@ pollGreylist = function(target, timestamp) {
     });
 }
 
-$(function() {
-    $(document).on('scroll', function() {
+$(function () {
+    $(document).on('scroll', function () {
         if ($(window).scrollTop() > 100) {
             $('.scroll-top-wrapper').addClass('show');
         } else {

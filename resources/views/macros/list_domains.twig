@@ -1,0 +1,56 @@
+{% macro buttons() %}
+    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash-o"></i> delete selected</button>
+    <a href="#" onclick="$('#add_domain').slideToggle().find('input[type=text]:first').focus();
+            return false;" class="btn btn-success btn-sm"><i class="fa fa-fw fa-plus-square-o"></i> add</a>
+{% endmacro %}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-primary" id="add_domain" style="display:{{ errors.count() > 0 ? 'block' : 'none' }};">
+            <div class="panel-heading">add Domain</div>
+            <div class="panel-body">
+                {{ Form.open({ action: targetController ~ '@addDomain', role: 'form', class: 'form-inline' }) }}
+                <fieldset>
+                    <div class="form-group {%if errors.has('domain') %}has-error{% endif %}">
+                        {{ Form.text('domain', input_old('domain'), { class: 'form-control', placeholder: 'Domain', autofocus: 'autofocus' } ) }}
+                    </div>
+                    {{ Form.submit('save', { class: 'btn btn-primary' } ) }}
+                </fieldset>
+                {{ Form.close() }}
+
+                {%if errors.has('domain') %}
+                    <p class="text-danger">{{ errors.first('domain') }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ Form.open({ action: targetController ~ '@deleteDomains' }) }}
+<fieldset>   
+    {{ _self.buttons() }}
+
+    <br /><br />
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover table-condensed" id="opt-domain-table">
+            <thead>
+                <tr>
+                    <th style="width:20px;">{{ Form.checkbox('select_all', '', false, { id: 'opt-domain-select_all' }) }}</th>
+                    <th>Domain</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for domain in domains %}
+                    <tr>
+                        <td>{{ Form.checkbox('domains[]', Html.cval(domain)) }}</td>
+                        <td>{{ domain.getDomain() }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {{ _self.buttons() }}
+</fieldset>
+{{ Form.close() }}

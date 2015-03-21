@@ -3,29 +3,36 @@
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
+    "type": "project",
     "require": {
-        "laravel/framework": "4.2.*",
-        "rcrowe/twigbridge": "0.6.*",
-        "stolz/assets": "dev-master",
-        "components/jquery": "1.11.*@dev",
-        "twbs/bootstrap": "3.3.*",
-        "components/font-awesome": "4.2.*@dev",
+        "laravel/framework": "5.0.*",
+        "rcrowe/twigbridge": "0.7.x@dev",
+        "stolz/assets": "0.1.*",
+        "laravelcollective/html": "~5.0",
+        "components/jquery": "dev-master",
+        "twbs/bootstrap": "3.3.*@dev",
+        "fortawesome/font-awesome": "4.3.0",
         "afarkas/html5shiv": "dev-master",
-        "rogeriopradoj/respond": "dev-composer",
-        "kwipi/famfamfam-flags": "dev-master",
+        "rogeriopradoj/respond": "1.4.2",
         "datatables/datatables": "dev-master",
-        "sheillendra/raphael": "dev-master",
-        "nesbot/Carbon": "*"
+        "spatie/laravel-tail": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "phpspec/phpspec": "~2.1",
+        "barryvdh/laravel-debugbar": "~2.0"
     },
     "autoload": {
         "classmap": [
-            "app/commands",
-            "app/controllers",
-            "app/models",
-            "app/repositories",
-            "app/database/migrations",
-            "app/database/seeds",
-            "app/tests/TestCase.php"
+            "database"
+        ],
+        "psr-4": {
+            "SQLgreyGUI\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
         ]
     },
     "scripts": {
@@ -35,14 +42,17 @@
         ],
         "post-update-cmd": [
             "php artisan clear-compiled",
-            "php artisan optimize"
+            "php artisan optimize",
+            "php artisan config:cache",
+            "php artisan asset:flush --force"
         ],
         "post-create-project-cmd": [
+            "php -r \"copy('.env.example', '.env');\"",
             "php artisan key:generate"
         ]
     },
     "config": {
-        "preferred-install": "dist"
-    },
-    "minimum-stability": "stable"
+        "preferred-install": "dist",
+        "component-dir": "vendor"
+    }
 }

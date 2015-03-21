@@ -1,0 +1,26 @@
+{% extends "layouts.base" %}
+
+{% block title %}
+    {{ parent() }}Settings
+{% endblock %}
+
+{% block content %}
+    <h3 class="page-header"><i class="fa fa-gear fa-fw"></i> Settings > <i class="fa fa-envelope fa-fw"></i> eMail</h3>
+
+    <div class="row">
+        <div class="col-md-4">
+            {{ Form.open({ action: 'SettingController@email', role: 'form' }) }}
+            <fieldset>
+                <div class="form-group {%if errors.has('email') %}has-error{% endif %}">
+                    {%if errors.has('email') %}
+                        <p class="text-danger">{{ errors.first('email') }}</p>
+                    {% endif %}
+                    {{ Form.text('email', input_old('email', user.getEmail()), { class: 'form-control', placeholder: 'eMail'} ) }}
+                </div>
+                {{ Form.submit('save', { class: 'btn btn-success btn-block' }) }}
+
+            </fieldset>
+            {{ Form.close() }}
+        </div>
+    </div>
+{% endblock %}
