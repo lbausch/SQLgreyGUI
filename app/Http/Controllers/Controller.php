@@ -50,7 +50,7 @@ abstract class Controller extends BaseController
      */
     protected function parseEntries($input_identifier, $repository)
     {
-        $items_tmp = Request::input($input_identifier, array());
+        $items_tmp = \Request::input($input_identifier, array());
 
         $items = array();
 
@@ -96,7 +96,7 @@ abstract class Controller extends BaseController
      */
     protected function isAjax()
     {
-        return Request::ajax();
+        return \Request::ajax();
     }
 
 }
