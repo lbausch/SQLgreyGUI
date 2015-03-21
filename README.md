@@ -7,7 +7,7 @@ Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel 
 ## Features
 * Dashboard: quick overview of emails / domains in greylist, whitelist, opt-out and opt-in
 * Greylist: delete entries or move them to the whitelist
-* Greylist: new entries are displayed without the need to refresh periodically
+<!--* Greylist: new entries are displayed without the need to refresh periodically-->
 * Whitelist: add sender emails or sender domains to prevent them from being greylisted and delivered directly
 * Opt-out: define emails or domains you don't want greylisting to be enabled for
 * Opt-in: define  emails or domains for which you want to enforce greylisting permanently

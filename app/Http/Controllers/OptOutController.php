@@ -2,9 +2,8 @@
 
 namespace SQLgreyGUI\Http\Controllers;
 
-use SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface;
-use SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface;
-use Redirect;
+use SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface as Domains;
+use SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface as Emails;
 
 class OptOutController extends OptController
 {
@@ -12,17 +11,17 @@ class OptOutController extends OptController
     /**
      * Constructor
      *
-     * @param OptOutDomainRepositoryInterface $domain_repo
-     * @param OptOutEmailRepositoryInterface $email_repo
+     * @param Domains $domains
+     * @param Emails $emails
      */
-    public function __construct(OptOutDomainRepositoryInterface $domain_repo, OptOutEmailRepositoryInterface $email_repo)
+    public function __construct(Domains $domains, Emails $emails)
     {
         parent::__construct();
 
-        $this->domain_repo = $domain_repo;
-        $this->email_repo = $email_repo;
+        $this->domains = $domains;
+        $this->emails = $emails;
 
-        $this->template_folder = 'optout';
+        $this->view_directory = 'optout';
     }
 
     /**
@@ -34,16 +33,16 @@ class OptOutController extends OptController
     {
         $items = $this->parseEntries('emails', 'SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface');
 
-        $message = array();
+        $message = [];
 
         foreach ($items as $key => $val) {
-            $this->email_repo->destroy($val);
+            $this->emails->destroy($val);
 
             $message[] = '<li>' . $val->getEmail() . '</li>';
         }
 
-        return Redirect::action('OptOutController@showEmails')
-                        ->with('success', 'deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
+        return redirect(action('OptOutController@showEmails'))
+                        ->withSuccess('deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
     }
 
     /**
@@ -55,16 +54,16 @@ class OptOutController extends OptController
     {
         $items = $this->parseEntries('domains', 'SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface');
 
-        $message = array();
+        $message = [];
 
         foreach ($items as $key => $val) {
-            $this->domain_repo->destroy($val);
+            $this->domains->destroy($val);
 
             $message[] = '<li>' . $val->getDomain() . '</li>';
         }
 
-        return Redirect::action('OptOutController@showDomains')
-                        ->with('success', 'deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
+        return redirect(action('OptOutController@showDomains'))
+                        ->withSuccess('deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
     }
 
 }

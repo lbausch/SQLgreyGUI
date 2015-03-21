@@ -2,13 +2,9 @@
 
 namespace SQLgreyGUI\Http\Controllers;
 
+use Illuminate\Http\Request;
 use SQLgreyGUI\Repositories\UserRepositoryInterface as Users;
 use SQLgreyGUI\Models\User as User;
-use Html,
-    Input,
-    Redirect,
-    Validator,
-    View;
 
 class UserController extends Controller
 {
@@ -23,7 +19,7 @@ class UserController extends Controller
     /**
      * constructor
      * 
-     * @param \Bausch\Repositories\UserRepositoryInterface $users
+     * @param Users $users
      */
     public function __construct(Users $users)
     {
@@ -41,7 +37,7 @@ class UserController extends Controller
     {
         $users = $this->users->findAll();
 
-        return View::make('user.table')
+        return view('user.table')
                         ->with('users', $users);
     }
 
@@ -52,7 +48,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return View::make('user.index')
+        return view('user.index')
                         ->with('users_table', $this->getTable());
     }
 
@@ -63,7 +59,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return View::make('user.form')
+        return view('user.form')
                         ->with('form', [
                             'action' => 'UserController@store',
                             'method' => 'POST',
@@ -75,9 +71,9 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $req)
     {
-        $input = Input::all();
+        $input = $req->input();
 
         $new_user = $this->users->instance($input);
 
@@ -103,10 +99,10 @@ class UserController extends Controller
 
         $new_user->setPassword($input['password']);
 
-        $validator = Validator::make($input, User::$rules['store']);
+        $validator = \Validator::make($input, User::$rules['store']);
 
         if (!$validator->passes()) {
-            Input::flashExcept('password', 'password_confirmation');
+            \Input::flashExcept('password', 'password_confirmation');
 
             return $this->create()
                             ->withErrors($validator);
@@ -115,7 +111,7 @@ class UserController extends Controller
 
         $this->users->store($new_user);
 
-        return Html::alert('success', $message);
+        return \Html::alert('success', $message);
     }
 
     /**
@@ -140,7 +136,7 @@ class UserController extends Controller
         $data = $this->users->findById($id);
 
         if ($this->isAjax()) {
-            return View::make('user.form')
+            return view('user.form')
                             ->with('form', [
                                 'action' => ['UserController@update', $id],
                                 'method' => 'PUT',
@@ -155,11 +151,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $req, $id)
     {
         $user = $this->users->findById($id);
 
-        $input = Input::all();
+        $input = $req->input();
 
         if (@$input['enabled'] == 'yes') {
             $input['enabled'] = true;
@@ -172,7 +168,6 @@ class UserController extends Controller
         $user->setUsername($input['username']);
         $user->setEmail($input['email']);
 
-
         $message = 'User ' . $user->getUsername() . ' (' . $user->getEmail() . ') has been updated.';
 
         if (!@$input['password'] && !@$input['password_confirmation']) {
@@ -183,10 +178,10 @@ class UserController extends Controller
         $rules = User::$rules['update'];
         $rules['username'] .= $id;
 
-        $validator = Validator::make($input, $rules);
+        $validator = \Validator::make($input, $rules);
 
         if (!$validator->passes()) {
-            Input::flashExcept('password', 'password_confirmation');
+            \Input::flashExcept('password', 'password_confirmation');
 
             return $this->edit($id)
                             ->withErrors($validator);
@@ -200,7 +195,7 @@ class UserController extends Controller
 
         $this->users->update($user);
 
-        return Html::alert('success', $message);
+        return \Html::alert('success', $message);
     }
 
     /**
@@ -219,9 +214,9 @@ class UserController extends Controller
      * 
      * @return Response
      */
-    public function deleteUsers()
+    public function deleteUsers(Request $req)
     {
-        $delete_ids = Input::get('userids', array());
+        $delete_ids = $req->input('userids', []);
 
         // prevent the logged in user from deleting his own record
         // (thank you Stack Overflow! http://stackoverflow.com/a/7225113)
@@ -234,14 +229,12 @@ class UserController extends Controller
         foreach ($delete_ids as $key => $val) {
             $delete_user = $this->users->findById($val);
 
-
-
             if ($this->users->destroy($delete_user)) {
                 $num_deletes++;
             }
         }
 
-        return Redirect::action($this->getAction('index'))
+        return redirect(action($this->getAction('index')))
                         ->withSuccess('Deleted Users: ' . $num_deletes);
     }
 

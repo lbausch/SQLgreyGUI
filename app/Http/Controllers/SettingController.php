@@ -2,22 +2,25 @@
 
 namespace SQLgreyGUI\Http\Controllers;
 
-use Input,
-    Redirect,
-    Validator,
-    View;
+use Illuminate\Http\Request;
+use SQLgreyGUI\Repositories\UserRepositoryInterface as Users;
 
 class SettingController extends Controller
 {
 
     /**
-     * user repository
+     * Repository
      * 
-     * @var \Bausch\Repositories\UserRepositoryInterface
+     * @var Users
      */
     private $users;
 
-    public function __construct(\SQLgreyGUI\Repositories\UserRepositoryInterface $users)
+    /**
+     * Constructor
+     * 
+     * @param Users $users
+     */
+    public function __construct(Users $users)
     {
         parent::__construct();
 
@@ -31,7 +34,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        return View::make('setting.index');
+        return view('setting.index');
     }
 
     /**
@@ -41,7 +44,7 @@ class SettingController extends Controller
      */
     public function changePassword()
     {
-        return View::make('setting.password');
+        return view('setting.password');
     }
 
     /**
@@ -49,42 +52,31 @@ class SettingController extends Controller
      * 
      * @return Response
      */
-    public function password()
+    public function password(Request $req)
     {
-        $passwords = array(
-            'password' => Input::get('password'),
-            'password_new' => Input::get('password_new'),
-            'password_new_repeat' => Input::get('password_new_repeat'),
-        );
-
-        $rules = array(
+        $rules = [
             'password' => 'required',
             'password_new' => 'required|min:6',
             'password_new_repeat' => 'required|min:6|same:password_new',
-        );
+        ];
 
-        // Validate the passwords
-        $validator = Validator::make($passwords, $rules);
+        $this->validate($req, $rules);
 
-        // Check if the form validates with success.
-        if ($validator->passes()) {
-            $teh_user = $this->users->findById($this->userid);
+        $teh_user = $this->users->findById($this->userid);
 
-            if (Hash::check($passwords['password'], $teh_user->getPassword())) {
-                $teh_user->setPassword($passwords['password_new']);
-            } else {
-                return Redirect::action('SettingController@changePassword')->withErrors(array('password' => 'The provided password is not correct'));
-            }
-
-            // update the user
-            $teh_user->setPassword($passwords['password_new']);
-            $this->users->update($teh_user);
-
-            return Redirect::action('SettingController@index')->with('success', 'Password has been changed');
+        if (\Hash::check($req->input('password'), $teh_user->getPassword())) {
+            $teh_user->setPassword($req->input('password_new'));
+        } else {
+            return redirect(action('SettingController@changePassword'))
+                            ->withErrors(['password' => 'The provided password is not correct']);
         }
 
-        // Something went wrong.
-        return Redirect::action('SettingController@changePassword')->withErrors($validator);
+        // update the user
+        $teh_user->setPassword($req->input('password_new'));
+        $this->users->update($teh_user);
+
+        return redirect(action('SettingController@index'))
+                        ->withSuccess('Password has been changed');
     }
 
     /**
@@ -94,7 +86,7 @@ class SettingController extends Controller
      */
     public function changeEmail()
     {
-        return View::make('setting.email');
+        return view('setting.email');
     }
 
     /**
@@ -102,30 +94,22 @@ class SettingController extends Controller
      * 
      * @return Response
      */
-    public function email()
+    public function email(Request $req)
     {
-        $input = array(
-            'email' => Input::get('email'),
-        );
-
-        $rules = array(
+        $rules = [
             'email' => 'required|email',
-        );
+        ];
 
-        // Validate eMail
-        $validator = Validator::make($input, $rules);
+        $this->validate($req, $rules);
 
-        if ($validator->passes()) {
-            $teh_user = $this->users->findById($this->userid);
+        $teh_user = $this->users->findById($this->userid);
 
-            $teh_user->setEmail($input['email']);
+        $teh_user->setEmail($req->input('email'));
 
-            $this->users->update($teh_user);
+        $this->users->update($teh_user);
 
-            return Redirect::action('SettingController@index')->withSuccess('eMail has been updated');
-        }
-
-        return Redirect::action('SettingController@changeEmail')->withErrors($validator);
+        return redirect(action('SettingController@index'))
+                        ->withSuccess('eMail has been updated');
     }
 
 }

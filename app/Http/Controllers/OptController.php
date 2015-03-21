@@ -2,42 +2,31 @@
 
 namespace SQLgreyGUI\Http\Controllers;
 
-use Input,
-    Redirect,
-    Validator,
-    View;
+use Illuminate\Http\Request;
 
 class OptController extends Controller
 {
 
     /**
-     * template folder
+     * view directory
      * 
      * @var string
      */
-    protected $template_folder;
+    protected $view_directory;
 
     /**
      * domain repository
      * 
      * @var OptDomainRepositoryInterface
      */
-    protected $domain_repo;
+    protected $domains;
 
     /**
      * email repository
      * 
      * @var OptEmailRepositoryInterface
      */
-    protected $email_repo;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $emails;
 
     /**
      * show emails
@@ -46,9 +35,9 @@ class OptController extends Controller
      */
     public function showEmails()
     {
-        $emails = $this->email_repo->findAll();
+        $emails = $this->emails->findAll();
 
-        return View::make($this->template_folder . '.emails')
+        return view($this->view_directory . '.emails')
                         ->with('emails', $emails);
     }
 
@@ -57,26 +46,16 @@ class OptController extends Controller
      * 
      * @return Response
      */
-    public function addEmail()
+    public function addEmail(Request $req)
     {
-        $input = array(
-            'email' => Input::get('email'),
-        );
+        $new_email = $this->emails->instance($req->input());
 
-        $new_email = $this->email_repo->instance($input);
+        $this->validate($req, $new_email->rules);
 
-        $validator = Validator::make($input, $new_email->rules);
+        $this->emails->store($new_email);
 
-        if ($validator->passes()) {
-            $this->email_repo->store($new_email);
-
-            return Redirect::action($this->getAction('showEmails'))
-                            ->withSuccess($new_email->getEmail() . ' has been added');
-        }
-
-        return Redirect::action($this->getAction('showEmails'))
-                        ->withInput()
-                        ->withErrors($validator);
+        return redirect(action($this->getAction('showEmails')))
+                        ->withSuccess($new_email->getEmail() . ' has been added');
     }
 
     /**
@@ -86,9 +65,9 @@ class OptController extends Controller
      */
     public function showDomains()
     {
-        $domains = $this->domain_repo->findAll();
+        $domains = $this->domains->findAll();
 
-        return View::make($this->template_folder . '.domains')
+        return view($this->view_directory . '.domains')
                         ->with('domains', $domains);
     }
 
@@ -97,26 +76,16 @@ class OptController extends Controller
      * 
      * @return Response
      */
-    public function addDomain()
+    public function addDomain(Request $req)
     {
-        $input = array(
-            'domain' => Input::get('domain'),
-        );
+        $new_domain = $this->domains->instance($req->input());
 
-        $new_domain = $this->domain_repo->instance($input);
+        $this->validate($req, $new_domain->rules);
 
-        $validator = Validator::make($input, $new_domain->rules);
+        $this->domains->store($new_domain);
 
-        if ($validator->passes()) {
-            $this->domain_repo->store($new_domain);
-
-            return Redirect::action($this->getAction('showDomains'))
-                            ->withSuccess($new_domain->getDomain() . ' has been added');
-        }
-
-        return Redirect::action($this->getAction('showDomains'))
-                        ->withInput()
-                        ->withErrors($validator);
+        return redirect(action($this->getAction('showDomains')))
+                        ->withSuccess($new_domain->getDomain() . ' has been added');
     }
 
 }

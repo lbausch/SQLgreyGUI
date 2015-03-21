@@ -5,24 +5,26 @@ namespace SQLgreyGUI\Http\Controllers;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Auth,
-    App,
-    Input,
-    Route,
-    View;
 
 abstract class Controller extends BaseController
 {
+
+    use DispatchesCommands,
+        ValidatesRequests;
 
     /**
      * the user id
      * 
      * @var int
      */
-    protected $userid = 0;
+    protected $userid;
 
-    use DispatchesCommands,
-        ValidatesRequests;
+    /**
+     * User
+     * 
+     * @var \SQLgreyGUI\Models\User
+     */
+    protected $user;
 
     /**
      * Constructor
@@ -31,11 +33,13 @@ abstract class Controller extends BaseController
      */
     public function __construct()
     {
-        if (Auth::User() && Auth::User()->getId()) {
-            $this->userid = Auth::User()->getId();
+        if (\Auth::check()) {
+            $this->user = \Auth::User();
+
+            $this->userid = $this->user->getId();
 
             // pass the user object to all views
-            View::share('user', Auth::User());
+            view()->share('user', $this->user);
         }
     }
 
@@ -46,11 +50,11 @@ abstract class Controller extends BaseController
      */
     protected function parseEntries($input_identifier, $repository)
     {
-        $items_tmp = Input::get($input_identifier, array());
+        $items_tmp = Request::input($input_identifier, array());
 
         $items = array();
 
-        $repository = App::make($repository);
+        $repository = app($repository);
 
         foreach ($items_tmp as $key => $val) {
             $model = json_decode(base64_decode($val, $strict = true), $assoc = true);
@@ -68,7 +72,7 @@ abstract class Controller extends BaseController
      */
     protected function getController()
     {
-        $controller = explode('\\', strtok(Route::currentRouteAction(), '@'));
+        $controller = explode('\\', strtok(\Route::currentRouteAction(), '@'));
 
         return end($controller);
     }
@@ -92,11 +96,7 @@ abstract class Controller extends BaseController
      */
     protected function isAjax()
     {
-        if (Request::ajax()) {
-            return true;
-        }
-
-        return false;
+        return Request::ajax();
     }
 
 }

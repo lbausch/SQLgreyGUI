@@ -2,9 +2,8 @@
 
 namespace SQLgreyGUI\Http\Controllers;
 
-use SQLgreyGUI\Repositories\OptInDomainRepositoryInterface;
-use SQLgreyGUI\Repositories\OptInEmailRepositoryInterface;
-use Redirect;
+use SQLgreyGUI\Repositories\OptInDomainRepositoryInterface as Domains;
+use SQLgreyGUI\Repositories\OptInEmailRepositoryInterface as Emails;
 
 class OptInController extends OptController
 {
@@ -12,17 +11,17 @@ class OptInController extends OptController
     /**
      * Constructor
      *
-     * @param Bausch\Repositories\OptInDomainRepositoryInterface $domain_repo
-     * @param Bausch\Repositories\OptInEmailRepositoryInterface $email_repo
+     * @param Domains $domains
+     * @param Emails $emails
      */
-    public function __construct(OptInDomainRepositoryInterface $domain_repo, OptInEmailRepositoryInterface $email_repo)
+    public function __construct(Domains $domains, Emails $emails)
     {
         parent::__construct();
 
-        $this->domain_repo = $domain_repo;
-        $this->email_repo = $email_repo;
+        $this->domains = $domains;
+        $this->emails = $emails;
 
-        $this->template_folder = 'optin';
+        $this->view_directory = 'optin';
     }
 
     /**
@@ -34,16 +33,16 @@ class OptInController extends OptController
     {
         $items = $this->parseEntries('emails', 'SQLgreyGUI\Repositories\OptInEmailRepositoryInterface');
 
-        $message = array();
+        $message = [];
 
         foreach ($items as $key => $val) {
-            $this->email_repo->destroy($val);
+            $this->emails->destroy($val);
 
             $message[] = '<li>' . $val->getEmail() . '</li>';
         }
 
-        return Redirect::action('OptInController@showEmails')
-                        ->with('success', 'deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
+        return redirect(action('OptInController@showEmails'))
+                        ->withSuccess('deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
     }
 
     /**
@@ -55,16 +54,16 @@ class OptInController extends OptController
     {
         $items = $this->parseEntries('domains', 'SQLgreyGUI\Repositories\OptInDomainRepositoryInterface');
 
-        $message = array();
+        $message = [];
 
         foreach ($items as $key => $val) {
-            $this->domain_repo->destroy($val);
+            $this->domains->destroy($val);
 
             $message[] = '<li>' . $val->getDomain() . '</li>';
         }
 
-        return Redirect::action('OptInController@showDomains')
-                        ->with('success', 'deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
+        return redirect(action('OptInController@showDomains'))
+                        ->withSuccess('deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
     }
 
 }
