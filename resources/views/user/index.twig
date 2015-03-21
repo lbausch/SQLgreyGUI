@@ -1,0 +1,95 @@
+{% extends "layouts.base" %}
+
+{% block title %}
+    {{ parent() }}Users
+{% endblock %}
+
+{% macro buttons() %}
+    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash-o"></i> delete selected</button>
+    <a href="#" onclick="addUserForm();
+            return false;" class="btn btn-success btn-sm"><i class="fa fa-fw fa-plus-square-o"></i> add</a>
+{% endmacro %}
+
+{% block content %}
+    <h3 class="page-header"><i class="fa fa-wrench fa-fw"></i> Administration > <i class="fa fa-users fa-fw"></i> Users</h3>
+
+    <div class="row">
+        <div class="col-md-8" id="user-form-container" style="display:none;">
+        </div>
+    </div>
+
+    {{ Form.open({ action: 'UserController@deleteUsers' }) }}
+    <fieldset>
+
+        {{ _self.buttons() }}
+
+        <br /><br />
+
+        <div id="user-table-container">{{ users_table | raw }}</div> 
+
+        {{ _self.buttons() }}
+    </fieldset>
+
+
+    {{ Form.close() }}
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(document).ready(function () {
+            // data table
+            var target = $('#user-form-container');
+
+            renderUserTable = function () {
+                $('#user-table').DataTable({
+                    retrieve: true,
+                    order: [2, 'asc'],
+                    aoColumnDefs: [
+                        {bSortable: false, aTargets: [0]}
+                    ],
+                });
+
+                addCheckboxTrigger('#user-table tbody tr');
+                addSelectAllTrigger('#user-select_all', '#user-table tbody tr td');
+            }
+
+            addUserForm = function () {
+                $.get('{{ action('UserController@create') }}', {
+                }, function (data, textStatus, jqXHR) {
+                    target.html(data).slideDown().find('input[type=text]:first').focus();
+                }, 'html');
+            }
+
+            editUserForm = function (target_url) {
+                $.get(target_url, {
+                }, function (data, textStatus, jqXHR) {
+                    target.html(data).slideDown().find('input[type=text]:first').focus();
+                }, 'html');
+            }
+
+            submitUserForm = function (e) {
+                $.ajax({
+                    url: e.prop('action'),
+                    type: 'POST',
+                    data: e.serializeArray(),
+                    dataType: 'html',
+                    success: function (data, textStatus, jqXHR) {
+                        target.html(data);
+
+                        // reload table
+                        $('#user-table-container').load('{{ action('UserController@getTable') }}', null, function (responseText, textStatus, jqXHR) {
+                            renderUserTable();
+                        });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+
+                return false;
+            }
+
+            renderUserTable();
+        });
+    </script>
+{% endblock %}

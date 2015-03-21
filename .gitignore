@@ -1,22 +1,9 @@
-/bootstrap/compiled.php
 /vendor
-composer.phar
+/node_modules
+.env
+
+## Composer
 composer.lock
-.env.*.php
-.env.php
-.DS_Store
-Thumbs.db
 
-
-# config file(s)
-/app/config/app.php
-/app/config/mail.php
-/config.php
-
-# components
-/components
-
-
-# assets
-/public/assets/minified/*.js
-/public/assets/minified/*.css
+## Assets
+/public/assets/min

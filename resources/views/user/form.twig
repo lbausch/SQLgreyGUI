@@ -1,0 +1,43 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">add User</div>
+    <div class="panel-body">
+        {{ Form.open({ action: form.action, method: form.method, role: 'form', class: 'form-inline', id: 'user-form', onsubmit: 'submitUserForm($(this));return false;' }) }}
+        <fieldset>
+            <div class="form-group {%if errors.has('username') %}has-error{% endif %}">
+                {{ Form.text('username', input_old('username', userdata.getUsername()), { class: 'form-control', placeholder: 'Username', autofocus: 'autofocus' } ) }}
+            </div>
+            <div class="form-group {%if errors.has('email') %}has-error{% endif %}">
+                {{ Form.text('email', input_old('email', userdata.getEmail()), { class: 'form-control', placeholder: 'eMail' } ) }}
+            </div>
+            <label>{{ Form.checkbox('enabled', 'yes', input_old('enabled', userdata.isEnabled())) }} enabled</label>
+            <div class="form-group {%if errors.has('password') %}has-error{% endif %}">
+                {{ Form.password('password', { class: 'form-control', placeholder: 'Password' } ) }}
+            </div>
+            <div class="form-group {%if errors.has('password_confirmation') %}has-error{% endif %}">
+                {{ Form.password('password_confirmation', { class: 'form-control', placeholder: 'confirm Password' } ) }}
+            </div>
+            {{ Form.submit('save', { class: 'btn btn-primary' } ) }}
+        </fieldset>
+        {{ Form.close() }}
+
+        {%if errors.has('username') %}
+            <p class="text-danger">{{ errors.first('username') }}</p>
+        {% endif %}
+        {%if errors.has('email') %}
+            <p class="text-danger">{{ errors.first('email') }}</p>
+        {% endif %}
+        {%if errors.has('password') %}
+            <p class="text-danger">{{ errors.first('password') }}</p>
+        {% endif %}
+        {%if errors.has('password_confirmation') %}
+            <p class="text-danger">{{ errors.first('password_confirmation') }}</p>
+        {% endif %}
+
+        <br /><br />
+
+        {{ Html.alert('info', 'Leave both password fields blank if you don\'t want to set / change the password.') }}
+
+        <a href="/" onclick="$('#user-form-container').slideUp();
+                return false;" class="btn btn-danger btn-sm">cancel</a>
+    </div>
+</div>
