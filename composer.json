@@ -43,6 +43,7 @@
         "post-update-cmd": [
             "php artisan clear-compiled",
             "php artisan optimize",
+            "php artisan route:clear",
             "php artisan config:cache",
             "php artisan asset:flush --force"
         ],
