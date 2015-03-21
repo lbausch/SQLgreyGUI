@@ -6,16 +6,14 @@
     "require": {
         "laravel/framework": "4.2.*",
         "rcrowe/twigbridge": "0.6.*",
-        "stolz/assets": "dev-master",
-        "components/jquery": "1.11.*@dev",
+        "stolz/assets": "0.0.*",
+        "components/jquery": "1.11.*",
         "twbs/bootstrap": "3.3.*",
-        "components/font-awesome": "4.2.*@dev",
+        "fortawesome/font-awesome": "4.3.0",
         "afarkas/html5shiv": "dev-master",
-        "rogeriopradoj/respond": "dev-composer",
-        "kwipi/famfamfam-flags": "dev-master",
+        "rogeriopradoj/respond": "1.4.2",
         "datatables/datatables": "dev-master",
-        "sheillendra/raphael": "dev-master",
-        "nesbot/Carbon": "*"
+        "sheillendra/raphael": "dev-master"
     },
     "autoload": {
         "classmap": [
