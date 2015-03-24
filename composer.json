@@ -11,6 +11,7 @@
         "laravelcollective/html": "~5.0",
         "components/jquery": "dev-master",
         "twbs/bootstrap": "3.3.*@dev",
+        "eonasdan/bootstrap-datetimepicker": "dev-master",
         "fortawesome/font-awesome": "4.3.0",
         "afarkas/html5shiv": "dev-master",
         "rogeriopradoj/respond": "1.4.2",
@@ -45,7 +46,8 @@
             "php artisan optimize",
             "php artisan route:clear",
             "php artisan config:cache",
-            "php artisan asset:flush --force"
+            "php artisan asset:flush --force",
+            "php artisan twig:clean"
         ],
         "post-create-project-cmd": [
             "php -r \"copy('.env.example', '.env');\"",

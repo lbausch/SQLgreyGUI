@@ -2,6 +2,7 @@
 
 namespace SQLgreyGUI\Repositories;
 
+use Carbon\Carbon;
 use SQLgreyGUI\Models\Greylist;
 
 interface GreylistRepositoryInterface extends BaseRepositoryInterface
@@ -30,4 +31,12 @@ interface GreylistRepositoryInterface extends BaseRepositoryInterface
      * @return bool
      */
     public function destroy(Greylist $greylist);
+
+    /**
+     * destroy entries older than given date
+     * 
+     * @param Carbon $date
+     * @return int
+     */
+    public function destroyOlderThan(Carbon $date);
 }

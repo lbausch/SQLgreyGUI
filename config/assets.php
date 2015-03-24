@@ -132,6 +132,14 @@ return array(
                 'dataTables.responsive.css',
             ],
             
+            'datetimepicker' => [
+                'jquery',
+                'moment.js',
+                'bootstrap',
+                'bootstrap-datetimepicker.js',
+                'bootstrap-datetimepicker.css',
+            ],
+            
             'font-awesome' => [
                 'font-awesome.css',
             ],
