@@ -33,6 +33,10 @@ abstract class Controller extends BaseController
      */
     public function __construct()
     {
+        if (\Auth::viaRemember()) {
+            \Auth::login(\Auth::User());
+        }
+
         if (\Auth::check()) {
             $this->user = \Auth::User();
 
