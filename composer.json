@@ -6,7 +6,7 @@
     "type": "project",
     "require": {
         "laravel/framework": "5.0.*",
-        "rcrowe/twigbridge": "0.7.x@dev",
+        "rcrowe/twigbridge": "0.7.x",
         "stolz/assets": "0.1.*",
         "laravelcollective/html": "~5.0",
         "components/jquery": "dev-master",
