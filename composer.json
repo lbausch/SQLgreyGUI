@@ -6,11 +6,11 @@
     "type": "project",
     "require": {
         "laravel/framework": "5.0.*",
-        "rcrowe/twigbridge": "0.7.x@dev",
+        "rcrowe/twigbridge": "0.7.x",
         "stolz/assets": "0.1.*",
         "laravelcollective/html": "~5.0",
         "components/jquery": "dev-master",
-        "twbs/bootstrap": "3.3.*@dev",
+        "twbs/bootstrap": "~3.3",
         "eonasdan/bootstrap-datetimepicker": "dev-master",
         "fortawesome/font-awesome": "4.3.0",
         "afarkas/html5shiv": "dev-master",
