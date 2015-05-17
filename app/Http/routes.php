@@ -10,6 +10,7 @@ Route::group(['middleware' => 'auth'], function() {
     post('greylist/live', 'GreylistController@live');
     post('greylist/delete', 'GreylistController@delete');
     post('greylist/move', 'GreylistController@move');
+    post('greylist/deletebydate', 'GreylistController@deleteByDate');
 
     // Whitelist
     get('whitelist/emails', 'WhitelistController@showEmails');

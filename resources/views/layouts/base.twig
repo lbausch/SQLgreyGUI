@@ -61,7 +61,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            {% for alert_type in ['success', 'info', 'warning', 'danger'] %}
+                            {% for alert_type in ['success', 'info', 'warning', 'error'] %}
                                 {% if Session.has(alert_type) %}
                                     <div class="row" style="margin-top:10px;">
                                         <div class="col-md-6">

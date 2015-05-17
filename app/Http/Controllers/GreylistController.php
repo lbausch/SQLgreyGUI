@@ -4,6 +4,7 @@ namespace SQLgreyGUI\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Assets;
 use SQLgreyGUI\Repositories\GreylistRepositoryInterface as Greylist;
 
 class GreylistController extends Controller
@@ -35,6 +36,9 @@ class GreylistController extends Controller
      */
     public function index()
     {
+
+        Assets::add('datetimepicker');
+
         $carbon = Carbon::now();
         $timestamp = $carbon->getTimestamp();
 
@@ -74,7 +78,30 @@ class GreylistController extends Controller
         }
 
         return redirect(action('GreylistController@index'))
-                        ->with('success', 'deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
+                        ->withSuccess('deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
+    }
+
+    /**
+     * delete by date
+     * 
+     * @param Request $req
+     * @return Response
+     */
+    public function deleteByDate(Request $req)
+    {
+        $date = $req->input('delete_by_date');
+
+        if (!$date) {
+            return redirect(action('GreylistController@index'))
+                            ->withError('invalid date');
+        }
+
+        $carbon = Carbon::createFromFormat('Y-m-d H:i', $date);
+
+        $num = $this->repo->destroyOlderThan($carbon);
+
+        return redirect(action('GreylistController@index'))
+                        ->withSuccess('deleted entries: ' . $num);
     }
 
     /**

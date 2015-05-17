@@ -73,4 +73,10 @@ class GreylistRepositoryEloquent implements GreylistRepositoryInterface
                         ->delete();
     }
 
+    public function destroyOlderThan(Carbon $date)
+    {
+        return Greylist::where('first_seen', '<=', $date->format('Y-m-d H:i:s'))
+                        ->delete();
+    }
+
 }

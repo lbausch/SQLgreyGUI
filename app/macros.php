@@ -3,11 +3,18 @@
 use Collective\Html\HtmlBuilder as Html;
 
 Html::macro('alert', function($type = 'info', $message) {
-    if (!in_array($type, array('success', 'info', 'warning', 'danger'))) {
+    $types = [
+        'success' => 'success',
+        'info' => 'info',
+        'warning' => 'warning',
+        'error' => 'danger'
+    ];
+
+    if (!isset($types[$type])) {
         return false;
     }
 
-    return View::make('macros.alert-' . $type)
+    return View::make('macros.alert-' . $types[$type])
                     ->with('message', $message);
 });
 
