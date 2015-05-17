@@ -10,7 +10,7 @@
         "stolz/assets": "0.1.*",
         "laravelcollective/html": "~5.0",
         "components/jquery": "dev-master",
-        "twbs/bootstrap": "3.3.*@dev",
+        "twbs/bootstrap": "~3.3",
         "fortawesome/font-awesome": "4.3.0",
         "afarkas/html5shiv": "dev-master",
         "rogeriopradoj/respond": "1.4.2",
