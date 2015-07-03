@@ -16,7 +16,7 @@ Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel 
 ## Requirements
 * working SQLgrey setup
 * Webserver (e.g. Apache) and Database (e.g. MySQL)
-* PHP >= 5.4.0
+* PHP >= 5.5.9
 
 
 ## Installation in 7 simple steps
