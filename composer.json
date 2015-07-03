@@ -5,10 +5,10 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "laravel/framework": "5.0.*",
+        "laravel/framework": "5.1.*",
         "rcrowe/twigbridge": "0.7.x",
-        "stolz/assets": "0.1.*",
-        "laravelcollective/html": "~5.0",
+        "stolz/assets": "^0.1.2",
+        "laravelcollective/html": "5.1.*",
         "components/jquery": "dev-master",
         "twbs/bootstrap": "~3.3",
         "eonasdan/bootstrap-datetimepicker": "dev-master",
@@ -16,7 +16,8 @@
         "afarkas/html5shiv": "dev-master",
         "rogeriopradoj/respond": "1.4.2",
         "datatables/datatables": "dev-master",
-        "spatie/laravel-tail": "dev-master"
+        "spatie/laravel-tail": "dev-master",
+        "roave/security-advisories": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
