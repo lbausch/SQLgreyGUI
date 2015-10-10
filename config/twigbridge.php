@@ -65,8 +65,8 @@ return [
             'strict_variables' => false,
 
             // If set to true, auto-escaping will be enabled by default for all templates.
-            // default: true
-            'autoescape' => true,
+            // default: 'html'
+            'autoescape' => 'html',
 
             // A flag that indicates which optimizations to apply
             // (default to -1 -- all optimizations are enabled; set it to 0 to disable)
@@ -84,9 +84,9 @@ return [
         */
         'globals' => [],
     ],
-    
+
     'extensions' => [
-    
+
         /*
         |--------------------------------------------------------------------------
         | Extensions
@@ -104,13 +104,13 @@ return [
 
             'TwigBridge\Extension\Laravel\Auth',
             'TwigBridge\Extension\Laravel\Config',
-            
+            'TwigBridge\Extension\Laravel\Dump',
             'TwigBridge\Extension\Laravel\Input',
             'TwigBridge\Extension\Laravel\Session',
             'TwigBridge\Extension\Laravel\String',
             'TwigBridge\Extension\Laravel\Translator',
             'TwigBridge\Extension\Laravel\Url',
-            
+
             // 'TwigBridge\Extension\Laravel\Form',
             // 'TwigBridge\Extension\Laravel\Html',
             // 'TwigBridge\Extension\Laravel\Legacy\Facades',
@@ -150,11 +150,11 @@ return [
                     'js',
                 ],
             ],
-            
+
             'Form' => [
                 'is_safe' => true,
             ],
-            
+
             'Html' => [
                 'is_safe' => [
                     'alert',
@@ -164,7 +164,7 @@ return [
                     'listDomains',
                 ],
             ],
-            
+
             'Session' => [
                 'is_safe' => [
                     'get',
@@ -203,9 +203,8 @@ return [
         |
         */
         'functions' => [
-            'dd',
             'elixir',
-            'head', 
+            'head',
             'last',
         ],
 
@@ -237,6 +236,8 @@ return [
         | </code>
         |
         */
-        'filters' => [],
-    ],  
+        'filters' => [
+            'get' => 'data_get',
+        ],
+    ],
 ];

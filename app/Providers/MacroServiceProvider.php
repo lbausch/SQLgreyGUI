@@ -6,11 +6,8 @@ use Illuminate\Support\ServiceProvider;
 
 class MacroServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap the application services.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -19,13 +16,10 @@ class MacroServiceProvider extends ServiceProvider
 
     /**
      * Register the application services.
-     *
-     * @return void
      */
     public function register()
     {
         // Load macros
-        require app_path() . DIRECTORY_SEPARATOR . 'macros.php';
+        require app_path().DIRECTORY_SEPARATOR.'macros.php';
     }
-
 }

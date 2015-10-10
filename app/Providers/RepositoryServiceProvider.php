@@ -6,10 +6,9 @@ use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
-
     /**
      * Bindings for Repositories
-     * Interface => Implementation
+     * Interface => Implementation.
      * 
      * @var array
      */
@@ -26,8 +25,6 @@ class RepositoryServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap the application services.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -36,8 +33,6 @@ class RepositoryServiceProvider extends ServiceProvider
 
     /**
      * Register the application services.
-     *
-     * @return void
      */
     public function register()
     {
@@ -45,5 +40,4 @@ class RepositoryServiceProvider extends ServiceProvider
             $this->app->singleton($abstract, $concrete);
         }
     }
-
 }

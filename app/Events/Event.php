@@ -1,7 +1,8 @@
-<?php namespace SQLgreyGUI\Events;
+<?php
 
-abstract class Event {
+namespace SQLgreyGUI\Events;
 
-	//
-
+abstract class Event
+{
+    //
 }

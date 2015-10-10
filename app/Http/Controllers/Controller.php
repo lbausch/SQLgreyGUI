@@ -2,43 +2,37 @@
 
 namespace SQLgreyGUI\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesCommands;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Auth;
 
 abstract class Controller extends BaseController
 {
-
-    use DispatchesCommands,
-        ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
-     * the user id
-     * 
+     * the user id.
+     *
      * @var int
      */
     protected $userid;
 
     /**
-     * User
-     * 
+     * User.
+     *
      * @var \SQLgreyGUI\Models\User
      */
     protected $user;
 
     /**
-     * Constructor
-     * 
-     * @return void
+     * Constructor.
      */
     public function __construct()
     {
-        if (\Auth::viaRemember()) {
-            \Auth::login(\Auth::User());
-        }
-
-        if (\Auth::check()) {
-            $this->user = \Auth::User();
+        if (Auth::check()) {
+            $this->user = Auth::User();
 
             $this->userid = $this->user->getId();
 
@@ -48,8 +42,8 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * parse provided entries
-     * 
+     * parse provided entries.
+     *
      * @return array
      */
     protected function parseEntries($input_identifier, $repository)
@@ -70,8 +64,8 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * get name of the current controller
-     * 
+     * get name of the current controller.
+     *
      * @return string
      */
     protected function getController()
@@ -82,25 +76,24 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * get action
-     * 
+     * get action.
+     *
      * @param string $action
-     * 
+     *
      * @return string
      */
     public function getAction($action)
     {
-        return $this->getController() . '@' . $action;
+        return $this->getController().'@'.$action;
     }
 
     /**
-     * is ajax request
-     * 
-     * @return boolean
+     * is ajax request.
+     *
+     * @return bool
      */
     protected function isAjax()
     {
         return \Request::ajax();
     }
-
 }
