@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: SQLgreyGUI
-        psr4_prefix: SQLgreyGUI
+        namespace: App
+        psr4_prefix: App
         src_path: app

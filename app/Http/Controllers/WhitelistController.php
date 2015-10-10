@@ -10,25 +10,24 @@ use SQLgreyGUI\Models\AwlDomain as Domain;
 
 class WhitelistController extends Controller
 {
-
     /**
-     * email repository
-     * 
+     * Email repository.
+     *
      * @var Emails
      */
     private $emails;
 
     /**
-     * domain repository
-     * 
+     * Domain repository.
+     *
      * @var Domains
      */
     private $domains;
 
     /**
-     * Constructor
-     * 
-     * @param Emails $emails
+     * Constructor.
+     *
+     * @param Emails  $emails
      * @param Domains $domains
      */
     public function __construct(Emails $emails, Domains $domains)
@@ -40,22 +39,22 @@ class WhitelistController extends Controller
     }
 
     /**
-     * show emails
+     * Show emails.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function showEmails()
     {
         $emails = $this->emails->findAll();
 
         return view('whitelist.emails')
-                        ->with('whitelist_emails', $emails);
+            ->with('whitelist_emails', $emails);
     }
 
     /**
-     * add email
-     * 
-     * @return Response
+     * Add email.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function addEmail(Request $req)
     {
@@ -66,47 +65,47 @@ class WhitelistController extends Controller
         $this->emails->store($new_email);
 
         return redirect(action('WhitelistController@showEmails'))
-                        ->withSuccess($new_email->getSenderName() . '@' . $new_email->getSenderDomain() . ' from ' . $new_email->getSource() . ' added');
+            ->withSuccess($new_email->getSenderName().'@'.$new_email->getSenderDomain().' from '.$new_email->getSource().' added');
     }
 
     /**
-     * delete emails
-     * 
-     * @return Response
+     * Delete emails.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function deleteEmails()
     {
-        $items = $this->parseEntries('whitelist_emails', 'SQLgreyGUI\Repositories\AwlEmailRepositoryInterface');
+        $items = $this->parseEntries('whitelist_emails', \SQLgreyGUI\Repositories\AwlEmailRepositoryInterface::class);
 
         $message = [];
 
         foreach ($items as $key => $val) {
             $this->emails->destroy($val);
 
-            $message[] = '<li>' . $val->getSenderName() . '@' . $val->getSenderDomain() . ' from ' . $val->getSource() . '</li>';
+            $message[] = '<li>'.$val->getSenderName().'@'.$val->getSenderDomain().' from '.$val->getSource().'</li>';
         }
 
         return redirect(action('WhitelistController@showEmails'))
-                        ->withSuccess('deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
+            ->withSuccess('deleted the following entries:<ul>'.implode(PHP_EOL, $message).'</ul>');
     }
 
     /**
-     * show domains
+     * Show domains.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function showDomains()
     {
         $domains = $this->domains->findAll();
 
         return view('whitelist.domains')
-                        ->with('whitelist_domains', $domains);
+            ->with('whitelist_domains', $domains);
     }
 
     /**
-     * add domain
-     * 
-     * @return Response
+     * Add domain.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function addDomain(Request $req)
     {
@@ -117,28 +116,27 @@ class WhitelistController extends Controller
         $this->domains->store($new_domain);
 
         return redirect(action('WhitelistController@showDomains'))
-                        ->withSuccess($new_domain->getSenderDomain() . ' from ' . $new_domain->getSource() . ' added');
+            ->withSuccess($new_domain->getSenderDomain().' from '.$new_domain->getSource().' added');
     }
 
     /**
-     * delete domains
-     * 
-     * @return Response
+     * Delete domains.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function deleteDomains()
     {
-        $items = $this->parseEntries('whitelist_domains', 'SQLgreyGUI\Repositories\AwlDomainRepositoryInterface');
+        $items = $this->parseEntries('whitelist_domains', \SQLgreyGUI\Repositories\AwlDomainRepositoryInterface::class);
 
         $message = [];
 
         foreach ($items as $key => $val) {
             $this->domains->destroy($val);
 
-            $message[] = '<li>' . $val->getSenderDomain() . ' from ' . $val->getSource() . '</li>';
+            $message[] = '<li>'.$val->getSenderDomain().' from '.$val->getSource().'</li>';
         }
 
         return redirect(action('WhitelistController@showDomains'))
-                        ->withSuccess('deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
+            ->withSuccess('deleted the following entries:<ul>'.implode(PHP_EOL, $message).'</ul>');
     }
-
 }

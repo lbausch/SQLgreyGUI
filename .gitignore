@@ -1,12 +1,11 @@
 /vendor
 /node_modules
+Homestead.yaml
+Homestead.json
 .env
-
-## Composer
-composer.lock
-
-## Assets
-/public/assets/min
 
 ## PhpStorm
 .idea/
+
+## Assets
+/public/assets/min

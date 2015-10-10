@@ -5,21 +5,21 @@ namespace SQLgreyGUI\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Assets;
+use DB;
 use SQLgreyGUI\Repositories\GreylistRepositoryInterface as Greylist;
 
 class GreylistController extends Controller
 {
-
     /**
-     * Repository
-     * 
+     * Repository.
+     *
      * @var Greylist
      */
     private $repo;
 
     /**
-     * Constructor 
-     * 
+     * Constructor.
+     *
      * @param Greylist $repo
      */
     public function __construct(Greylist $repo)
@@ -30,13 +30,12 @@ class GreylistController extends Controller
     }
 
     /**
-     * index
+     * Index.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-
         Assets::add('datetimepicker');
 
         $carbon = Carbon::now();
@@ -44,7 +43,7 @@ class GreylistController extends Controller
 
         $data = $this->repo->findAll();
 
-        $user_repo = app('SQLgreyGUI\Repositories\UserRepositoryInterface');
+        $user_repo = app(\SQLgreyGUI\Repositories\UserRepositoryInterface::class);
 
         $users = $user_repo->findAll();
 
@@ -55,37 +54,38 @@ class GreylistController extends Controller
         }
 
         return view('greylist.index')
-                        ->with('greylist', $data)
-                        ->with('timestamp', $timestamp)
-                        ->with('user_emails', $user_emails);
+            ->with('greylist', $data)
+            ->with('timestamp', $timestamp)
+            ->with('user_emails', $user_emails);
     }
 
     /**
-     * delete entries
-     * 
-     * @return Response
+     * Delete entries.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function delete()
     {
-        $items = $this->parseEntries('greylist', 'SQLgreyGUI\Repositories\GreylistRepositoryInterface');
+        $items = $this->parseEntries('greylist', Greylist::class);
 
         $message = [];
 
         foreach ($items as $key => $val) {
             $this->repo->destroy($val);
 
-            $message[] = '<li>' . $val->getSenderName() . '@' . $val->getSenderDomain() . ' from ' . $val->getSource() . ' for ' . $val->getRecipient() . '</li>';
+            $message[] = '<li>'.$val->getSenderName().'@'.$val->getSenderDomain().' from '.$val->getSource().' for '.$val->getRecipient().'</li>';
         }
 
         return redirect(action('GreylistController@index'))
-                        ->withSuccess('deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
+            ->withSuccess('deleted the following entries:<ul>'.implode(PHP_EOL, $message).'</ul>');
     }
 
     /**
-     * delete by date
-     * 
+     * Delete by date.
+     *
      * @param Request $req
-     * @return Response
+     *
+     * @return \Illuminate\Http\Response
      */
     public function deleteByDate(Request $req)
     {
@@ -93,7 +93,7 @@ class GreylistController extends Controller
 
         if (!$date) {
             return redirect(action('GreylistController@index'))
-                            ->withError('invalid date');
+                ->withError('invalid date');
         }
 
         $carbon = Carbon::createFromFormat('Y-m-d H:i', $date);
@@ -101,19 +101,19 @@ class GreylistController extends Controller
         $num = $this->repo->destroyOlderThan($carbon);
 
         return redirect(action('GreylistController@index'))
-                        ->withSuccess('deleted entries: ' . $num);
+            ->withSuccess('deleted entries: '.$num);
     }
 
     /**
-     * move entries
-     * 
-     * @return Response
+     * Move entries.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function move()
     {
-        $items = $this->parseEntries('greylist', 'SQLgreyGUI\Repositories\GreylistRepositoryInterface');
+        $items = $this->parseEntries('greylist', Greylist::class);
 
-        $whitelist = app('SQLgreyGUI\Repositories\AwlEmailRepositoryInterface');
+        $whitelist = app(\SQLgreyGUI\Repositories\AwlEmailRepositoryInterface::class);
 
         $messages = [];
 
@@ -127,7 +127,7 @@ class GreylistController extends Controller
                 'last_seen' => $val->getFirstSeen(),
             ]);
 
-            \DB::transaction(function() use (&$val, &$email, &$whitelist) {
+            DB::transaction(function () use (&$val, &$email, &$whitelist) {
                 // delete from Greylist
                 $this->repo->destroy($val);
 
@@ -135,16 +135,17 @@ class GreylistController extends Controller
                 $whitelist->store($email);
             });
 
-            $messages[] = '<li>' . $email->getSenderName() . '@' . $email->getSenderDomain() . ' from ' . $email->getSource() . '</li>';
+            $messages[] = '<li>'.$email->getSenderName().'@'.$email->getSenderDomain().' from '.$email->getSource().'</li>';
         }
 
         return redirect(action('GreylistController@index'))
-                        ->withSuccess('moved the following entries to the Whitelist: <ul>' . implode(PHP_EOL, $messages) . '</ul>');
+            ->withSuccess('moved the following entries to the Whitelist: <ul>'.implode(PHP_EOL, $messages).'</ul>');
     }
 
     /**
-     * 
-     * @return json
+     * Live.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function live(Request $req)
     {
@@ -162,7 +163,7 @@ class GreylistController extends Controller
 //        ]));
 
         if ($new_entries->count() < 1) {
-            return \Response::json(['timestamp' => $now]);
+            return response()->json(['timestamp' => $now]);
         }
 
         $payload = [];
@@ -171,13 +172,12 @@ class GreylistController extends Controller
         foreach ($new_entries as $key => $val) {
             $payload[$i] = $val->toArray();
             $payload[$i]['checkbox'] = \Form::checkbox('greylist[]', \Html::cval($val));
-            $i++;
+            ++$i;
         }
 
-        return \Response::json([
-                    'timestamp' => $now,
-                    'payload' => $payload,
+        return response()->json([
+            'timestamp' => $now,
+            'payload' => $payload,
         ]);
     }
-
 }

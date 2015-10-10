@@ -4,20 +4,20 @@ namespace SQLgreyGUI\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SQLgreyGUI\Repositories\UserRepositoryInterface as Users;
+use Hash;
 
 class SettingController extends Controller
 {
-
     /**
-     * Repository
-     * 
+     * Repository.
+     *
      * @var Users
      */
     private $users;
 
     /**
-     * Constructor
-     * 
+     * Constructor.
+     *
      * @param Users $users
      */
     public function __construct(Users $users)
@@ -30,7 +30,7 @@ class SettingController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -38,9 +38,9 @@ class SettingController extends Controller
     }
 
     /**
-     * show change password from
-     * 
-     * @return Response
+     * Show change password from.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function changePassword()
     {
@@ -48,9 +48,9 @@ class SettingController extends Controller
     }
 
     /**
-     * change the user password
-     * 
-     * @return Response
+     * Change the user password.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function password(Request $req)
     {
@@ -64,25 +64,25 @@ class SettingController extends Controller
 
         $teh_user = $this->users->findById($this->userid);
 
-        if (\Hash::check($req->input('password'), $teh_user->getPassword())) {
+        if (Hash::check($req->input('password'), $teh_user->getPassword())) {
             $teh_user->setPassword($req->input('password_new'));
         } else {
             return redirect(action('SettingController@changePassword'))
-                            ->withErrors(['password' => 'The provided password is not correct']);
+                ->withErrors(['password' => 'The provided password is not correct']);
         }
 
-        // update the user
+        // Update the user
         $teh_user->setPassword($req->input('password_new'));
         $this->users->update($teh_user);
 
         return redirect(action('SettingController@index'))
-                        ->withSuccess('Password has been changed');
+            ->withSuccess('Password has been changed');
     }
 
     /**
-     * show form
-     * 
-     * @return Response
+     * Show form.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function changeEmail()
     {
@@ -90,9 +90,9 @@ class SettingController extends Controller
     }
 
     /**
-     * change email
-     * 
-     * @return Response
+     * Change email.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function email(Request $req)
     {
@@ -109,7 +109,6 @@ class SettingController extends Controller
         $this->users->update($teh_user);
 
         return redirect(action('SettingController@index'))
-                        ->withSuccess('eMail has been updated');
+            ->withSuccess('eMail has been updated');
     }
-
 }
