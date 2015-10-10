@@ -6,45 +6,44 @@ use Illuminate\Http\Request;
 
 class OptController extends Controller
 {
-
     /**
-     * view directory
-     * 
+     * View directory.
+     *
      * @var string
      */
     protected $view_directory;
 
     /**
-     * domain repository
-     * 
+     * Domain repository.
+     *
      * @var OptDomainRepositoryInterface
      */
     protected $domains;
 
     /**
-     * email repository
-     * 
+     * Email repository.
+     *
      * @var OptEmailRepositoryInterface
      */
     protected $emails;
 
     /**
-     * show emails
+     * Show emails.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function showEmails()
     {
         $emails = $this->emails->findAll();
 
-        return view($this->view_directory . '.emails')
-                        ->with('emails', $emails);
+        return view($this->view_directory.'.emails')
+            ->with('emails', $emails);
     }
 
     /**
-     * add email
-     * 
-     * @return Response
+     * Add email.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function addEmail(Request $req)
     {
@@ -55,26 +54,26 @@ class OptController extends Controller
         $this->emails->store($new_email);
 
         return redirect(action($this->getAction('showEmails')))
-                        ->withSuccess($new_email->getEmail() . ' has been added');
+            ->withSuccess($new_email->getEmail().' has been added');
     }
 
     /**
-     * show domains
+     * Show domains.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function showDomains()
     {
         $domains = $this->domains->findAll();
 
-        return view($this->view_directory . '.domains')
-                        ->with('domains', $domains);
+        return view($this->view_directory.'.domains')
+            ->with('domains', $domains);
     }
 
     /**
-     * add domain
-     * 
-     * @return Response
+     * Add domain.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function addDomain(Request $req)
     {
@@ -85,7 +84,6 @@ class OptController extends Controller
         $this->domains->store($new_domain);
 
         return redirect(action($this->getAction('showDomains')))
-                        ->withSuccess($new_domain->getDomain() . ' has been added');
+            ->withSuccess($new_domain->getDomain().' has been added');
     }
-
 }

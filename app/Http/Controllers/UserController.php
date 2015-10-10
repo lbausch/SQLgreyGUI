@@ -5,20 +5,20 @@ namespace SQLgreyGUI\Http\Controllers;
 use Illuminate\Http\Request;
 use SQLgreyGUI\Repositories\UserRepositoryInterface as Users;
 use SQLgreyGUI\Models\User as User;
+use Validator;
 
 class UserController extends Controller
 {
-
     /**
-     * user repository
-     * 
+     * User repository.
+     *
      * @var Users
      */
     private $users;
 
     /**
-     * constructor
-     * 
+     * constructor.
+     *
      * @param Users $users
      */
     public function __construct(Users $users)
@@ -29,47 +29,47 @@ class UserController extends Controller
     }
 
     /**
-     * draw the users table
-     * 
-     * @return Respone
+     * Draw the users table.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function getTable()
     {
         $users = $this->users->findAll();
 
         return view('user.table')
-                        ->with('users', $users);
+            ->with('users', $users);
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         return view('user.index')
-                        ->with('users_table', $this->getTable());
+            ->with('users_table', $this->getTable());
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
         return view('user.form')
-                        ->with('form', [
-                            'action' => 'UserController@store',
-                            'method' => 'POST',
-        ]);
+            ->with('form', [
+                'action' => 'UserController@store',
+                'method' => 'POST',
+            ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $req)
     {
@@ -85,7 +85,7 @@ class UserController extends Controller
             $new_user->setEnabled(false);
         }
 
-        $message = 'User ' . $new_user->getUsername() . ' (' . $new_user->getEmail() . ') was created.';
+        $message = 'User '.$new_user->getUsername().' ('.$new_user->getEmail().') was created.';
 
         if (!@$input['password'] && !@$input['password_confirmation']) {
             // generate a random password
@@ -94,20 +94,20 @@ class UserController extends Controller
             $input['password'] = $random_password;
             $input['password_confirmation'] = $random_password;
 
-            $message .= '<br />Password: ' . $random_password;
+            $message .= '<br />Password: '.$random_password;
         }
 
         $new_user->setPassword($input['password']);
 
-        $validator = \Validator::make($input, User::$rules['store']);
+        $validator = Validator::make($input, User::$rules['store']);
 
+        // @TODO: refactor
         if (!$validator->passes()) {
             \Input::flashExcept('password', 'password_confirmation');
 
             return $this->create()
-                            ->withErrors($validator);
+                ->withErrors($validator);
         }
-
 
         $this->users->store($new_user);
 
@@ -117,8 +117,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -128,8 +129,9 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -137,19 +139,20 @@ class UserController extends Controller
 
         if ($this->isAjax()) {
             return view('user.form')
-                            ->with('form', [
-                                'action' => ['UserController@update', $id],
-                                'method' => 'PUT',
-                            ])
-                            ->with('userdata', $data);
+                ->with('form', [
+                    'action' => ['UserController@update', $id],
+                    'method' => 'PUT',
+                ])
+                ->with('userdata', $data);
         }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $req, $id)
     {
@@ -168,7 +171,7 @@ class UserController extends Controller
         $user->setUsername($input['username']);
         $user->setEmail($input['email']);
 
-        $message = 'User ' . $user->getUsername() . ' (' . $user->getEmail() . ') has been updated.';
+        $message = 'User '.$user->getUsername().' ('.$user->getEmail().') has been updated.';
 
         if (!@$input['password'] && !@$input['password_confirmation']) {
             unset($input['password']);
@@ -178,13 +181,13 @@ class UserController extends Controller
         $rules = User::$rules['update'];
         $rules['username'] .= $id;
 
-        $validator = \Validator::make($input, $rules);
+        $validator = Validator::make($input, $rules);
 
         if (!$validator->passes()) {
             \Input::flashExcept('password', 'password_confirmation');
 
             return $this->edit($id)
-                            ->withErrors($validator);
+                ->withErrors($validator);
         }
 
         if (@$input['password'] && @$input['password_confirmation']) {
@@ -201,8 +204,9 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
@@ -210,9 +214,9 @@ class UserController extends Controller
     }
 
     /**
-     * delete multiple users
-     * 
-     * @return Response
+     * Delete multiple users.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function deleteUsers(Request $req)
     {
@@ -230,12 +234,11 @@ class UserController extends Controller
             $delete_user = $this->users->findById($val);
 
             if ($this->users->destroy($delete_user)) {
-                $num_deletes++;
+                ++$num_deletes;
             }
         }
 
         return redirect(action($this->getAction('index')))
-                        ->withSuccess('Deleted Users: ' . $num_deletes);
+            ->withSuccess('Deleted Users: '.$num_deletes);
     }
-
 }

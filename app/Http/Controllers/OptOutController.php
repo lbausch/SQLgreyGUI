@@ -7,12 +7,11 @@ use SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface as Emails;
 
 class OptOutController extends OptController
 {
-
     /**
-     * Constructor
+     * Constructor.
      *
      * @param Domains $domains
-     * @param Emails $emails
+     * @param Emails  $emails
      */
     public function __construct(Domains $domains, Emails $emails)
     {
@@ -25,45 +24,44 @@ class OptOutController extends OptController
     }
 
     /**
-     * delete emails
-     * 
-     * @return Respone
+     * Delete emails.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function deleteEmails()
     {
-        $items = $this->parseEntries('emails', 'SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface');
+        $items = $this->parseEntries('emails', \SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface::class);
 
         $message = [];
 
         foreach ($items as $key => $val) {
             $this->emails->destroy($val);
 
-            $message[] = '<li>' . $val->getEmail() . '</li>';
+            $message[] = '<li>'.$val->getEmail().'</li>';
         }
 
         return redirect(action('OptOutController@showEmails'))
-                        ->withSuccess('deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
+            ->withSuccess('deleted the following entries:<ul>'.implode(PHP_EOL, $message).'</ul>');
     }
 
     /**
-     * delete domains
-     * 
+     * Delete domains.
+     *
      * @return Respone
      */
     public function deleteDomains()
     {
-        $items = $this->parseEntries('domains', 'SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface');
+        $items = $this->parseEntries('domains', \SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface::class);
 
         $message = [];
 
         foreach ($items as $key => $val) {
             $this->domains->destroy($val);
 
-            $message[] = '<li>' . $val->getDomain() . '</li>';
+            $message[] = '<li>'.$val->getDomain().'</li>';
         }
 
         return redirect(action('OptOutController@showDomains'))
-                        ->withSuccess('deleted the following entries:<ul>' . implode(PHP_EOL, $message) . '</ul>');
+            ->withSuccess('deleted the following entries:<ul>'.implode(PHP_EOL, $message).'</ul>');
     }
-
 }

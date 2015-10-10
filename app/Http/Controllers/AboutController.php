@@ -4,11 +4,8 @@ namespace SQLgreyGUI\Http\Controllers;
 
 class AboutController extends Controller
 {
-
     /**
-     * Constructor
-     * 
-     * @return void
+     * Constructor.
      */
     public function __construct()
     {
@@ -16,13 +13,12 @@ class AboutController extends Controller
     }
 
     /**
-     * index
+     * Index.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         return view('about.index');
     }
-
 }

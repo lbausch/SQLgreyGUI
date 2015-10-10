@@ -7,13 +7,14 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Auth;
+use Request;
 
 abstract class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
-     * the user id.
+     * The user id.
      *
      * @var int
      */
@@ -42,13 +43,13 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * parse provided entries.
+     * Parse provided entries.
      *
      * @return array
      */
     protected function parseEntries($input_identifier, $repository)
     {
-        $items_tmp = \Request::input($input_identifier, array());
+        $items_tmp = Request::input($input_identifier, array());
 
         $items = array();
 
@@ -64,7 +65,7 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * get name of the current controller.
+     * Get name of the current controller.
      *
      * @return string
      */
@@ -76,7 +77,7 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * get action.
+     * Get action.
      *
      * @param string $action
      *
@@ -88,12 +89,12 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * is ajax request.
+     * Is ajax request?
      *
      * @return bool
      */
     protected function isAjax()
     {
-        return \Request::ajax();
+        return Request::ajax();
     }
 }

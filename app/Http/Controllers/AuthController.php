@@ -3,14 +3,14 @@
 namespace SQLgreyGUI\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class AuthController extends Controller
 {
-
     /**
-     * show login form
+     * Show login form.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function showLogin()
     {
@@ -18,9 +18,9 @@ class AuthController extends Controller
     }
 
     /**
-     * login
-     * 
-     * @return Response
+     * Login.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function login(Request $req)
     {
@@ -36,35 +36,35 @@ class AuthController extends Controller
         $this->validate($req, $rules);
 
         // Try to log the user in.
-        if (\Auth::attempt([
-                    'username' => $req->input('username'),
-                    'password' => $req->input('password'),
-                    'enabled' => 1,
-                        ], $remember)) {
+        if (Auth::attempt([
+            'username' => $req->input('username'),
+            'password' => $req->input('password'),
+            'enabled' => 1,
+        ], $remember)
+        ) {
 
             // Redirect to dashboard
-            return \Redirect::intended('/')
-                            ->withSuccess('You have logged in successfully');
+            return redirect()->intended('/')
+                ->withSuccess('You have logged in successfully');
         }
 
         // Redirect to the login page
         return redirect(action('AuthController@showLogin'))
-                        ->withErrors(['general' => 'Username/ Password invalid'])
-                        ->withInput($req->except('password'));
+            ->withErrors(['general' => 'Username/ Password invalid'])
+            ->withInput($req->except('password'));
     }
 
     /**
-     * logout
+     * logout.
      *
      * @return Response
      */
     public function logout()
     {
-        \Auth::logout();
+        Auth::logout();
 
         // Redirect to homepage
         return redirect('/')
-                        ->withSuccess('You are logged out');
+            ->withSuccess('You are logged out');
     }
-
 }

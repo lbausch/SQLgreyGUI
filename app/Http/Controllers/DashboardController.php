@@ -2,79 +2,85 @@
 
 namespace SQLgreyGUI\Http\Controllers;
 
-use SQLgreyGUI\Repositories\GreylistRepositoryInterface as Greylist,
-    SQLgreyGUI\Repositories\AwlEmailRepositoryInterface as AwlEmail,
-    SQLgreyGUI\Repositories\AwlDomainRepositoryInterface as AwlDomain,
-    SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface as OptOutEmail,
-    SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface as OptOutDomain,
-    SQLgreyGUI\Repositories\OptInEmailRepositoryInterface as OptInEmail,
-    SQLgreyGUI\Repositories\OptInDomainRepositoryInterface as OptInDomain;
+use SQLgreyGUI\Repositories\GreylistRepositoryInterface as Greylist;
+use SQLgreyGUI\Repositories\AwlEmailRepositoryInterface as AwlEmail;
+use SQLgreyGUI\Repositories\AwlDomainRepositoryInterface as AwlDomain;
+use SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface as OptOutEmail;
+use SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface as OptOutDomain;
+use SQLgreyGUI\Repositories\OptInEmailRepositoryInterface as OptInEmail;
+use SQLgreyGUI\Repositories\OptInDomainRepositoryInterface as OptInDomain;
 
 class DashboardController extends Controller
 {
-
     /**
-     * Repository
-     * 
+     * Repository.
+     *
      * @var Greylist
      */
     private $greylist;
 
     /**
-     * Repository
-     * 
+     * Repository.
+     *
      * @var AwlEmail
      */
     private $awl_email;
 
     /**
-     * Repository
-     * 
+     * Repository.
+     *
      * @var AwlDomain
      */
     private $awl_domain;
 
     /**
-     * Repository
-     * 
+     * Repository.
+     *
      * @var OptOutEmail
      */
     private $optout_email;
 
     /**
-     * Repository
-     * 
+     * Repository.
+     *
      * @var OptOutDomain
      */
     private $optout_domain;
 
     /**
-     * Repository
-     * 
+     * Repository.
+     *
      * @var OptInEmail
      */
     private $optin_email;
 
     /**
-     * Repository
-     * 
+     * Repository.
+     *
      * @var OptInDomain
      */
     private $optin_domain;
 
     /**
-     * Constructor
-     * 
-     * @param Greylist $greylist
-     * @param AwlEmail $awl_email
-     * @param AwlDomain $awl_domain
-     * @param OptOutEmail $optput_email
+     * Constructor.
+     *
+     * @param Greylist     $greylist
+     * @param AwlEmail     $awl_email
+     * @param AwlDomain    $awl_domain
+     * @param OptOutEmail  $optput_email
      * @param OptOutDomain $optout_domain
-     * @param OptInEmail $optin_email
-     * @param OptInDomain $optin_domain
+     * @param OptInEmail   $optin_email
+     * @param OptInDomain  $optin_domain
      */
-    public function __construct(Greylist $greylist, AwlEmail $awl_email, AwlDomain $awl_domain, OptOutEmail $optput_email, OptOutDomain $optout_domain, OptInEmail $optin_email, OptInDomain $optin_domain)
-    {
+    public function __construct(
+        Greylist $greylist,
+        AwlEmail $awl_email,
+        AwlDomain $awl_domain,
+        OptOutEmail $optput_email,
+        OptOutDomain $optout_domain,
+        OptInEmail $optin_email,
+        OptInDomain $optin_domain
+    ) {
         parent::__construct();
 
         $this->greylist = $greylist;
@@ -87,9 +93,9 @@ class DashboardController extends Controller
     }
 
     /**
-     * index
+     * Index.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -104,7 +110,6 @@ class DashboardController extends Controller
         ];
 
         return view('dashboard.index')
-                        ->with('dashboard', $dashboard_data);
+            ->with('dashboard', $dashboard_data);
     }
-
 }
