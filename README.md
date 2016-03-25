@@ -3,7 +3,7 @@ SQLgreyGUI
 
 [![Build Status](https://travis-ci.org/lbausch/SQLgreyGUI.svg?branch=master)](https://travis-ci.org/lbausch/SQLgreyGUI)
 
-Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel 5](http://laravel.com/) Framework.
+Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel 5](https://laravel.com/) Framework.
 
 ## Features
 * Dashboard: quick overview of emails / domains in greylist, whitelist, opt-out and opt-in
@@ -33,3 +33,5 @@ Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel 
 ## Screenshots
 ![Dasboard](/../screenshots/dashboard.png?raw=true "Dashboard")
 ![Auto-Whitelist](/../screenshots/auto-whitelist.png?raw=true "Auto-Whitelist")
+
+Follow [SQLgreyGUI](https://twitter.com/sqlgreygui) on Twitter
