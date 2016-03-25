@@ -35,6 +35,17 @@ class OptInTest extends TestCase
             ], 'sqlite_sqlgrey');
     }
 
+    public function test_duplicate_emails_are_ignored()
+    {
+        $email = factory(\SQLgreyGUI\Models\OptInEmail::class)->create();
+
+        $this->actingAsAdmin()
+            ->visit(action('OptInController@showEmails'))
+            ->type($email->getEmail(), 'email')
+            ->press('save')
+            ->see($email->getEmail().' is already present');
+    }
+
     public function test_delete_email()
     {
         $email = factory(\SQLgreyGUI\Models\OptInEmail::class)->create();
@@ -75,6 +86,17 @@ class OptInTest extends TestCase
             ->seeInDatabase('optin_domain', [
                 'domain' => 'bar.baz',
             ], 'sqlite_sqlgrey');
+    }
+
+    public function test_duplicate_domains_are_ignored()
+    {
+        $domain = factory(\SQLgreyGUI\Models\OptInDomain::class)->create();
+
+        $this->actingAsAdmin()
+            ->visit(action('OptInController@showDomains'))
+            ->type($domain->getDomain(), 'domain')
+            ->press('save')
+            ->see($domain->getDomain().' is already present');
     }
 
     public function test_delete_domain()

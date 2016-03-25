@@ -43,18 +43,25 @@ class OptController extends Controller
     /**
      * Add email.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function addEmail(Request $req)
+    public function addEmail(Request $request)
     {
-        $new_email = $this->emails->instance($req->input());
+        $email = $this->emails->instance($request->input());
 
-        $this->validate($req, $new_email->rules);
+        $this->validate($request, $email->rules);
 
-        $this->emails->store($new_email);
+        if ($this->emails->findByEmail($email->getEmail())) {
+            return redact('_self@showEmails')
+                ->withWarning($email->getEmail().' is already present');
+        }
+
+        $this->emails->store($email);
 
         return redact('_self@showEmails')
-            ->withSuccess($new_email->getEmail().' has been added');
+            ->withSuccess($email->getEmail().' has been added');
     }
 
     /**
@@ -73,17 +80,24 @@ class OptController extends Controller
     /**
      * Add domain.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function addDomain(Request $req)
+    public function addDomain(Request $request)
     {
-        $new_domain = $this->domains->instance($req->input());
+        $domain = $this->domains->instance($request->input());
 
-        $this->validate($req, $new_domain->rules);
+        $this->validate($request, $domain->rules);
 
-        $this->domains->store($new_domain);
+        if ($this->domains->findByDomain($domain->getDomain())) {
+            return redact('_self@showDomains')
+                ->withWarning($domain->getDomain().' is already present');
+        }
+
+        $this->domains->store($domain);
 
         return redact('_self@showDomains')
-            ->withSuccess($new_domain->getDomain().' has been added');
+            ->withSuccess($domain->getDomain().' has been added');
     }
 }

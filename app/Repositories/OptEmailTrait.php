@@ -16,6 +16,13 @@ trait OptEmailTrait
         return $data;
     }
 
+    public function findByEmail($email)
+    {
+        return $this->model->where('email', $email)
+            ->get()
+            ->first();
+    }
+
     public function destroy($email)
     {
         return $this->model->where('email', $email->getEmail())->delete();

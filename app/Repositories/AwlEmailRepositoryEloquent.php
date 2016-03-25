@@ -18,6 +18,17 @@ class AwlEmailRepositoryEloquent extends BaseRepositoryEloquent implements AwlEm
         return $data;
     }
 
+    public function findByNameDomainSource($name, $domain, $source)
+    {
+        $email = $this->model->where('sender_name', $name)
+            ->where('sender_domain', $domain)
+            ->where('src', $source)
+            ->get()
+            ->first();
+
+        return $email;
+    }
+
     public function store($email)
     {
         return $this->model->insert(array(

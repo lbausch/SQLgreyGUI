@@ -16,6 +16,13 @@ trait OptDomainTrait
         return $data;
     }
 
+    public function findByDomain($domain)
+    {
+        return $this->model->where('domain', $domain)
+            ->get()
+            ->first();
+    }
+
     public function destroy($domain)
     {
         return $this->model->where('domain', $domain->getDomain())->delete();

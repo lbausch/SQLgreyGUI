@@ -35,6 +35,17 @@ class OptOutTest extends TestCase
             ], 'sqlite_sqlgrey');
     }
 
+    public function test_duplicate_emails_are_ignored()
+    {
+        $email = factory(\SQLgreyGUI\Models\OptOutEmail::class)->create();
+
+        $this->actingAsAdmin()
+            ->visit(action('OptOutController@showEmails'))
+            ->type($email->getEmail(), 'email')
+            ->press('save')
+            ->see($email->getEmail().' is already present');
+    }
+
     public function test_delete_email()
     {
         $email = factory(\SQLgreyGUI\Models\OptOutEmail::class)->create();
@@ -75,6 +86,17 @@ class OptOutTest extends TestCase
             ->seeInDatabase('optout_domain', [
                 'domain' => 'bar.baz',
             ], 'sqlite_sqlgrey');
+    }
+
+    public function test_duplicate_domains_are_ignored()
+    {
+        $domain = factory(\SQLgreyGUI\Models\OptOutDomain::class)->create();
+
+        $this->actingAsAdmin()
+            ->visit(action('OptOutController@showDomains'))
+            ->type($domain->getDomain(), 'domain')
+            ->press('save')
+            ->see($domain->getDomain().' is already present');
     }
 
     public function test_delete_domain()

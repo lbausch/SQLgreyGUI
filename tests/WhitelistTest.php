@@ -45,6 +45,19 @@ class WhitelistTest extends TestCase
             ], 'sqlite_sqlgrey');
     }
 
+    public function test_duplicate_emails_are_ignored()
+    {
+        $email = factory(\SQLgreyGUI\Models\AwlEmail::class)->create();
+
+        $this->actingAsAdmin()
+            ->visit(action('WhitelistController@showEmails'))
+            ->type($email->getSenderName(), 'sender_name')
+            ->type($email->getSenderDomain(), 'sender_domain')
+            ->type($email->getSource(), 'src')
+            ->press('save')
+            ->see($email->getSenderName().'@'.$email->getSenderDomain().' from '.$email->getSource().' is already whitelisted');
+    }
+
     public function test_delete_email_from_whitelist()
     {
         $email = factory(\SQLgreyGUI\Models\AwlEmail::class)->create();
@@ -94,6 +107,18 @@ class WhitelistTest extends TestCase
                 'sender_domain' => 'foobar.baz',
                 'src' => '127.0.0.1',
             ], 'sqlite_sqlgrey');
+    }
+
+    public function test_duplicate_domains_are_ignored()
+    {
+        $domain = factory(\SQLgreyGUI\Models\AwlDomain::class)->create();
+
+        $this->actingAsAdmin()
+            ->visit(action('WhitelistController@showDomains'))
+            ->type($domain->getSenderDomain(), 'sender_domain')
+            ->type($domain->getSource(), 'src')
+            ->press('save')
+            ->see($domain->getSenderDomain().' from '.$domain->getSource().' is already whitelisted');
     }
 
     public function test_delete_domain_from_whitelist()

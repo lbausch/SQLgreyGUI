@@ -18,20 +18,30 @@ class AwlDomainRepositoryEloquent extends BaseRepositoryEloquent implements AwlD
         return $data;
     }
 
+    public function findByDomainSource($domain, $source)
+    {
+        $domain = $this->model->where('sender_domain', $domain)
+            ->where('src', $source)
+            ->get()
+            ->first();
+
+        return $domain;
+    }
+
     public function store($domain)
     {
         return $this->model->insert(array(
-                    'sender_domain' => $domain->getSenderDomain(),
-                    'src' => $domain->getSource(),
-                    'first_seen' => $domain->getFirstSeen(),
-                    'last_seen' => $domain->getLastSeen(),
+            'sender_domain' => $domain->getSenderDomain(),
+            'src' => $domain->getSource(),
+            'first_seen' => $domain->getFirstSeen(),
+            'last_seen' => $domain->getLastSeen(),
         ));
     }
 
     public function destroy($domain)
     {
         return $this->model->where('sender_domain', $domain->getSenderDomain())
-                        ->where('src', $domain->getSource())
-                        ->delete();
+            ->where('src', $domain->getSource())
+            ->delete();
     }
 }
