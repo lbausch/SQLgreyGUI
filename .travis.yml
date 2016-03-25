@@ -8,4 +8,4 @@ php:
 install:
   - ./ci/setup_environment.sh
 
-script: ./vendor/bin/phpunit
+script: ./ci/run_tests.sh

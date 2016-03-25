@@ -1,14 +1,20 @@
 #!/usr/bin/env sh
 
-cd $TRAVIS_BUILD_DIR
+if [ "$CI" = true ]; then
+    cd $TRAVIS_BUILD_DIR
+fi
 
-composer install --no-interaction
+if [ "$CI" = true ]; then
+    composer install --no-interaction
+fi
 
 cp -nv .env.example .env
 
-php artisan key:generate
+if [ "$CI" = true ]; then
+    php artisan key:generate
+fi
 
-cp -nv tests/sqlgrey.sqlite database/database_sqlgrey.sqlite
+cp -v tests/sqlgrey.sqlite database/database_sqlgrey.sqlite
 
 echo > database/database.sqlite
 
