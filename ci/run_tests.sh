@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
-./ci/setup_environment.sh
+if [ ! "$CI" = true ]; then
+    ./ci/setup_environment.sh
+fi
 
 ./vendor/bin/phpunit
