@@ -6,6 +6,10 @@ class DashboardTest extends TestCase
 {
     use DatabaseTransactions;
 
+    protected $connectionsToTransact = [
+        'sqlite_sqlgrey',
+    ];
+
     public function test_dashboard_is_displayed()
     {
         $greylist = factory(\SQLgreyGUI\Models\Greylist::class, 9)->create();

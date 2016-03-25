@@ -2,6 +2,7 @@
 
 namespace SQLgreyGUI\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SQLgreyGUI\Repositories\AwlEmailRepositoryInterface as Emails;
 use SQLgreyGUI\Repositories\AwlDomainRepositoryInterface as Domains;
@@ -61,6 +62,8 @@ class WhitelistController extends Controller
         $this->validate($req, Email::$rules);
 
         $new_email = $this->emails->instance($req->input());
+        $new_email->first_seen = Carbon::now();
+        $new_email->last_seen = Carbon::now();
 
         $this->emails->store($new_email);
 
@@ -112,6 +115,8 @@ class WhitelistController extends Controller
         $this->validate($req, Domain::$rules);
 
         $new_domain = $this->domains->instance($req->input());
+        $new_domain->first_seen = Carbon::now();
+        $new_domain->last_seen = Carbon::now();
 
         $this->domains->store($new_domain);
 

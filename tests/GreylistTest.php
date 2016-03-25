@@ -7,6 +7,10 @@ class GreylistTest extends TestCase
 {
     use DatabaseTransactions;
 
+    protected $connectionsToTransact = [
+        'sqlite_sqlgrey',
+    ];
+
     public function test_greylist_is_displayed()
     {
         $greylisted = factory(\SQLgreyGUI\Models\Greylist::class, 20)->create();
