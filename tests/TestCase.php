@@ -48,6 +48,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         if (is_null($admin)) {
             $admin = app(Users::class)->findById(1);
+            $this->acting_as_admin = $admin;
         }
 
         return $this->actingAs($admin);

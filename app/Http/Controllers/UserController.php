@@ -69,11 +69,13 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $req)
+    public function store(Request $request)
     {
-        $input = $req->input();
+        $input = $request->input();
 
         $new_user = $this->users->instance($input);
 
@@ -88,7 +90,7 @@ class UserController extends Controller
         $message = 'User '.$new_user->getUsername().' ('.$new_user->getEmail().') was created.';
 
         if (!@$input['password'] && !@$input['password_confirmation']) {
-            // generate a random password
+            // Generate a random password
             $random_password = str_random(8);
 
             $input['password'] = $random_password;

@@ -61,3 +61,12 @@ $factory->define(SQLgreyGUI\Models\OptInDomain::class, function (Faker\Generator
         'domain' => $faker->randomLetter.$faker->domainWord.$faker->safeEmailDomain,
     ];
 });
+
+$factory->define(SQLgreyGUI\Models\User::class, function (Faker\Generator $faker) {
+    return [
+        'username' => $faker->userName,
+        'email' => $faker->safeEmail,
+        'enabled' => true,
+        'password' => bcrypt('joh316'),
+    ];
+});
