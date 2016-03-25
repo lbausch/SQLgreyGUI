@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-cd ..
+cd $TRAVIS_BUILD_DIR
 
 composer install --no-interaction
 
