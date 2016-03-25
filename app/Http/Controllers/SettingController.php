@@ -62,7 +62,7 @@ class SettingController extends Controller
 
         $this->validate($req, $rules);
 
-        $teh_user = $this->users->findById($this->userid);
+        $teh_user = $this->users->findById($this->user->getKey());
 
         if (Hash::check($req->input('password'), $teh_user->getPassword())) {
             $teh_user->setPassword($req->input('password_new'));
@@ -102,7 +102,7 @@ class SettingController extends Controller
 
         $this->validate($req, $rules);
 
-        $teh_user = $this->users->findById($this->userid);
+        $teh_user = $this->users->findById($this->user->getKey());
 
         $teh_user->setEmail($req->input('email'));
 

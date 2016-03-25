@@ -2,6 +2,7 @@
 
 namespace SQLgreyGUI\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SQLgreyGUI\Repositories\AwlEmailRepositoryInterface as Emails;
 use SQLgreyGUI\Repositories\AwlDomainRepositoryInterface as Domains;
@@ -56,16 +57,23 @@ class WhitelistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function addEmail(Request $req)
+    public function addEmail(Request $request)
     {
-        $this->validate($req, Email::$rules);
+        $this->validate($request, Email::$rules);
 
-        $new_email = $this->emails->instance($req->input());
+        $email = $this->emails->instance($request->input());
+        $email->first_seen = Carbon::now();
+        $email->last_seen = Carbon::now();
 
-        $this->emails->store($new_email);
+        if ($this->emails->findByNameDomainSource($email->getSenderName(), $email->getSenderDomain(), $email->getSource())) {
+            return redirect(action('WhitelistController@showEmails'))
+                ->withWarning($email->getSenderName().'@'.$email->getSenderDomain().' from '.$email->getSource().' is already whitelisted');
+        }
+
+        $this->emails->store($email);
 
         return redirect(action('WhitelistController@showEmails'))
-            ->withSuccess($new_email->getSenderName().'@'.$new_email->getSenderDomain().' from '.$new_email->getSource().' added');
+            ->withSuccess($email->getSenderName().'@'.$email->getSenderDomain().' from '.$email->getSource().' added');
     }
 
     /**
@@ -111,12 +119,19 @@ class WhitelistController extends Controller
     {
         $this->validate($req, Domain::$rules);
 
-        $new_domain = $this->domains->instance($req->input());
+        $domain = $this->domains->instance($req->input());
+        $domain->first_seen = Carbon::now();
+        $domain->last_seen = Carbon::now();
 
-        $this->domains->store($new_domain);
+        if ($this->domains->findByDomainSource($domain->getSenderDomain(), $domain->getSource())) {
+            return redirect(action('WhitelistController@showDomains'))
+                ->withWarning($domain->getSenderDomain().' from '.$domain->getSource().' is already whitelisted');
+        }
+
+        $this->domains->store($domain);
 
         return redirect(action('WhitelistController@showDomains'))
-            ->withSuccess($new_domain->getSenderDomain().' from '.$new_domain->getSource().' added');
+            ->withSuccess($domain->getSenderDomain().' from '.$domain->getSource().' added');
     }
 
     /**

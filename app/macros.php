@@ -1,55 +1,29 @@
 <?php
 
-use Collective\Html\HtmlBuilder as Html;
-
-Html::macro('alert', function($type = 'info', $message) {
-    $types = [
-        'success' => 'success',
-        'info' => 'info',
-        'warning' => 'warning',
-        'error' => 'danger'
-    ];
-
-    if (!isset($types[$type])) {
-        return false;
+if (!function_exists('listEmails')) {
+    // List Emails
+    function listEmails($emails, $target)
+    {
+        return view('macros.list_emails')
+            ->with('emails', $emails)
+            ->with('targetController', $target);
     }
+}
 
-    return View::make('macros.alert-' . $types[$type])
-                    ->with('message', $message);
-});
-
-// get the css class for navigation items
-Html::macro('navClass', function($items) {
-    if (!is_array($items)) {
-        $items = array($items);
+if (!function_exists('listDomains')) {
+    // List Domains
+    function listDomains($domains, $target)
+    {
+        return view('macros.list_domains')
+            ->with('domains', $domains)
+            ->with('targetController', $target);
     }
+}
 
-    foreach ($items as $item) {
-        if (Request::is($item . '/*') XOR Request::is($item)) {
-            return "active";
-        }
-
-        if ($item == 'dashboard' && Request::is('/')) {
-            return 'active';
-        }
+if (!function_exists('cval')) {
+    // this basically generates a base64-json-representation of a model
+    function cval($model)
+    {
+        return base64_encode($model->toJson());
     }
-});
-
-// list emails
-Html::macro('listEmails', function($emails, $target) {
-    return View::make('macros.list_emails')
-                    ->with('emails', $emails)
-                    ->with('targetController', $target);
-});
-
-// list domains
-Html::macro('listDomains', function($domains, $target) {
-    return View::make('macros.list_domains')
-                    ->with('domains', $domains)
-                    ->with('targetController', $target);
-});
-
-// this basically generates a base64-json-representation of a model
-Html::macro('cval', function($model) {
-    return base64_encode($model->toJson());
-});
+}

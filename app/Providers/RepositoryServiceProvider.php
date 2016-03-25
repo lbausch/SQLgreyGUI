@@ -9,18 +9,18 @@ class RepositoryServiceProvider extends ServiceProvider
     /**
      * Bindings for Repositories
      * Interface => Implementation.
-     * 
+     *
      * @var array
      */
     private static $bindings = [
-        'SQLgreyGUI\Repositories\GreylistRepositoryInterface' => 'SQLgreyGUI\Repositories\GreylistRepositoryEloquent',
-        'SQLgreyGUI\Repositories\AwlEmailRepositoryInterface' => 'SQLgreyGUI\Repositories\AwlEmailRepositoryEloquent',
-        'SQLgreyGUI\Repositories\AwlDomainRepositoryInterface' => 'SQLgreyGUI\Repositories\AwlDomainRepositoryEloquent',
-        'SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface' => 'SQLgreyGUI\Repositories\OptOutEmailRepositoryEloquent',
-        'SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface' => 'SQLgreyGUI\Repositories\OptOutDomainRepositoryEloquent',
-        'SQLgreyGUI\Repositories\OptInEmailRepositoryInterface' => 'SQLgreyGUI\Repositories\OptInEmailRepositoryEloquent',
-        'SQLgreyGUI\Repositories\OptInDomainRepositoryInterface' => 'SQLgreyGUI\Repositories\OptInDomainRepositoryEloquent',
-        'SQLgreyGUI\Repositories\UserRepositoryInterface' => 'SQLgreyGUI\Repositories\UserRepositoryEloquent',
+        \SQLgreyGUI\Repositories\GreylistRepositoryInterface::class => \SQLgreyGUI\Repositories\GreylistRepositoryEloquent::class,
+        \SQLgreyGUI\Repositories\AwlEmailRepositoryInterface::class => \SQLgreyGUI\Repositories\AwlEmailRepositoryEloquent::class,
+        \SQLgreyGUI\Repositories\AwlDomainRepositoryInterface::class => \SQLgreyGUI\Repositories\AwlDomainRepositoryEloquent::class,
+        \SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface::class => \SQLgreyGUI\Repositories\OptOutEmailRepositoryEloquent::class,
+        \SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface::class => \SQLgreyGUI\Repositories\OptOutDomainRepositoryEloquent::class,
+        \SQLgreyGUI\Repositories\OptInEmailRepositoryInterface::class => \SQLgreyGUI\Repositories\OptInEmailRepositoryEloquent::class,
+        \SQLgreyGUI\Repositories\OptInDomainRepositoryInterface::class => \SQLgreyGUI\Repositories\OptInDomainRepositoryEloquent::class,
+        \SQLgreyGUI\Repositories\UserRepositoryInterface::class => \SQLgreyGUI\Repositories\UserRepositoryEloquent::class,
     ];
 
     /**

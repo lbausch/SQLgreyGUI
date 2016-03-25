@@ -107,11 +107,12 @@ return [
             'TwigBridge\Extension\Laravel\Dump',
             'TwigBridge\Extension\Laravel\Input',
             'TwigBridge\Extension\Laravel\Session',
-            'TwigBridge\Extension\Laravel\String',
+            'TwigBridge\Extension\Laravel\Str',
             'TwigBridge\Extension\Laravel\Translator',
             'TwigBridge\Extension\Laravel\Url',
+            // 'TwigBridge\Extension\Laravel\Gate',
 
-            // 'TwigBridge\Extension\Laravel\Form',
+            'TwigBridge\Extension\Laravel\Form',
             // 'TwigBridge\Extension\Laravel\Html',
             // 'TwigBridge\Extension\Laravel\Legacy\Facades',
         ],
@@ -150,28 +151,6 @@ return [
                     'js',
                 ],
             ],
-
-            'Form' => [
-                'is_safe' => true,
-            ],
-
-            'Html' => [
-                'is_safe' => [
-                    'alert',
-                    'cval',
-                    'navClass',
-                    'listEmails',
-                    'listDomains',
-                ],
-            ],
-
-            'Session' => [
-                'is_safe' => [
-                    'get',
-                    'has',
-                    'pull',
-                ],
-            ],
         ],
 
         /*
@@ -206,6 +185,22 @@ return [
             'elixir',
             'head',
             'last',
+
+            'alert' => [
+                'is_safe' => ['html'],
+            ],
+            'cval' => [
+                'is_safe' => ['html'],
+            ],
+            'is_active' => [
+                'is_safe' => ['html'],
+            ],
+            'listDomains' => [
+                'is_safe' => ['html'],
+            ],
+            'listEmails' => [
+                'is_safe' => ['html'],
+            ],
         ],
 
         /*

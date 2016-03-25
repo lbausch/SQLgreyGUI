@@ -4,36 +4,44 @@ namespace SQLgreyGUI\Repositories;
 
 use SQLgreyGUI\Models\AwlDomain as Domain;
 
-class AwlDomainRepositoryEloquent implements AwlDomainRepositoryInterface
+class AwlDomainRepositoryEloquent extends BaseRepositoryEloquent implements AwlDomainRepositoryInterface
 {
+    public function __construct(Domain $domain)
+    {
+        $this->model = $domain;
+    }
 
     public function findAll()
     {
-        $data = Domain::orderBy('sender_domain', 'asc')->get();
+        $data = $this->model->orderBy('sender_domain', 'asc')->get();
 
         return $data;
     }
 
-    public function instance($data = array())
+    public function findByDomainSource($domain, $source)
     {
-        return new Domain($data);
+        $domain = $this->model->where('sender_domain', $domain)
+            ->where('src', $source)
+            ->get()
+            ->first();
+
+        return $domain;
     }
 
-    public function store(Domain $domain)
+    public function store($domain)
     {
-        return Domain::insert(array(
-                    'sender_domain' => $domain->getSenderDomain(),
-                    'src' => $domain->getSource(),
-                    'first_seen' => $domain->getFirstSeen(),
-                    'last_seen' => $domain->getLastSeen(),
+        return $this->model->insert(array(
+            'sender_domain' => $domain->getSenderDomain(),
+            'src' => $domain->getSource(),
+            'first_seen' => $domain->getFirstSeen(),
+            'last_seen' => $domain->getLastSeen(),
         ));
     }
 
-    public function destroy(Domain $domain)
+    public function destroy($domain)
     {
-        return Domain::where('sender_domain', $domain->getSenderDomain())
-                        ->where('src', $domain->getSource())
-                        ->delete();
+        return $this->model->where('sender_domain', $domain->getSenderDomain())
+            ->where('src', $domain->getSource())
+            ->delete();
     }
-
 }

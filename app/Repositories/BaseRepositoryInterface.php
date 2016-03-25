@@ -2,18 +2,10 @@
 
 namespace SQLgreyGUI\Repositories;
 
-
-interface BaseRepositoryInterface {
-
+interface BaseRepositoryInterface extends \Bausch\LaravelCornerstone\Repositories\BaseRepositoryInterface
+{
     /**
-     * find all
+     * Find all.
      */
     public function findAll();
-
-    /**
-     * create instance
-     * 
-     * @param array $data
-     */
-    public function instance($data = array());
 }

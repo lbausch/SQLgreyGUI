@@ -17,49 +17,49 @@ class DashboardController extends Controller
      *
      * @var Greylist
      */
-    private $greylist;
+    protected $greylist;
 
     /**
      * Repository.
      *
      * @var AwlEmail
      */
-    private $awl_email;
+    protected $awl_email;
 
     /**
      * Repository.
      *
      * @var AwlDomain
      */
-    private $awl_domain;
+    protected $awl_domain;
 
     /**
      * Repository.
      *
      * @var OptOutEmail
      */
-    private $optout_email;
+    protected $optout_email;
 
     /**
      * Repository.
      *
      * @var OptOutDomain
      */
-    private $optout_domain;
+    protected $optout_domain;
 
     /**
      * Repository.
      *
      * @var OptInEmail
      */
-    private $optin_email;
+    protected $optin_email;
 
     /**
      * Repository.
      *
      * @var OptInDomain
      */
-    private $optin_domain;
+    protected $optin_domain;
 
     /**
      * Constructor.

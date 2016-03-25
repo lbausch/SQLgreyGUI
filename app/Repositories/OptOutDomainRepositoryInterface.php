@@ -2,6 +2,7 @@
 
 namespace SQLgreyGUI\Repositories;
 
-interface OptOutDomainRepositoryInterface extends OptDomainRepositoryInterface {
-    
+interface OptOutDomainRepositoryInterface extends OptDomainRepositoryInterface
+{
+    //
 }

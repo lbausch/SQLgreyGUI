@@ -5,14 +5,6 @@ namespace SQLgreyGUI\Http\Controllers;
 class AboutController extends Controller
 {
     /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Index.
      *
      * @return \Illuminate\Http\Response

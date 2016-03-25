@@ -2,20 +2,14 @@
 
 namespace SQLgreyGUI\Repositories;
 
-
-interface OptEmailRepositoryInterface extends BaseRepositoryInterface {
-
+interface OptEmailRepositoryInterface extends BaseRepositoryInterface
+{
     /**
-     * destroy email
-     * 
-     * @param Email $email
+     * Find by Email.
+     *
+     * @param string $email
+     *
+     * @return mixed
      */
-    public function destroy($email);
-
-    /**
-     * store email
-     * 
-     * @param Email $email
-     */
-    public function store($email);
+    public function findByEmail($email);
 }

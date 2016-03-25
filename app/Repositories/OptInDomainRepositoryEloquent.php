@@ -2,10 +2,14 @@
 
 namespace SQLgreyGUI\Repositories;
 
-class OptInDomainRepositoryEloquent implements OptInDomainRepositoryInterface {
-
+class OptInDomainRepositoryEloquent extends BaseRepositoryEloquent implements OptInDomainRepositoryInterface
+{
     use OptDomainTrait;
-    
-    protected $model = 'OptInDomain';
 
+    /**
+     * Model class.
+     *
+     * @var string
+     */
+    protected $model_class = 'OptInDomain';
 }

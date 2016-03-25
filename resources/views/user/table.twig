@@ -1,7 +1,7 @@
 <table class="table table-striped table-bordered table-hover table-condensed" id="user-table">
     <thead>
         <tr>
-            <th style="width:20px;">{{ Form.checkbox('select_all', '', false, { id: 'user-select_all' }) }}</th>
+            <th style="width:20px;">{{ form_checkbox('select_all', '', false, { id: 'user-select_all' }) }}</th>
             <th>ID</th>
             <th>Username</th>
             <th>eMail</th>
@@ -13,7 +13,7 @@
     <tbody>
         {% for u in users %}
             <tr>
-                <td>{{ Form.checkbox('userids[]', u.getId()) }}</td>
+                <td>{{ form_checkbox('userids[]', u.getId()) }}</td>
                 <td>{{ u.getId() }}</td>
                 <td><a href="/" onclick="editUserForm('{{ action('UserController@edit', u.getId()) }}');
                         return false;" style="display:block;">{{ u.getUsername() }}</a></td>

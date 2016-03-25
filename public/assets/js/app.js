@@ -23,41 +23,6 @@ addSelectAllTrigger = function (target, selector) {
     });
 }
 
-pollGreylist = function (target, timestamp) {
-    // @TODO: enable again, with working CSRF token
-    return;
-    $.post(target, {timestamp: timestamp}, function (responseText, textStatus, jqXHR) {
-
-        //var response = $.parseJSON(responseText);
-        var response = responseText;
-
-        if (response.payload) {
-            // get table
-            var table = $('#greylist-table').DataTable();
-
-            for (var key in response.payload) {
-                var item = response.payload[key];
-
-                var table_row = table.row.add([
-                    item.checkbox ? item.checkbox : '',
-                    item.sender_name ? item.sender_name : '',
-                    item.sender_domain ? item.sender_domain : '',
-                    item.src ? item.src : '',
-                    item.rcpt ? item.rcpt : '',
-                    item.first_seen ? item.first_seen : '',
-                ]).draw().node();
-
-                // animate seems not to work, although finished-callback is fired
-                // https://datatables.net/reference/api/row.add()
-                //$(table_row).css('color', 'red').animate({color: 'black'});
-                $(table_row).css('color', 'red');
-            }
-        }
-
-        setTimeout(pollGreylist, 7000, target, response.timestamp);
-    });
-}
-
 $(function () {
     $(document).on('scroll', function () {
         if ($(window).scrollTop() > 100) {

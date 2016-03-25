@@ -3,28 +3,19 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration {
-
-    /**
-     * table name
-     * 
-     * @var string 
-     */
-    private $table = 'users';
-
+class CreateUsersTable extends Migration
+{
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up() {
-        Schema::create($this->table, function(Blueprint $table) {
-            // primary key
+    public function up()
+    {
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id')->unsigned();
 
-            $table->string('username', 250);
-            $table->string('password', 250);
-            $table->string('email', 250);
+            $table->string('username');
+            $table->string('password');
+            $table->string('email');
 
             $table->boolean('enabled')->default(false);
 
@@ -35,11 +26,9 @@ class CreateUsersTable extends Migration {
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down() {
-        Schema::dropIfExists($this->table);
+    public function down()
+    {
+        Schema::drop('users');
     }
-
 }

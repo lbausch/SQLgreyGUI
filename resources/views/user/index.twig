@@ -18,20 +18,20 @@
         </div>
     </div>
 
-    {{ Form.open({ action: 'UserController@deleteUsers' }) }}
+    {{ form_open({ action: 'UserController@deleteUsers' }) }}
     <fieldset>
 
         {{ _self.buttons() }}
 
         <br /><br />
 
-        <div id="user-table-container">{{ users_table | raw }}</div> 
+        <div id="user-table-container">{{ users_table | raw }}</div>
 
         {{ _self.buttons() }}
     </fieldset>
 
 
-    {{ Form.close() }}
+    {{ form_close() }}
 {% endblock %}
 
 {% block javascript %}

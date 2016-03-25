@@ -4,12 +4,10 @@ namespace SQLgreyGUI\Models;
 
 class OptOutEmail extends OptEmail
 {
-
     /**
-     * The database table used by the model.
+     * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'optout_email';
-
 }
