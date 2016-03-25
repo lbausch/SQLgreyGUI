@@ -12,4 +12,4 @@ cp -nv tests/sqlgrey.sqlite database/database_sqlgrey.sqlite
 
 echo > database/database.sqlite
 
-php artisan migrate --database=sqlite --seed
+php artisan migrate --database=sqlite --seed --force
