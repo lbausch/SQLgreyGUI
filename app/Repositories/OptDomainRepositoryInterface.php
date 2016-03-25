@@ -2,18 +2,17 @@
 
 namespace SQLgreyGUI\Repositories;
 
-
-interface OptDomainRepositoryInterface extends BaseRepositoryInterface {
-
+interface OptDomainRepositoryInterface extends BaseRepositoryInterface
+{
     /**
-     * destroy domain
+     * destroy domain.
      * 
      * @param Domain $domain
      */
     public function destroy($domain);
 
     /**
-     * store domain
+     * store domain.
      * 
      * @param Domain $domain
      */

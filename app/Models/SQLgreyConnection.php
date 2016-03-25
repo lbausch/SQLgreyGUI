@@ -6,19 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class SQLgreyConnection extends Model
 {
-
     /**
-     * the database connection used
-     * 
-     * @var string
+     * Create a new Eloquent model instance.
+     *
+     * @param array $attributes
      */
-    protected $connection = 'sqlgrey';
+    public function __construct($attributes = [])
+    {
+        parent::__construct($attributes);
 
-    /**
-     * guarded attributes
-     * 
-     * @var array
-     */
-    protected $guarded = array();
-
+        $this->connection = env('DB_CONNECTION_SQLGREY', 'mysql_sqlgrey');
+    }
 }

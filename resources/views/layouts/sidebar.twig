@@ -1,6 +1,6 @@
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse">
-        <ul class="nav" id="side-menu">
+        <ul class="nav metismenu" id="side-menu">
 
             {#<li class="sidebar-search">
                 <div class="input-group custom-search-form">
@@ -11,64 +11,80 @@
                         </button>
                     </span>
                 </div>
-                <!-- /input-group -->
             </li>#}
 
-
             <li>
-                <a class="{{ Html.navClass('dashboard') }}" href="{{ action('DashboardController@index') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                <a class="{{ is_active('DashboardController') }}" href="{{ action('DashboardController@index') }}">
+                    <i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
 
             <li>
-                <a class="{{ Html.navClass('greylist') }}" href="{{ action('GreylistController@index') }}"><i class="fa fa-clock-o fa-fw"></i> Greylist</a>
+                <a class="{{ is_active('greylist') }}" href="{{ action('GreylistController@index') }}">
+                    <i class="fa fa-clock-o fa-fw"></i> Greylist</a>
             </li>
 
-            <li class="{{ Html.navClass('whitelist') }}">
+            <li class="{{ is_active('whitelist') }}">
                 <a href="#"><i class="fa fa-thumbs-o-up fa-fw"></i> Auto-Whitelist<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a class="{{ Html.navClass('whitelist/emails') }}" href="{{ action('WhitelistController@showEmails') }}"><i class="fa fa-envelope-o fa-fw"></i> eMails</a>
+                        <a class="{{ is_active('whitelist/emails') }}"
+                           href="{{ action('WhitelistController@showEmails') }}">
+                            <i class="fa fa-envelope-o fa-fw"></i> eMails</a>
                     </li>
                     <li>
-                        <a class="{{ Html.navClass('whitelist/domains') }}" href="{{ action('WhitelistController@showDomains') }}"><i class="fa fa-globe fa-fw"></i> Domains</a>
+                        <a class="{{ is_active('whitelist/domains') }}"
+                           href="{{ action('WhitelistController@showDomains') }}">
+                            <i class="fa fa-globe fa-fw"></i> Domains</a>
                     </li>
                 </ul>
             </li>
 
-            <li class="{{ Html.navClass('optout') }}">
+            <li class="{{ is_active('optout') }}">
                 <a href="#"><i class="fa fa-minus-square fa-fw"></i> Opt-out<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a class="{{ Html.navClass('optout/emails') }}" href="{{ action('OptOutController@showEmails') }}"><i class="fa fa-envelope-o fa-fw"></i> eMails</a>
+                        <a class="{{ is_active('optout/emails') }}"
+                           href="{{ action('OptOutController@showEmails') }}">
+                            <i class="fa fa-envelope-o fa-fw"></i> eMails
+                        </a>
                     </li>
                     <li>
-                        <a class="{{ Html.navClass('optout/domains') }}" href="{{ action('OptOutController@showDomains') }}"><i class="fa fa-globe fa-fw"></i> Domains</a>
+                        <a class="{{ is_active('optout/domains') }}"
+                           href="{{ action('OptOutController@showDomains') }}">
+                            <i class="fa fa-globe fa-fw"></i> Domains
+                        </a>
                     </li>
                 </ul>
             </li>
 
-            <li class="{{ Html.navClass('optin') }}">
+            <li class="{{ is_active('optin') }}">
                 <a href="#"><i class="fa fa-plus-square fa-fw"></i> Opt-in<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a class="{{ Html.navClass('optin/emails') }}" href="{{ action('OptInController@showEmails') }}"><i class="fa fa-envelope-o fa-fw"></i> eMails</a>
+                        <a class="{{ is_active('optin/emails') }}"
+                           href="{{ action('OptInController@showEmails') }}">
+                            <i class="fa fa-envelope-o fa-fw"></i> eMails
+                        </a>
                     </li>
                     <li>
-                        <a class="{{ Html.navClass('optin/domains') }}" href="{{ action('OptInController@showDomains') }}"><i class="fa fa-globe fa-fw"></i> Domains</a>
+                        <a class="{{ is_active('optin/domains') }}"
+                           href="{{ action('OptInController@showDomains') }}">
+                            <i class="fa fa-globe fa-fw"></i> Domains
+                        </a>
                     </li>
                 </ul>
             </li>
 
-            <li class="{{ Html.navClass('admin') }}">
+            <li class="{{ is_active('admin') }}">
                 <a href="#"><i class="fa fa-wrench fa-fw"></i> Administration<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a class="{{ Html.navClass('admin/users') }}" href="{{ action('UserController@index') }}"><i class="fa fa-users fa-fw"></i> Users</a>
+                        <a class="{{ is_active('UserController') }}" href="{{ action('UserController@index') }}">
+                            <i class="fa fa-users fa-fw"></i> Users
+                        </a>
                     </li>
                 </ul>
             </li>
         </ul>
     </div>
-    <!-- /.sidebar-collapse -->
 </div>
-<!-- /.navbar-static-side -->

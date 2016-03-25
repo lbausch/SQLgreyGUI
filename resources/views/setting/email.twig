@@ -9,18 +9,18 @@
 
     <div class="row">
         <div class="col-md-4">
-            {{ Form.open({ action: 'SettingController@email', role: 'form' }) }}
+            {{ form_open({ action: 'SettingController@email', role: 'form' }) }}
             <fieldset>
                 <div class="form-group {%if errors.has('email') %}has-error{% endif %}">
                     {%if errors.has('email') %}
                         <p class="text-danger">{{ errors.first('email') }}</p>
                     {% endif %}
-                    {{ Form.text('email', input_old('email', user.getEmail()), { class: 'form-control', placeholder: 'eMail'} ) }}
+                    {{ form_text('email', input_old('email', user.getEmail()), { class: 'form-control', placeholder: 'eMail'} ) }}
                 </div>
-                {{ Form.submit('save', { class: 'btn btn-success btn-block' }) }}
+                {{ form_submit('save', { class: 'btn btn-success btn-block' }) }}
 
             </fieldset>
-            {{ Form.close() }}
+            {{ form_close() }}
         </div>
     </div>
 {% endblock %}

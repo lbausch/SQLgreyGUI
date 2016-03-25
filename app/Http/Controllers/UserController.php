@@ -111,7 +111,7 @@ class UserController extends Controller
 
         $this->users->store($new_user);
 
-        return \Html::alert('success', $message);
+        return alert('success', $message);
     }
 
     /**
@@ -198,7 +198,7 @@ class UserController extends Controller
 
         $this->users->update($user);
 
-        return \Html::alert('success', $message);
+        return alert('success', $message);
     }
 
     /**
@@ -222,9 +222,9 @@ class UserController extends Controller
     {
         $delete_ids = $req->input('userids', []);
 
-        // prevent the logged in user from deleting his own record
+        // Prevent the logged in user from deleting his own record
         // (thank you Stack Overflow! http://stackoverflow.com/a/7225113)
-        if (($key = array_search($this->userid, $delete_ids)) !== false) {
+        if (($key = array_search($this->user->getKey(), $delete_ids)) !== false) {
             unset($delete_ids[$key]);
         }
 
@@ -238,7 +238,7 @@ class UserController extends Controller
             }
         }
 
-        return redirect(action($this->getAction('index')))
+        return redact('_self@index')
             ->withSuccess('Deleted Users: '.$num_deletes);
     }
 }

@@ -2,26 +2,18 @@
 
 use Illuminate\Database\Seeder;
 
-class UserTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
-
     /**
-     * table
-     *  
-     * @var string
-     */
-    private $table = 'users';
-
-    /**
-     * user repository
-     * 
+     * user repository.
+     *
      * @var \Bausch\Repositories\UserRepositoryInterface
      */
     private $repo;
 
     /**
-     * Constructor
-     * 
+     * Constructor.
+     *
      * @param Bausch\Repositories\UserRepositoryInterface $repo
      */
     public function __construct(SQLgreyGUI\Repositories\UserRepositoryInterface $repo)
@@ -31,7 +23,7 @@ class UserTableSeeder extends Seeder
 
     public function run()
     {
-        DB::table($this->table)->delete();
+        DB::table('users')->delete();
 
         $user = $this->repo->instance();
 
@@ -43,5 +35,4 @@ class UserTableSeeder extends Seeder
         // save the new user
         $this->repo->store($user);
     }
-
 }

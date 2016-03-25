@@ -1,58 +1,57 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function() {
+// Authentication Routes...
+Route::get('login', 'Auth\AuthController@showLoginForm');
+Route::post('login', 'Auth\AuthController@login');
+Route::get('logout', 'Auth\AuthController@logout');
+
+Route::group(['middleware' => ['auth']], function () {
     // Dashboard
-    get('/', 'DashboardController@index');
-    get('dashboard', 'DashboardController@index');
+    Route::get('/', 'DashboardController@index');
+    Route::get('dashboard', 'DashboardController@index');
 
     // Greylist
-    get('greylist', 'GreylistController@index');
-    post('greylist/live', 'GreylistController@live');
-    post('greylist/delete', 'GreylistController@delete');
-    post('greylist/move', 'GreylistController@move');
-    post('greylist/deletebydate', 'GreylistController@deleteByDate');
+    Route::get('greylist', 'GreylistController@index');
+    Route::post('greylist/delete', 'GreylistController@delete');
+    Route::post('greylist/move', 'GreylistController@move');
+    Route::post('greylist/deletebydate', 'GreylistController@deleteByDate');
 
     // Whitelist
-    get('whitelist/emails', 'WhitelistController@showEmails');
-    post('whitelist/emails/add', 'WhitelistController@addEmail');
-    post('whitelist/deleteEmails', 'WhitelistController@deleteEmails');
-    get('whitelist/domains', 'WhitelistController@showDomains');
-    post('whitelist/domains/add', 'WhitelistController@addDomain');
-    post('whitelist/deleteDomains', 'WhitelistController@deleteDomains');
+    Route::get('whitelist/emails', 'WhitelistController@showEmails');
+    Route::post('whitelist/emails/add', 'WhitelistController@addEmail');
+    Route::post('whitelist/deleteEmails', 'WhitelistController@deleteEmails');
+    Route::get('whitelist/domains', 'WhitelistController@showDomains');
+    Route::post('whitelist/domains/add', 'WhitelistController@addDomain');
+    Route::post('whitelist/deleteDomains', 'WhitelistController@deleteDomains');
 
     // OptOut
-    get('optout/emails', 'OptOutController@showEmails');
-    post('optout/emails/add', 'OptOutController@addEmail');
-    post('optout/emails/delete', 'OptOutController@deleteEmails');
-    get('optout/domains', 'OptOutController@showDomains');
-    post('optout/domains/add', 'OptOutController@addDomain');
-    post('optout/domains/delete', 'OptOutController@deleteDomains');
+    Route::get('optout/emails', 'OptOutController@showEmails');
+    Route::post('optout/emails/add', 'OptOutController@addEmail');
+    Route::post('optout/emails/delete', 'OptOutController@deleteEmails');
+    Route::get('optout/domains', 'OptOutController@showDomains');
+    Route::post('optout/domains/add', 'OptOutController@addDomain');
+    Route::post('optout/domains/delete', 'OptOutController@deleteDomains');
 
     // OptIn
-    get('optin/emails', 'OptInController@showEmails');
-    post('optin/emails/add', 'OptInController@addEmail');
-    post('optin/emails/delete', 'OptInController@deleteEmails');
-    get('optin/domains', 'OptInController@showDomains');
-    post('optin/domains/add', 'OptInController@addDomain');
-    post('optin/domains/delete', 'OptInController@deleteDomains');
+    Route::get('optin/emails', 'OptInController@showEmails');
+    Route::post('optin/emails/add', 'OptInController@addEmail');
+    Route::post('optin/emails/delete', 'OptInController@deleteEmails');
+    Route::get('optin/domains', 'OptInController@showDomains');
+    Route::post('optin/domains/add', 'OptInController@addDomain');
+    Route::post('optin/domains/delete', 'OptInController@deleteDomains');
 
     // Settings
-    get('settings', 'SettingController@index');
-    get('settings/password', 'SettingController@changePassword');
-    post('settings/password', 'SettingController@password');
-    get('settings/email', 'SettingController@changeEmail');
-    post('settings/email', 'SettingController@email');
+    Route::get('settings', 'SettingController@index');
+    Route::get('settings/password', 'SettingController@changePassword');
+    Route::post('settings/password', 'SettingController@password');
+    Route::get('settings/email', 'SettingController@changeEmail');
+    Route::post('settings/email', 'SettingController@email');
 
     // Users
     Route::resource('admin/users', 'UserController');
-    post('admin/users/delete', 'UserController@deleteUsers');
-    get('admin/usertable', 'UserController@getTable');
+    Route::post('admin/users/delete', 'UserController@deleteUsers');
+    Route::get('admin/usertable', 'UserController@getTable');
 
     // About
-    get('about', 'AboutController@index');
+    Route::get('about', 'AboutController@index');
 });
-
-// Login & Logout
-get('login', 'AuthController@showLogin');
-post('login', 'AuthController@login');
-get('logout', 'AuthController@logout');

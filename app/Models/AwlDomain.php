@@ -2,41 +2,73 @@
 
 namespace SQLgreyGUI\Models;
 
+use Carbon\Carbon;
+
 class AwlDomain extends SQLgreyConnection
 {
-
     /**
-     * The database table used by the model.
+     * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'domain_awl';
 
     /**
-     * fillable attributes
-     * 
+     * The primary key for the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = null;
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'sender_domain',
         'src',
         'first_seen',
         'last_seen',
-    );
+    ];
 
     /**
-     * validation rules
-     * 
-     * @var array 
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
      */
-    public static $rules = array(
+    protected $dates = [
+        'first_seen',
+        'last_seen',
+    ];
+
+    /**
+     * Validation rules.
+     *
+     * @var array
+     */
+    public static $rules = [
         'sender_domain' => 'required',
         'src' => 'required',
-    );
+    ];
 
     /**
-     * get sender domain
-     * 
+     * Get sender domain.
+     *
      * @return string
      */
     public function getSenderDomain()
@@ -45,8 +77,8 @@ class AwlDomain extends SQLgreyConnection
     }
 
     /**
-     * get source
-     * 
+     * Get source.
+     *
      * @return string
      */
     public function getSource()
@@ -55,9 +87,9 @@ class AwlDomain extends SQLgreyConnection
     }
 
     /**
-     * get first seen
-     * 
-     * @return string
+     * Get first seen.
+     *
+     * @return Carbon|null
      */
     public function getFirstSeen()
     {
@@ -65,13 +97,12 @@ class AwlDomain extends SQLgreyConnection
     }
 
     /**
-     * get last seen
-     * 
-     * @return string
+     * Get last seen.
+     *
+     * @return Carbon|null
      */
     public function getLastSeen()
     {
-        return $this->first_seen;
+        return $this->last_seen;
     }
-
 }

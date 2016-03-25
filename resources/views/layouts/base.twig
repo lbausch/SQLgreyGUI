@@ -1,97 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{% block title %}SQLgreyGUI &bull; {% endblock %}</title>
+    <title>{% block title %}SQLgreyGUI &bull; {% endblock %}</title>
 
-        <base href="{{ url('/') }}" target="_self">
+    <base href="{{ url('/') }}" target="_self">
 
-        {{ Assets.css() }}
+    {{ Assets.css() }}
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="{{ asset('assets/html5shiv.js') }}"></script>
-            <script src="{{ asset('assets/respond.min.js') }}"></script>
-        <![endif]-->
-    </head>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="{{ asset('assets/html5shiv.js') }}"></script>
+    <script src="{{ asset('assets/respond.min.js') }}"></script>
+    <![endif]-->
+</head>
 
-    <body>
-        <div id="wrapper">
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url('/') }}">SQLgreyGUI</a>
+        </div>
 
-            <!-- Navigation -->
-            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{{ url('/') }}">SQLgreyGUI</a>
-                </div>
-                <!-- /.navbar-header -->
-
-                <ul class="nav navbar-top-links navbar-right">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-user fa-fw"></i> {{ user.getUsername() }} ({{ user.getEmail() }})  <i class="fa fa-caret-down"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li class="{{ Html.navClass('settings') }}"><a href="{{ action('SettingController@index') }}"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
-                            <li class="divider"></li>
-                            <li class="{{ Html.navClass('about') }}"><a href="{{ action('AboutController@index') }}"><i class="fa fa-info-circle fa-fw"></i> About</a></li>
-                            <li class="divider"></li>
-                            <li><a href="{{ action('AuthController@logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
-                        </ul>
-                        <!-- /.dropdown-user -->
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> {{ user.getUsername() }} ({{ user.getEmail() }}) <i
+                            class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li class="{{ is_active('SettingController') }}"><a href="{{ action('SettingController@index') }}">
+                            <i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
-                    <!-- /.dropdown -->
+                    <li class="divider"></li>
+                    <li class="{{ is_active('AboutController') }}"><a href="{{ action('AboutController@index') }}">
+                            <i class="fa fa-info-circle fa-fw"></i> About</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="{{ action('Auth\\AuthController@logout') }}">
+                            <i class="fa fa-sign-out fa-fw"></i> Logout
+                        </a>
+                    </li>
                 </ul>
-                <!-- /.navbar-top-links -->
+            </li>
+        </ul>
 
-                {% include 'layouts.sidebar' %}
-            </nav>
+        {% include 'layouts.sidebar' %}
+    </nav>
 
-            <!-- Page Content -->
-            <div id="page-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            {% for alert_type in ['success', 'info', 'warning', 'error'] %}
-                                {% if Session.has(alert_type) %}
-                                    <div class="row" style="margin-top:10px;">
-                                        <div class="col-md-6">
-                                            {{ Html.alert(alert_type, Session.pull(alert_type)) }}
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    {% for alert_type in ['success', 'info', 'warning', 'error'] %}
+                        {% if session_has(alert_type) %}
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-md-6">
+                                    {{ alert(alert_type, session_pull(alert_type)) }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
 
-                            {% block content %}seems to be pretty&hellip; empty :({% endblock %}
-                        </div>
-                        <!-- /.col-lg-12 -->
-                    </div>
-                    <!-- /.row -->
+                    {% block content %}seems to be pretty&hellip; empty :({% endblock %}
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- /#page-wrapper -->
         </div>
-        <!-- /#wrapper -->
+    </div>
+</div>
 
-        {{ Assets.js() }}
+{{ Assets.js() }}
 
-        <div class="scroll-top-wrapper ">
-            <span class="scroll-top-inner">
-                <i class="fa fa-2x fa-arrow-circle-up"></i>
-            </span>
-        </div>
+<div class="scroll-top-wrapper">
+    <span class="scroll-top-inner">
+        <i class="fa fa-2x fa-arrow-circle-up"></i>
+    </span>
+</div>
 
-        {% block javascript %}
-        {% endblock %}
-    </body>
+<script>
+    if ($('input[name=_token]').length > 0) {
+        setInterval(function () {
+            $.get('lbausch/laravel-cornerstone/keepalive');
+        }, 3e5);
+    }
+</script>
+
+{% block javascript %}
+{% endblock %}
+</body>
 </html>

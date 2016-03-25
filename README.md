@@ -1,6 +1,8 @@
 SQLgreyGUI
 ==========
 
+[![Build Status](https://travis-ci.org/lbausch/SQLgreyGUI.svg?branch=master)](https://travis-ci.org/lbausch/SQLgreyGUI)
+
 Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel 5](http://laravel.com/) Framework.
 
 ## Features

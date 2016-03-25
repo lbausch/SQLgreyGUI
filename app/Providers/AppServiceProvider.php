@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         // Register Service Providers for local development
         if ($this->app->environment('local')) {
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
     }
 }

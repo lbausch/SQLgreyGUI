@@ -2,43 +2,75 @@
 
 namespace SQLgreyGUI\Models;
 
+use Carbon\Carbon;
+
 class AwlEmail extends SQLgreyConnection
 {
-
     /**
-     * The database table used by the model.
+     * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'from_awl';
 
     /**
-     * fillable attributes
-     * 
+     * The primary key for the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = null;
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
      * @var array
      */
-    protected $fillable = array(
+    protected $dates = [
+        'first_seen',
+        'last_seen',
+    ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
         'sender_name',
         'sender_domain',
         'src',
         'first_seen',
         'last_seen',
-    );
+    ];
 
     /**
-     * validation rules
-     * 
-     * @var array 
+     * Validation rules.
+     *
+     * @var array
      */
-    public static $rules = array(
+    public static $rules = [
         'sender_name' => 'required',
         'sender_domain' => 'required',
         'src' => 'required',
-    );
+    ];
 
     /**
-     * get sender name
-     * 
+     * Get sender name.
+     *
      * @return string
      */
     public function getSenderName()
@@ -47,8 +79,8 @@ class AwlEmail extends SQLgreyConnection
     }
 
     /**
-     * get sender domain
-     * 
+     * Get sender domain.
+     *
      * @return string
      */
     public function getSenderDomain()
@@ -57,8 +89,8 @@ class AwlEmail extends SQLgreyConnection
     }
 
     /**
-     * get source
-     * 
+     * Get source.
+     *
      * @return string
      */
     public function getSource()
@@ -67,9 +99,9 @@ class AwlEmail extends SQLgreyConnection
     }
 
     /**
-     * get first seen
-     * 
-     * @return string
+     * Get first seen.
+     *
+     * @return Carbon|null
      */
     public function getFirstSeen()
     {
@@ -77,13 +109,12 @@ class AwlEmail extends SQLgreyConnection
     }
 
     /**
-     * get last seen
-     * 
-     * @return string
+     * Get last seen.
+     *
+     * @return Carbon|null
      */
     public function getLastSeen()
     {
-        return $this->first_seen;
+        return $this->last_seen;
     }
-
 }

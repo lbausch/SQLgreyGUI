@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Contracts\Auth\Authenticatable;
+use SQLgreyGUI\Repositories\UserRepositoryInterface as Users;
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -8,6 +11,13 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      * @var string
      */
     protected $baseUrl = 'http://localhost';
+
+    /**
+     * Admin.
+     *
+     * @var \SQLgreyGUI\Models\User
+     */
+    protected $acting_as_admin;
 
     /**
      * Creates the application.
@@ -21,5 +31,25 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+    /**
+     * Acting as admin.
+     *
+     * @param Authenticatable|null $admin
+     *
+     * @return $this
+     */
+    protected function actingAsAdmin(Authenticatable $admin = null)
+    {
+        if (is_null($admin)) {
+            $admin = $this->acting_as_admin;
+        }
+
+        if (is_null($admin)) {
+            $admin = app(Users::class)->findById(1);
+        }
+
+        return $this->actingAs($admin);
     }
 }

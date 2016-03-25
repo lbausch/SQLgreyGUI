@@ -2,6 +2,7 @@
 
 namespace SQLgreyGUI\Repositories;
 
-interface OptInEmailRepositoryInterface extends OptEmailRepositoryInterface {
-    
+interface OptInEmailRepositoryInterface extends OptEmailRepositoryInterface
+{
+    //
 }

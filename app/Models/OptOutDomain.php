@@ -4,12 +4,10 @@ namespace SQLgreyGUI\Models;
 
 class OptOutDomain extends OptDomain
 {
-
     /**
-     * The database table used by the model.
+     * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'optout_domain';
-
 }

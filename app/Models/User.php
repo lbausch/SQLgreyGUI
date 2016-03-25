@@ -2,27 +2,12 @@
 
 namespace SQLgreyGUI\Models;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Carbon\Carbon;
 use Hash;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+class User extends Authenticatable
 {
-
-    use Authenticatable,
-        CanResetPassword;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'users';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -31,7 +16,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $fillable = [
         'username',
         'email',
-        'enabled'
+        'enabled',
     ];
 
     /**
@@ -41,13 +26,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = [
         'password',
-        'remember_token'
+        'remember_token',
     ];
 
     /**
-     * validation rules
-     * 
-     * @var array 
+     * validation rules.
+     *
+     * @var array
      */
     public static $rules = [
         'store' => array(
@@ -67,8 +52,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     ];
 
     /**
-     * get id
-     * 
+     * get id.
+     *
      * @return int
      */
     public function getId()
@@ -77,8 +62,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * get username
-     * 
+     * get username.
+     *
      * @return string
      */
     public function getUsername()
@@ -87,8 +72,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * get password
-     * 
+     * get password.
+     *
      * @return string
      */
     public function getPassword()
@@ -97,8 +82,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * get email
-     * 
+     * get email.
+     *
      * @return string
      */
     public function getEmail()
@@ -107,8 +92,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * get updated at
-     * 
+     * get updated at.
+     *
      * @return \Carbon\Carbon
      */
     public function getUpdatedAt()
@@ -117,8 +102,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * get created at
-     * 
+     * get created at.
+     *
      * @return \Carbon\Carbon
      */
     public function getCreatedAt()
@@ -127,8 +112,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * is enabled
-     * 
+     * is enabled.
+     *
      * @return bool
      */
     public function isEnabled()
@@ -137,8 +122,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * set username
-     * 
+     * set username.
+     *
      * @param string $username
      */
     public function setUsername($username)
@@ -147,8 +132,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * set password
-     * 
+     * set password.
+     *
      * @param string $password
      */
     public function setPassword($password)
@@ -157,8 +142,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * set email
-     * 
+     * set email.
+     *
      * @param string $email
      */
     public function setEmail($email)
@@ -167,8 +152,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * set enabled
-     * 
+     * set enabled.
+     *
      * @param bool $enabled
      */
     public function setEnabled($enabled)
@@ -179,5 +164,4 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             $this->enabled = false;
         }
     }
-
 }

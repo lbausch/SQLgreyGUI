@@ -2,10 +2,14 @@
 
 namespace SQLgreyGUI\Repositories;
 
-class OptInEmailRepositoryEloquent implements OptInEmailRepositoryInterface {
-
+class OptInEmailRepositoryEloquent extends BaseRepositoryEloquent implements OptInEmailRepositoryInterface
+{
     use OptEmailTrait;
 
-    protected $model = 'OptInEmail';
-
+    /**
+     * Model class.
+     *
+     * @var string
+     */
+    protected $model_class = 'OptInEmail';
 }

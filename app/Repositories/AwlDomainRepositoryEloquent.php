@@ -4,24 +4,23 @@ namespace SQLgreyGUI\Repositories;
 
 use SQLgreyGUI\Models\AwlDomain as Domain;
 
-class AwlDomainRepositoryEloquent implements AwlDomainRepositoryInterface
+class AwlDomainRepositoryEloquent extends BaseRepositoryEloquent implements AwlDomainRepositoryInterface
 {
+    public function __construct(Domain $domain)
+    {
+        $this->model = $domain;
+    }
 
     public function findAll()
     {
-        $data = Domain::orderBy('sender_domain', 'asc')->get();
+        $data = $this->model->orderBy('sender_domain', 'asc')->get();
 
         return $data;
     }
 
-    public function instance($data = array())
+    public function store($domain)
     {
-        return new Domain($data);
-    }
-
-    public function store(Domain $domain)
-    {
-        return Domain::insert(array(
+        return $this->model->insert(array(
                     'sender_domain' => $domain->getSenderDomain(),
                     'src' => $domain->getSource(),
                     'first_seen' => $domain->getFirstSeen(),
@@ -29,11 +28,10 @@ class AwlDomainRepositoryEloquent implements AwlDomainRepositoryInterface
         ));
     }
 
-    public function destroy(Domain $domain)
+    public function destroy($domain)
     {
-        return Domain::where('sender_domain', $domain->getSenderDomain())
+        return $this->model->where('sender_domain', $domain->getSenderDomain())
                         ->where('src', $domain->getSource())
                         ->delete();
     }
-
 }

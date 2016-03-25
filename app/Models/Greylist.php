@@ -2,26 +2,63 @@
 
 namespace SQLgreyGUI\Models;
 
+use Carbon\Carbon;
+
 class Greylist extends SQLgreyConnection
 {
-
     /**
-     * The database table used by the model.
+     * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'connect';
 
     /**
-     * mass assignment: guarded attributes
-     * 
-     * @var array 
+     * The primary key for the model.
+     *
+     * @var string
      */
-    protected $guarded = array();
+    protected $primaryKey = null;
 
     /**
-     * get sender name
-     * 
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'sender_name',
+        'sender_domain',
+        'src',
+        'rcpt',
+        'first_seen',
+    ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'first_seen',
+    ];
+
+    /**
+     * Get sender name.
+     *
      * @return string
      */
     public function getSenderName()
@@ -30,8 +67,8 @@ class Greylist extends SQLgreyConnection
     }
 
     /**
-     * get sender domain
-     * 
+     * Get sender domain.
+     *
      * @return string
      */
     public function getSenderDomain()
@@ -40,8 +77,8 @@ class Greylist extends SQLgreyConnection
     }
 
     /**
-     * get source
-     * 
+     * Get source.
+     *
      * @return string
      */
     public function getSource()
@@ -50,8 +87,8 @@ class Greylist extends SQLgreyConnection
     }
 
     /**
-     * get recipient
-     * 
+     * Get recipient.
+     *
      * @return string
      */
     public function getRecipient()
@@ -60,13 +97,12 @@ class Greylist extends SQLgreyConnection
     }
 
     /**
-     * get first seen
-     * 
-     * @return string
+     * Get first seen.
+     *
+     * @return Carbon|null
      */
     public function getFirstSeen()
     {
         return $this->first_seen;
     }
-
 }

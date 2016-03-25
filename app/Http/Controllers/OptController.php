@@ -53,7 +53,7 @@ class OptController extends Controller
 
         $this->emails->store($new_email);
 
-        return redirect(action($this->getAction('showEmails')))
+        return redact('_self@showEmails')
             ->withSuccess($new_email->getEmail().' has been added');
     }
 
@@ -83,7 +83,7 @@ class OptController extends Controller
 
         $this->domains->store($new_domain);
 
-        return redirect(action($this->getAction('showDomains')))
+        return redact('_self@showDomains')
             ->withSuccess($new_domain->getDomain().' has been added');
     }
 }

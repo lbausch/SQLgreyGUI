@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Jobs;
+namespace SQLgreyGUI\Jobs;
 
 use Illuminate\Bus\Queueable;
 

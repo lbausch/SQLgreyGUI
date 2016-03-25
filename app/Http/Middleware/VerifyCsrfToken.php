@@ -1,6 +1,6 @@
 <?php
 
-namespace SQLGreyGUI\Http\Middleware;
+namespace SQLgreyGUI\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 

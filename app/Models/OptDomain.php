@@ -4,33 +4,52 @@ namespace SQLgreyGUI\Models;
 
 class OptDomain extends SQLgreyConnection
 {
+    /**
+     * The primary key for the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = null;
 
     /**
-     * fillable attributes
-     * 
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'domain',
-    );
+    ];
 
     /**
-     * validation rules
-     * 
+     * validation rules.
+     *
      * @var array
      */
-    public $rules = array(
+    public $rules = [
         'domain' => 'required',
-    );
+    ];
 
     /**
-     * get domain
-     * 
+     * Get domain.
+     *
      * @return string
      */
     public function getDomain()
     {
         return $this->domain;
     }
-
 }

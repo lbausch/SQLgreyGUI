@@ -7,9 +7,9 @@
 {% block content %}
     <h3 class="page-header"><i class="fa fa-minus-square fa-fw"></i> Opt-out > <i class="fa fa-globe fa-fw"></i> Domains</h3>
 
-    {{ Html.alert('info', 'These domains are never greylisted') }}
+    {{ alert('info', 'These domains are never greylisted') }}
 
-    {{ Html.listDomains(domains, 'OptOutController') }}
+    {{ listDomains(domains, 'OptOutController') }}
 {% endblock %}
 
 {% block javascript %}
