@@ -5,7 +5,7 @@ if [ "$CI" = true ]; then
 fi
 
 if [ "$CI" = true ]; then
-    composer install --quiet --no-interaction --prefer-dist
+    composer install --no-ansi --no-interaction --no-progress
 fi
 
 cp -nv .env.example .env

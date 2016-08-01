@@ -14,7 +14,7 @@
         "stolz/assets": "^0.1.4",
         "laravelcollective/html": "5.2.*",
         "spatie/laravel-tail": "^1.1.1",
-        "components/jquery": "^2.2.0",
+        "components/jquery": "^3.0",
         "twbs/bootstrap": "^3.3.5",
         "eonasdan/bootstrap-datetimepicker": "^4.17",
         "fortawesome/font-awesome": "^4.4",
