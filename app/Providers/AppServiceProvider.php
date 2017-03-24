@@ -3,6 +3,7 @@
 namespace SQLgreyGUI\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,6 +12,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // https://laravel.com/docs/master/migrations#creating-indexes
+        Schema::defaultStringLength(191);
     }
 
     /**
