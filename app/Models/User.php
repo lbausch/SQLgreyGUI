@@ -2,12 +2,16 @@
 
 namespace SQLgreyGUI\Models;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Carbon\Carbon;
 use Hash;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
+    use HasApiTokens, Notifiable;
+
     /**
      * The attributes that are mass assignable.
      *

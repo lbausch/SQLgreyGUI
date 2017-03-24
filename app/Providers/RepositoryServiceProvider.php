@@ -7,20 +7,19 @@ use Illuminate\Support\ServiceProvider;
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
-     * Bindings for Repositories
-     * Interface => Implementation.
+     * Bindings for Repositories: Interface => Implementation.
      *
      * @var array
      */
     private static $bindings = [
-        \SQLgreyGUI\Repositories\GreylistRepositoryInterface::class => \SQLgreyGUI\Repositories\GreylistRepositoryEloquent::class,
-        \SQLgreyGUI\Repositories\AwlEmailRepositoryInterface::class => \SQLgreyGUI\Repositories\AwlEmailRepositoryEloquent::class,
-        \SQLgreyGUI\Repositories\AwlDomainRepositoryInterface::class => \SQLgreyGUI\Repositories\AwlDomainRepositoryEloquent::class,
-        \SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface::class => \SQLgreyGUI\Repositories\OptOutEmailRepositoryEloquent::class,
-        \SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface::class => \SQLgreyGUI\Repositories\OptOutDomainRepositoryEloquent::class,
-        \SQLgreyGUI\Repositories\OptInEmailRepositoryInterface::class => \SQLgreyGUI\Repositories\OptInEmailRepositoryEloquent::class,
-        \SQLgreyGUI\Repositories\OptInDomainRepositoryInterface::class => \SQLgreyGUI\Repositories\OptInDomainRepositoryEloquent::class,
-        \SQLgreyGUI\Repositories\UserRepositoryInterface::class => \SQLgreyGUI\Repositories\UserRepositoryEloquent::class,
+        \SQLgreyGUI\Api\v1\Repositories\GreylistRepositoryInterface::class => \SQLgreyGUI\Api\v1\Repositories\GreylistRepositoryEloquent::class,
+        \SQLgreyGUI\Api\v1\Repositories\AwlEmailRepositoryInterface::class => \SQLgreyGUI\Api\v1\Repositories\AwlEmailRepositoryEloquent::class,
+        \SQLgreyGUI\Api\v1\Repositories\AwlDomainRepositoryInterface::class => \SQLgreyGUI\Api\v1\Repositories\AwlDomainRepositoryEloquent::class,
+        \SQLgreyGUI\Api\v1\Repositories\OptOutEmailRepositoryInterface::class => \SQLgreyGUI\Api\v1\Repositories\OptOutEmailRepositoryEloquent::class,
+        \SQLgreyGUI\Api\v1\Repositories\OptOutDomainRepositoryInterface::class => \SQLgreyGUI\Api\v1\Repositories\OptOutDomainRepositoryEloquent::class,
+        \SQLgreyGUI\Api\v1\Repositories\OptInEmailRepositoryInterface::class => \SQLgreyGUI\Api\v1\Repositories\OptInEmailRepositoryEloquent::class,
+        \SQLgreyGUI\Api\v1\Repositories\OptInDomainRepositoryInterface::class => \SQLgreyGUI\Api\v1\Repositories\OptInDomainRepositoryEloquent::class,
+        \SQLgreyGUI\Api\v1\Repositories\UserRepositoryInterface::class => \SQLgreyGUI\Api\v1\Repositories\UserRepositoryEloquent::class,
     ];
 
     /**
@@ -28,7 +27,6 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
     }
 
     /**

@@ -3,10 +3,11 @@
 namespace SQLgreyGUI\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Bausch\LaravelCornerstone\Http\Controllers\CornerstoneController as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-abstract class Controller extends \Bausch\LaravelCornerstone\Http\Controllers\CornerstoneController
+class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
@@ -15,7 +16,7 @@ abstract class Controller extends \Bausch\LaravelCornerstone\Http\Controllers\Co
      *
      * @return array
      */
-    protected function parseEntries($input_identifier, $repository)
+    /*protected function parseEntries($input_identifier, $repository)
     {
         $items_tmp = request()->input($input_identifier, []);
 
@@ -30,15 +31,6 @@ abstract class Controller extends \Bausch\LaravelCornerstone\Http\Controllers\Co
         }
 
         return $items;
-    }
+    }*/
 
-    /**
-     * Is ajax request?
-     *
-     * @return bool
-     */
-    protected function isAjax()
-    {
-        return request()->ajax();
-    }
 }

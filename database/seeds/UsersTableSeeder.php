@@ -5,16 +5,16 @@ use Illuminate\Database\Seeder;
 class UsersTableSeeder extends Seeder
 {
     /**
-     * user repository.
+     * User repository.
      *
-     * @var \Bausch\Repositories\UserRepositoryInterface
+     * @var \SQLgreyGUI\Repositories\UserRepositoryInterface
      */
     private $repo;
 
     /**
      * Constructor.
      *
-     * @param Bausch\Repositories\UserRepositoryInterface $repo
+     * @param \SQLgreyGUI\Repositories\UserRepositoryInterface $repo
      */
     public function __construct(SQLgreyGUI\Repositories\UserRepositoryInterface $repo)
     {

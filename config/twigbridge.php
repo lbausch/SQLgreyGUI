@@ -38,7 +38,7 @@ return [
             // When set to true, the generated templates have a __toString() method
             // that you can use to display the generated nodes.
             // default: false
-            'debug' => config('app.debug', false),
+            'debug' => env('APP_DEBUG', false),
 
             // The charset used by the templates.
             // default: utf-8
@@ -112,7 +112,7 @@ return [
             'TwigBridge\Extension\Laravel\Url',
             // 'TwigBridge\Extension\Laravel\Gate',
 
-            'TwigBridge\Extension\Laravel\Form',
+            // 'TwigBridge\Extension\Laravel\Form',
             // 'TwigBridge\Extension\Laravel\Html',
             // 'TwigBridge\Extension\Laravel\Legacy\Facades',
         ],
@@ -144,14 +144,7 @@ return [
         | in order to be marked as safe.
         |
         */
-        'facades' => [
-            'Assets' => [
-                'is_safe' => [
-                    'css',
-                    'js',
-                ],
-            ],
-        ],
+        'facades' => [],
 
         /*
         |--------------------------------------------------------------------------
@@ -182,25 +175,9 @@ return [
         |
         */
         'functions' => [
-            'elixir',
             'head',
             'last',
-
-            'alert' => [
-                'is_safe' => ['html'],
-            ],
-            'cval' => [
-                'is_safe' => ['html'],
-            ],
-            'is_active' => [
-                'is_safe' => ['html'],
-            ],
-            'listDomains' => [
-                'is_safe' => ['html'],
-            ],
-            'listEmails' => [
-                'is_safe' => ['html'],
-            ],
+            'mix',
         ],
 
         /*

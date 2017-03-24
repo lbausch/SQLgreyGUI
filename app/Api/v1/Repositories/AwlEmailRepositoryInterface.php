@@ -1,0 +1,17 @@
+<?php
+
+namespace SQLgreyGUI\Api\v1\Repositories;
+
+interface AwlEmailRepositoryInterface extends BaseRepositoryInterface
+{
+    /**
+     * Find by name, domain and source.
+     *
+     * @param string $name
+     * @param string $domain
+     * @param string $source
+     *
+     * @return \SQLgreyGUI\Models\AwlEmail
+     */
+    public function findByNameDomainSource($name, $domain, $source);
+}
