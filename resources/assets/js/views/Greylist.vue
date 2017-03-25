@@ -1,66 +1,62 @@
 <template>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-md-6">
-                    <button class="btn btn-success" @click.prevent="getItems">
-                        <i class="fa fa-refresh"></i> refresh
-                    </button>
-                    <button class="btn btn-danger" @click.prevent="deleteItems" :disabled="checkedItems.length == 0">
-                        <i class="fa fa-trash"></i> delete <span v-if="checkedItems.length > 0">{{ checkedItems.length
-                        }} {{ checkedItems.length == 1 ? 'record' : 'records' }}</span>
-                    </button>
-                </div>
-                <div class="col-md-6">
-                    <div class="input-group mb-1">
-                        <div class="input-group-addon" v-if="filter.length == 0"><i class="fa fa-search"></i></div>
-                        <div class="input-group-addon" v-if="filter.length > 0" @click="filter = ''"><i
-                                class="fa fa-eraser"></i></div>
-                        <input type="text" class="form-control" placeholder="Search..." v-model="filter"
-                               ref="filterInput">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-6 mb-1">
+                        <button class="btn btn-success" @click.prevent="getItems">
+                            <i class="fa fa-refresh"></i> refresh
+                        </button>
+                        <button class="btn btn-danger" @click.prevent="deleteItems"
+                                :disabled="checkedItems.length == 0">
+                            <i class="fa fa-trash"></i> delete <span
+                                v-if="checkedItems.length > 0">{{ checkedItems.length
+                            }} {{ checkedItems.length == 1 ? 'record' : 'records' }}</span>
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group mb-1">
+                            <div class="input-group-addon" v-if="filter.length == 0">
+                                <i class="fa fa-search"></i>
+                            </div>
+                            <div class="input-group-addon" v-if="filter.length > 0" @click="filter = ''">
+                                <i class="fa fa-eraser"></i>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Search..." v-model="filter"
+                                   ref="filterInput">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <form ref="tableForm">
-                <table class="table table-bordered table-striped table-condensed">
-                    <thead>
-                    <tr>
-                        <th class="th-checkbox text-center">
-                            <input type="checkbox" @click="checkAllItems" :checked="allItemsChecked">
-                        </th>
-                        <th v-for="(colName, colKey) in columns" @click.prevent="sortColumn(colKey)">
-                            {{ colName }} <span class="pull-right">
+                <form ref="tableForm">
+                    <table class="table table-bordered table-striped table-sm table-hover">
+                        <thead>
+                        <tr>
+                            <th class="th-checkbox text-center">
+                                <input type="checkbox" @click="checkAllItems" :checked="allItemsChecked">
+                            </th>
+                            <th v-for="(colName, colKey) in columns" @click.prevent="sortColumn(colKey)">
+                                {{ colName }} <span class="pull-right">
                                 <i class="fa fa-sort-asc" v-if="sorting.column == colKey && sorting.order == 'asc'"></i>
                                 <i class="fa fa-sort-desc"
                                    v-if="sorting.column == colKey && sorting.order == 'desc'"></i>
                             </span>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="item in filteredItems" :key="item.id" @click="itemClicked(item)"
-                        :class="{ 'table-success': checkedItems.includes(item.id)}">
-                        <td class="text-center">
-                            <input type="checkbox" v-model="checkedItems" :value="item.id" @click="itemClicked(item)">
-                        </td>
-                        <td v-for="(colValue, colKey) in columns">{{ item[colKey] }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </form>
-            <!--<nav>
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>-->
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="item in filteredItems" :key="item.id" @click="itemClicked(item)"
+                            :class="{ 'table-success': checkedItems.includes(item.id)}">
+                            <td class="text-center">
+                                <input type="checkbox" v-model="checkedItems" :value="item.id"
+                                       @click="itemClicked(item)">
+                            </td>
+                            <td v-for="(colValue, colKey) in columns">{{ item[colKey] }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
         </div>
     </div>
 </template>
