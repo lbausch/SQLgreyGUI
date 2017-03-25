@@ -7,7 +7,8 @@
                         <i class="fa fa-refresh"></i> refresh
                     </button>
                     <button class="btn btn-danger" @click.prevent="deleteItems" :disabled="checkedItems.length == 0">
-                        <i class="fa fa-trash"></i> delete
+                        <i class="fa fa-trash"></i> delete <span v-if="checkedItems.length > 0">{{ checkedItems.length
+                        }} {{ checkedItems.length == 1 ? 'record' : 'records' }}</span>
                     </button>
                 </div>
                 <div class="col-md-6">
