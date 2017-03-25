@@ -35,7 +35,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="item in filteredItems()" :key="item.id" @click="itemClicked(item)">
+                    <tr v-for="item in filteredItems" :key="item.id" @click="itemClicked(item)">
                         <td class="text-center">
                             <input type="checkbox" v-model="checkedItems" :value="item.id" @click="itemClicked(item)">
                         </td>
@@ -83,6 +83,21 @@
                 }
             }
         },
+        computed: {
+            filteredItems: function() {
+                if (!this.filter.length) {
+                    return this.items;
+                }
+
+                return this.items.filter((item) => {
+                    for (let column in this.columns) {
+                        if (item[column].match(this.filter)) {
+                            return true;
+                        }
+                    }
+                })
+            },
+        },
         mounted() {
             this.prepareComponent();
         },
@@ -109,27 +124,14 @@
                         this.$events.$emit('loading', false);
                     });
             },
-            filteredItems() {
-                if (!this.filter.length) {
-                    return this.items;
-                }
-
-                return this.items.filter((item) => {
-                    for (let column in this.columns) {
-                        if (item[column].match(this.filter)) {
-                            return true;
-                        }
-                    }
-                })
-            },
             checkAllItems() {
                 let checkboxIsChecked = this.allItemsChecked;
 
-                if (checkboxIsChecked) {
-                    this.checkedItems = [];
-                } else {
-                    this.items.forEach((item) => {
-                        if (!this.items.includes(item.id)) {
+                this.checkedItems = [];
+
+                if (!checkboxIsChecked) {
+                    this.filteredItems.forEach((item) => {
+                        if (!this.checkedItems.includes(item.id)) {
                             this.checkedItems.push(item.id);
                         }
                     });
