@@ -11,7 +11,9 @@
                     </button>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
+                    <div class="input-group mb-1">
+                        <div class="input-group-addon" v-if="filter.length == 0"><i class="fa fa-search"></i></div>
+                        <div class="input-group-addon" v-if="filter.length > 0" @click="filter = ''"><i class="fa fa-eraser"></i></div>
                         <input type="text" class="form-control" placeholder="Search..." v-model="filter"
                                ref="filterInput">
                     </div>
@@ -84,7 +86,7 @@
             }
         },
         computed: {
-            filteredItems: function() {
+            filteredItems: function () {
                 if (!this.filter.length) {
                     return this.items;
                 }
