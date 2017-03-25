@@ -13,7 +13,8 @@
                 <div class="col-md-6">
                     <div class="input-group mb-1">
                         <div class="input-group-addon" v-if="filter.length == 0"><i class="fa fa-search"></i></div>
-                        <div class="input-group-addon" v-if="filter.length > 0" @click="filter = ''"><i class="fa fa-eraser"></i></div>
+                        <div class="input-group-addon" v-if="filter.length > 0" @click="filter = ''"><i
+                                class="fa fa-eraser"></i></div>
                         <input type="text" class="form-control" placeholder="Search..." v-model="filter"
                                ref="filterInput">
                     </div>
@@ -37,7 +38,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="item in filteredItems" :key="item.id" @click="itemClicked(item)">
+                    <tr v-for="item in filteredItems" :key="item.id" @click="itemClicked(item)"
+                        :class="{ 'table-success': checkedItems.includes(item.id)}">
                         <td class="text-center">
                             <input type="checkbox" v-model="checkedItems" :value="item.id" @click="itemClicked(item)">
                         </td>
