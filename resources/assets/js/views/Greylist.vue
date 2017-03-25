@@ -29,7 +29,7 @@
                 </div>
 
                 <form ref="tableForm">
-                    <table class="table table-bordered table-striped table-sm table-hover">
+                    <table class="table table-bordered table-striped table-sm table-hover table-responsive">
                         <thead>
                         <tr>
                             <th class="th-checkbox text-center">
