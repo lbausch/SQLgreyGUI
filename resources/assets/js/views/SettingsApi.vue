@@ -29,7 +29,7 @@
     import passportPersonalAccessTokens from '../components/passport/PersonalAccessTokens.vue'
 
     export default {
-        name: 'settings',
+        name: 'settings-api',
         components: {
             passportClients,
             passportAuthorizedClients,

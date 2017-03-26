@@ -61,9 +61,12 @@
                     this.loading = false;
                 }
             });
+
+            this.getUser();
         },
         data() {
             return {
+                // @TODO: Move to vuex
                 authenticated: window.Laravel.authenticated,
                 csrfToken: window.Laravel.csrfToken,
                 loading: false,
@@ -76,6 +79,14 @@
             list () {
                 return this.$route.matched
             }
-        }
+        },
+        methods: {
+            getUser() {
+                axios.get('/api/v1/me')
+                    .then((response) => {
+                        this.$store.commit('user', response.data.data)
+                    })
+            },
+        },
     }
 </script>

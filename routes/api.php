@@ -15,6 +15,10 @@ $router->group(['prefix' => 'v1'], function ($router) {
     //$router->post('auth', 'v1\Controllers\AuthController@auth');
 
     $router->group(['middleware' => 'auth:api'], function ($router) {
+        $router->get('me', 'v1\Controllers\UserController@me');
+        $router->patch('me', 'v1\Controllers\UserController@update');
+        $router->post('me/password', 'v1\Controllers\UserController@password');
+
         $router->get('stats', 'v1\Controllers\StatsController@index');
 
         $router->get('greylist', 'v1\Controllers\GreylistController@index');

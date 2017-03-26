@@ -5,8 +5,8 @@ namespace SQLgreyGUI\Api\v1\Controllers;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use SQLgreyGUI\Api\v1\Repositories\GreylistRepositoryInterface as Greylisted;
-use SQLgreyGUI\Api\v1\Repositories\AwlEmailRepositoryInterface as WhitelistedEmails;
+use SQLgreyGUI\Repositories\GreylistRepositoryInterface as Greylisted;
+use SQLgreyGUI\Repositories\AwlEmailRepositoryInterface as WhitelistedEmails;
 use SQLgreyGUI\Api\v1\Transformers\GreylistTransformer;
 
 class GreylistController extends Controller

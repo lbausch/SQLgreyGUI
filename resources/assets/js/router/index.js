@@ -7,6 +7,7 @@ import Full from '../containers/Full'
 // Views
 import Dashboard from '../views/Dashboard'
 import Greylist from '../views/Greylist'
+import SettingsAccount from '../views/SettingsAccount'
 import SettingsApi from '../views/SettingsApi'
 
 /* import Charts from '../views/Charts'
@@ -129,7 +130,7 @@ export default new VueRouter({
                 },
                 {
                     path: 'settings',
-                    redirect: '/settings/api',
+                    redirect: '/settings/account',
                     name: 'Settings',
                     component: {
                         render (c) {
@@ -137,6 +138,11 @@ export default new VueRouter({
                         }
                     },
                     children: [
+                        {
+                            path: 'account',
+                            name: 'Account',
+                            component: SettingsAccount
+                        },
                         {
                             path: 'api',
                             name: 'API',

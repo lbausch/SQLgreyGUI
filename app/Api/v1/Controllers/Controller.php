@@ -7,7 +7,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Bausch\LaravelCornerstone\Http\Controllers\CornerstoneController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use SQLgreyGUI\Api\v1\Exceptions\ValidationException;
+use League\Fractal\Resource\Item;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\DataArraySerializer;
 use League\Fractal\Resource\Collection;
@@ -42,21 +42,6 @@ abstract class Controller extends CornerstoneController
     }
 
     /**
-     * Throw the failed validation exception.
-     *
-     * @param \Illuminate\Http\Request                   $request
-     * @param \Illuminate\Contracts\Validation\Validator $validator
-     *
-     * @throws ValidationException
-     */
-    protected function throwValidationException(Request $request, $validator)
-    {
-        throw new ValidationException($validator, $this->buildFailedValidationResponse(
-            $request, $this->formatValidationErrors($validator)
-        ));
-    }
-
-    /**
      * Respond.
      *
      * @param array $data
@@ -88,6 +73,25 @@ abstract class Controller extends CornerstoneController
         $response = Container::getInstance()->make(ResponseFactory::class);
 
         return $response->json(['status' => true]);
+    }
+
+    /**
+     * Respond with a Collection.
+     *
+     * @param mixed                    $item
+     * @param TransformerAbstract|null $transformer
+     * @param string|null              $resourceKey
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function respondItem($item, TransformerAbstract $transformer = null, $resourceKey = null)
+    {
+        $manager = $this->getManager();
+
+        $resource = new Item($item, $transformer, $resourceKey);
+        $data = $manager->createData($resource)->toArray();
+
+        return $this->respond($data['data']);
     }
 
     /**

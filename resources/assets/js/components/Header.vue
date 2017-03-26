@@ -1,7 +1,8 @@
 <template>
     <navbar>
         <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button" @click="mobileSidebarToggle">
-            &#9776;</button>
+            &#9776;
+        </button>
         <a class="navbar-brand" href="/"></a>
         <ul class="nav navbar-nav hidden-md-down">
             <li class="nav-item">
@@ -34,7 +35,12 @@
                 <span slot="button">
                     <!--<img src="/images/avatar.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">-->
                     <i class="fa fa-user"></i>
-                    <span class="hidden-md-down">admin</span>
+                    <span class="hidden-md-down">
+                        <span v-if="$store.state.user.username">
+                            {{ $store.state.user.username }} ({{ $store.state.user.email }})
+                        </span>
+                        <span v-else><i class="fa fa-spin fa-spinner"></i></span>
+                    </span>
                 </span>
                 <div slot="dropdown-menu" class="dropdown-menu dropdown-menu-right">
                     <!--<div class="dropdown-header text-center"><strong>Account</strong></div>
@@ -65,6 +71,9 @@
 
                     <div class="dropdown-header text-center"><strong>Settings</strong></div>
 
+                    <router-link :to="'/settings/account'" class="dropdown-item" exact>
+                        <i class="fa fa-user"></i> Account
+                    </router-link>
                     <router-link :to="'/settings/api'" class="dropdown-item" exact>
                         <i class="fa fa-wrench"></i> API
                     </router-link>

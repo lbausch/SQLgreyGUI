@@ -20,7 +20,9 @@
     "vue-events": "^3.0.1",
     "vue-focus": "^2.1.0",
     "vue-router": "^2.3.0",
-    "vue-strap": "github:wffranco/vue-strap"
+    "vue-strap": "github:wffranco/vue-strap",
+    "vue-sweetalert": "^0.1.17",
+    "vuex": "^2.2.1"
   },
   "dependencies": {}
 }

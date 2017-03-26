@@ -4,7 +4,9 @@ namespace SQLgreyGUI\Providers;
 
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use SQLgreyGUI\Repositories\UserProviderInterface;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -30,5 +32,12 @@ class AuthServiceProvider extends ServiceProvider
         Passport::tokensExpireIn(Carbon::now()->addDays(15));
 
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
+
+        // Custom User Provider
+        Auth::provider('sqlgreygui', function ($app, array $config) {
+            // Return an instance of Illuminate\Contracts\Auth\UserProvider...
+
+            return $app->make(UserProviderInterface::class);
+        });
     }
 }

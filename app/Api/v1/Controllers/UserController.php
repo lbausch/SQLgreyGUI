@@ -1,11 +1,14 @@
 <?php
 
-namespace SQLgreyGUI\Http\Controllers;
+namespace SQLgreyGUI\Api\v1\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Validation\Rule;
+use SQLgreyGUI\Api\v1\Exceptions\ValidationException;
+use SQLgreyGUI\Api\v1\Transformers\UserTransformer;
 use SQLgreyGUI\Repositories\UserRepositoryInterface as Users;
-use SQLgreyGUI\Models\User as User;
-use Validator;
+use Illuminate\Auth\AuthManager;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -14,7 +17,7 @@ class UserController extends Controller
      *
      * @var Users
      */
-    private $users;
+    protected $users;
 
     /**
      * constructor.
@@ -29,51 +32,86 @@ class UserController extends Controller
     }
 
     /**
-     * Draw the users table.
+     * Get details about authenticated user.
+     *
+     * @param AuthManager $authManager
      *
      * @return \Illuminate\Http\Response
      */
-    public function getTable()
+    public function me(AuthManager $authManager)
     {
-        $users = $this->users->findAll();
+        $user = $authManager->guard()->user();
 
-        return view('user.table')
-            ->with('users', $users);
+        return $this->respondItem($user, new UserTransformer());
     }
 
     /**
-     * Display a listing of the resource.
+     * Update authenticated user.
+     *
+     * @param Request $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function update(Request $request, AuthManager $authManager)
     {
-        return view('user.index')
-            ->with('users_table', $this->getTable());
+        $user = $authManager->guard()->user();
+
+        $this->validate($request, [
+            'username' => 'required|string',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($user->getKey()),
+            ],
+        ]);
+
+        $user->setUsername($request->input('username'));
+        $user->setEmail($request->input('email'));
+
+        $user = $this->users->update($user);
+
+        return $this->respondItem($user, new UserTransformer());
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Update password for authenticated user.
+     *
+     * @param Request $request
      *
      * @return \Illuminate\Http\Response
+     *
+     * @throws ValidationException
      */
-    public function create()
+    public function password(Request $request, AuthManager $authManager, Hasher $hasher)
     {
-        return view('user.form')
-            ->with('form', [
-                'action' => 'UserController@store',
-                'method' => 'POST',
+        $user = $authManager->guard()->user();
+
+        $this->validate($request, [
+            'old_password' => 'required',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        if (!$hasher->check($request->input('old_password'), $user->getAuthPassword())) {
+            throw new ValidationException([
+                'old_password' => 'Old password is incorrect',
             ]);
+        }
+
+        $user->setPassword($request->input('password'));
+
+        $user = $this->users->update($user);
+
+        return $this->respondItem($user, new UserTransformer());
     }
 
-    /**
+    /*
      * Store a newly created resource in storage.
      *
      * @param Request $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    /*public function store(Request $request)
     {
         $input = $request->input();
 
@@ -114,49 +152,16 @@ class UserController extends Controller
         $this->users->store($new_user);
 
         return alert('success', $message);
-    }
+    }*/
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $data = $this->users->findById($id);
-
-        if ($this->isAjax()) {
-            return view('user.form')
-                ->with('form', [
-                    'action' => ['UserController@update', $id],
-                    'method' => 'PUT',
-                ])
-                ->with('userdata', $data);
-        }
-    }
-
-    /**
+    /*
      * Update the specified resource in storage.
      *
      * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $req, $id)
+    /*public function update(Request $req, $id)
     {
         $user = $this->users->findById($id);
 
@@ -201,26 +206,14 @@ class UserController extends Controller
         $this->users->update($user);
 
         return alert('success', $message);
-    }
+    }*/
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
+    /*
      * Delete multiple users.
      *
      * @return \Illuminate\Http\Response
      */
-    public function deleteUsers(Request $req)
+    /*public function deleteUsers(Request $req)
     {
         $delete_ids = $req->input('userids', []);
 
@@ -242,5 +235,5 @@ class UserController extends Controller
 
         return redact('_self@index')
             ->withSuccess('Deleted Users: '.$num_deletes);
-    }
+    }*/
 }

@@ -38,12 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'sqlgreygui',
         ],
 
         'api' => [
             'driver' => 'passport',
-            'provider' => 'users',
+            'provider' => 'sqlgreygui',
         ],
     ],
 
@@ -70,6 +70,12 @@ return [
             'model' => SQLgreyGUI\Models\User::class,
         ],
 
+        'sqlgreygui' => [
+            'driver' => 'sqlgreygui',
+            'model' => SQLgreyGUI\Models\User::class,
+        ],
+
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -93,7 +99,7 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
+            'provider' => 'sqlgreygui',
             'table' => 'password_resets',
             'expire' => 60,
         ],

@@ -1,6 +1,6 @@
 <?php
 
-namespace SQLgreyGUI\Api\v1\Repositories;
+namespace SQLgreyGUI\Repositories;
 
 interface BaseRepositoryInterface extends \Bausch\LaravelCornerstone\Repositories\BaseRepositoryInterface
 {
