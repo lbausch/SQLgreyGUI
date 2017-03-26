@@ -18,20 +18,9 @@
 
         <AppFooter/>
 
-        <div id="cssload-modal" v-if="loading">
-            <div id="cssload-global">
-
-                <div id="cssload-top" class="cssload-mask">
-                    <div class="cssload-plane"></div>
-                </div>
-                <div id="cssload-middle" class="cssload-mask">
-                    <div class="cssload-plane"></div>
-                </div>
-
-                <div id="cssload-bottom" class="cssload-mask">
-                    <div class="cssload-plane"></div>
-                </div>
-
+        <div id="loader-modal" v-if="loading">
+            <div class="loader-modal-content">
+                <div class="loader" v-if="loading">Loading...</div>
             </div>
         </div>
     </div>
