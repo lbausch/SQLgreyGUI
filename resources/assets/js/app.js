@@ -6,17 +6,17 @@ import Vuex from 'vuex'
 import VueSweetAlert from 'vue-sweetalert'
 import Alert from './utils/Alert'
 
-window._ = require('lodash');
+window._ = require('lodash')
 
-window.axios = require('axios');
+window.axios = require('axios')
 
 window.axios.defaults.headers.common = {
-    'Accept': 'application/json',
-    'X-CSRF-TOKEN': window.Laravel.csrfToken,
-    'X-Requested-With': 'XMLHttpRequest',
-};
+  'Accept': 'application/json',
+  'X-CSRF-TOKEN': window.Laravel.csrfToken,
+  'X-Requested-With': 'XMLHttpRequest'
+}
 
-import {focus} from 'vue-focus'
+import { focus } from 'vue-focus'
 
 Vue.directive('focus', focus)
 Vue.use(VueEvents)
@@ -25,27 +25,27 @@ Vue.use(VueSweetAlert)
 Vue.use(Alert)
 
 const store = new Vuex.Store({
-    state: {
-        user: {}
-    },
-    getters: {
-        // user: state => {
-        //     return state.user
-        // }
-    },
-    mutations: {
-        user (state, user) {
-            state.user = user
-        }
-    },
+  state: {
+    user: {}
+  },
+  getters: {
+    // user: state => {
+    //     return state.user
+    // }
+  },
+  mutations: {
+    user (state, user) {
+      state.user = user
+    }
+  },
 })
 
 /* eslint-disable no-new */
 let vue = new Vue({
-    el: '#app',
-    router: VueRouter,
-    store,
-    directives: {focus: focus},
-    template: '<App/>',
-    components: {App},
-});
+  el: '#app',
+  router: VueRouter,
+  store,
+  directives: {focus: focus},
+  template: '<App/>',
+  components: {App}
+})

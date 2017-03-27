@@ -18,10 +18,14 @@ class ValidationException extends Exception
     /**
      * ValidationException constructor.
      *
-     * @param array $errors
+     * @param array|string $errors
      */
-    public function __construct(array $errors)
+    public function __construct($errors)
     {
+        if (!is_array($errors)) {
+            $errors = ['*' => $errors];
+        }
+
         $this->errors = new MessageBag();
 
         foreach ($errors as $field => $message) {

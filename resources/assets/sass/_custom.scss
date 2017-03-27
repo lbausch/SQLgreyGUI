@@ -1,4 +1,13 @@
 // Here you can add other styles
+
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .1s ease;
+}
+
+.component-fade-enter, .component-fade-leave-to {
+  opacity: 0;
+}
+
 .th-checkbox {
   width: 40px;
 }
@@ -12,13 +21,13 @@
   height: 100%;
   overflow: hidden;
   background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .loader-modal-content {
   margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
+  //border: 1px solid #888;
   width: 77%;
 }
 

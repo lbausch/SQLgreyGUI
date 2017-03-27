@@ -24,16 +24,16 @@
 </template>
 
 <script>
-    import passportClients from '../components/passport/Clients.vue'
-    import passportAuthorizedClients from '../components/passport/AuthorizedClients.vue'
-    import passportPersonalAccessTokens from '../components/passport/PersonalAccessTokens.vue'
+  import passportClients from '../components/passport/Clients.vue'
+  import passportAuthorizedClients from '../components/passport/AuthorizedClients.vue'
+  import passportPersonalAccessTokens from '../components/passport/PersonalAccessTokens.vue'
 
-    export default {
-        name: 'settings-api',
-        components: {
-            passportClients,
-            passportAuthorizedClients,
-            passportPersonalAccessTokens,
-        }
+  export default {
+    name: 'settings-api',
+    components: {
+      passportClients,
+      passportAuthorizedClients,
+      passportPersonalAccessTokens
     }
+  }
 </script>

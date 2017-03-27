@@ -15,11 +15,6 @@ class GreylistTransformer extends Transformer
      */
     public function transform(Greylist $greylist)
     {
-        $id = base64_encode($greylist->toJson());
-
-        $data = $greylist->toArray();
-        $data['id'] = $id;
-
-        return $data;
+        return $this->transformModel($greylist);
     }
 }

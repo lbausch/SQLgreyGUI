@@ -1,9 +1,11 @@
 <?php
 
-namespace SQLgreyGUI\Http\Controllers;
+namespace SQLgreyGUI\Api\v1\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use SQLgreyGUI\Api\v1\Exceptions\ValidationException;
+use SQLgreyGUI\Api\v1\Transformers\WhitelistEmailTransformer;
 use SQLgreyGUI\Repositories\AwlEmailRepositoryInterface as Emails;
 use SQLgreyGUI\Repositories\AwlDomainRepositoryInterface as Domains;
 use SQLgreyGUI\Models\AwlEmail as Email;
@@ -16,14 +18,14 @@ class WhitelistController extends Controller
      *
      * @var Emails
      */
-    private $emails;
+    protected $emails;
 
     /**
      * Domain repository.
      *
      * @var Domains
      */
-    private $domains;
+    protected $domains;
 
     /**
      * Constructor.
@@ -40,61 +42,83 @@ class WhitelistController extends Controller
     }
 
     /**
-     * Show emails.
+     * Get emails.
      *
      * @return \Illuminate\Http\Response
      */
-    public function showEmails()
+    public function emails()
     {
         $emails = $this->emails->findAll();
 
-        return view('whitelist.emails')
-            ->with('whitelist_emails', $emails);
+        return $this->respondCollection($emails, new WhitelistEmailTransformer());
     }
 
     /**
      * Add email.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
+     *
+     * @throws ValidationException
      */
     public function addEmail(Request $request)
     {
-        $this->validate($request, Email::$rules);
+        $this->validate($request, [
+            'email' => 'required|email',
+            'source' => [
+                'required',
+                'regex:/^([0-9]{1,3})(\.[0-9]{1,3})(\.[0-9]{1,3})(\.[0-9]{1,3})?$/',
+            ],
+        ]);
 
-        $email = $this->emails->instance($request->input());
-        $email->first_seen = Carbon::now();
-        $email->last_seen = Carbon::now();
+        $tmp_email = explode('@', $request->input('email'));
+
+        $email = $this->emails->instance([
+            'sender_name' => $tmp_email[0],
+            'sender_domain' => $tmp_email[1],
+            'src' => $request->input('source'),
+            'first_seen' => Carbon::now(),
+            'last_seen' => Carbon::now(),
+        ]);
+
 
         if ($this->emails->findByNameDomainSource($email->getSenderName(), $email->getSenderDomain(), $email->getSource())) {
-            return redirect(action('WhitelistController@showEmails'))
-                ->withWarning($email->getSenderName().'@'.$email->getSenderDomain().' from '.$email->getSource().' is already whitelisted');
+            throw new ValidationException('This combination of email address and source is already whitelisted');
         }
 
         $this->emails->store($email);
 
-        return redirect(action('WhitelistController@showEmails'))
-            ->withSuccess($email->getSenderName().'@'.$email->getSenderDomain().' from '.$email->getSource().' added');
+        return $this->respondSuccess();
     }
 
     /**
      * Delete emails.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function deleteEmails()
+    public function deleteEmails(Request $request)
     {
-        $items = $this->parseEntries('whitelist_emails', \SQLgreyGUI\Repositories\AwlEmailRepositoryInterface::class);
+        $delete_entries = collect();
 
-        $message = [];
+        $raw_items = $request->input('items');
 
-        foreach ($items as $key => $val) {
-            $this->emails->destroy($val);
+        // Try to convert the data
+        foreach ($raw_items as $item) {
+            $tmp_item = $this->convertData($item);
 
-            $message[] = '<li>'.$val->getSenderName().'@'.$val->getSenderDomain().' from '.$val->getSource().'</li>';
+            if ($tmp_item) {
+                $delete_entries->push($this->emails->instance($tmp_item));
+            }
         }
 
-        return redirect(action('WhitelistController@showEmails'))
-            ->withSuccess('deleted the following entries:<ul>'.implode(PHP_EOL, $message).'</ul>');
+        foreach ($delete_entries as $item) {
+            $this->emails->destroy($item);
+        }
+
+        return $this->respondSuccess();
     }
 
     /**
