@@ -70,7 +70,8 @@
         authenticated: window.Laravel.authenticated,
         csrfToken: window.Laravel.csrfToken,
         loading: false,
-        position: document.body.scrollTop
+        // http://stackoverflow.com/a/28633515
+        position: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
       }
     },
     computed: {
@@ -89,10 +90,10 @@
           })
       },
       onScroll () {
-        this.position = document.body.scrollTop
+        this.position = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
       },
       scrollToTop () {
-        document.body.scrollTop = 0
+        document.body.scrollTop = document.documentElement.scrollTop = 0
       }
     }
   }
