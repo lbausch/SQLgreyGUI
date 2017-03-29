@@ -9,7 +9,7 @@ class WhitelistEmailTransformer extends WhitelistTransformer
     /**
      * Transform.
      *
-     * @param AwlEmail $$email
+     * @param AwlEmail $email
      *
      * @return array
      */

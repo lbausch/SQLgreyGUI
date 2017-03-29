@@ -3272,8 +3272,8 @@ inquirer@^0.12.0:
     through "^2.3.6"
 
 interpret@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.1.tgz#d579fb7f693b858004947af39fa0db49f795602c"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.2.tgz#f4f623f0bb7122f15f5717c8e254b8161b5c5b2d"
 
 invariant@^2.2.0, invariant@^2.2.2:
   version "2.2.2"
@@ -6193,12 +6193,12 @@ vm-browserify@0.0.4:
     indexof "0.0.1"
 
 vue-chartjs@^2.5.4:
-  version "2.5.5"
-  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-2.5.5.tgz#6cf27b19c85c3f0f56f952b12d6d70335b6ee17a"
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-2.5.6.tgz#84becd5b0d9cfb10f154754cf56c41ccf18a64a8"
   dependencies:
     chart.js "^2.5.0"
     lodash "^4.17.4"
-    vue "^2.2.5"
+    vue "^2.2.6"
 
 vue-events@^3.0.1:
   version "3.0.1"
@@ -6215,8 +6215,8 @@ vue-hot-reload-api@^2.0.11:
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.0.11.tgz#bf26374fb73366ce03f799e65ef5dfd0e28a1568"
 
 vue-loader@^11.1.3:
-  version "11.3.3"
-  resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-11.3.3.tgz#045d27afacf70c58889d46debe4adf6d67ec8cf3"
+  version "11.3.4"
+  resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-11.3.4.tgz#65e10a44ce092d906e14bbc72981dec99eb090d2"
   dependencies:
     consolidate "^0.14.0"
     hash-sum "^1.0.2"
@@ -6238,8 +6238,8 @@ vue-resource@^1.0.3:
     got "^6.7.1"
 
 vue-router@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.3.0.tgz#a25c8359e8ca989d22ce79f64322eb0ad0c8670f"
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.3.1.tgz#3135448cf57d4ca576906061a5a9d25fae0214d7"
 
 "vue-strap@github:wffranco/vue-strap":
   version "2.0.2"
@@ -6276,7 +6276,7 @@ vue-template-es2015-compiler@^1.2.2:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.1.tgz#0c36cc57aa3a9ec13e846342cb14a72fcac8bd93"
 
-vue@^2.1.0, vue@^2.2.1, vue@^2.2.4, vue@^2.2.5:
+vue@^2.1.0, vue@^2.2.1, vue@^2.2.4, vue@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.2.6.tgz#451714b394dd6d4eae7b773c40c2034a59621aed"
 

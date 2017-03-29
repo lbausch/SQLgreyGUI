@@ -4,8 +4,8 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-md-6 mb-1">
-                        <button class="btn btn-primary" @click.prevent="showAddEmailAddressModal">
-                            <i class="fa fa-plus"></i> Add Email Address
+                        <button class="btn btn-primary" @click.prevent="showAddDomainModal">
+                            <i class="fa fa-plus"></i> Add Domain
                         </button>
                         <button class="btn btn-default" @click.prevent="fetchItems">
                             <i class="fa fa-refresh"></i> Refresh
@@ -32,42 +32,42 @@
                     </div>
                 </div>
 
-                <data-table ref="whitelistEmails" :columns="columns" :sorting="sorting" :filter="filter"
+                <data-table ref="whitelistDomains" :columns="columns" :sorting="sorting" :filter="filter"
                             @itemsChecked="updateItemsChecked"></data-table>
             </div>
         </div>
 
 
-        <modal title="Add Email Address" :value="addEmailAddress.visible" @cancel="addEmailAddress.visible = false"
-               @keyup.esc="addEmailAddress.visible = false">
-            <alert type="danger" v-if="addEmailAddress.errors.hasGeneral()">
-                {{ addEmailAddress.errors.firstGeneral() }}
+        <modal title="Add Domain" :value="addDomain.visible" @cancel="addDomain.visible = false"
+               @keyup.esc="addDomain.visible = false">
+            <alert type="danger" v-if="addDomain.errors.hasGeneral()">
+                {{ addDomain.errors.firstGeneral() }}
             </alert>
 
-            <form @submit.prevent="submitEmailAddress">
-                <div class="form-group" :class="{ 'has-danger': addEmailAddress.errors.has('email') }">
-                    <label class="form-control-label">Email Address</label>
-                    <div v-if="addEmailAddress.errors.has('email')" class="form-control-feedback">
-                        {{ addEmailAddress.errors.first('email') }}
+            <form @submit.prevent="submitDomain">
+                <div class="form-group" :class="{ 'has-danger': addDomain.errors.has('domain') }">
+                    <label class="form-control-label">Domain</label>
+                    <div v-if="addDomain.errors.has('domain')" class="form-control-feedback">
+                        {{ addDomain.errors.first('domain') }}
                     </div>
-                    <input type="text" v-model="addEmailAddress.email" v-focus.lazy="addEmailAddress.visible"
-                           class="form-control" placeholder="Email Address">
+                    <input type="text" v-model="addDomain.domain" v-focus.lazy="addDomain.visible"
+                           class="form-control" placeholder="Domain">
                 </div>
-                <div class="form-group" :class="{ 'has-danger': addEmailAddress.errors.has('source') }">
+                <div class="form-group" :class="{ 'has-danger': addDomain.errors.has('source') }">
                     <label class="form-control-label">IP Address</label>
-                    <div v-if="addEmailAddress.errors.has('source')" class="form-control-feedback">
-                        {{ addEmailAddress.errors.first('source') }}
+                    <div v-if="addDomain.errors.has('source')" class="form-control-feedback">
+                        {{ addDomain.errors.first('source') }}
                     </div>
-                    <input type="text" v-model="addEmailAddress.source" class="form-control"
+                    <input type="text" v-model="addDomain.source" class="form-control"
                            placeholder="Source (Class C or D)">
                 </div>
                 <button type="submit" class="hidden-xs-up"></button>
             </form>
             <div slot="modal-footer" class="modal-footer">
-                <button type="submit" class="btn btn-primary" @click="submitEmailAddress">
-                    Add Email Address
+                <button type="submit" class="btn btn-primary" @click="submitDomain">
+                    Add Domain
                 </button>
-                <button type="button" class="btn btn-default" @click="addEmailAddress.visible = false">
+                <button type="button" class="btn btn-default" @click="addDomain.visible = false">
                     Cancel
                 </button>
             </div>
@@ -81,21 +81,20 @@
   import ValidationErrors from '../utils/ValidationErrors'
 
   export default {
-    name: 'whitelist-emails',
+    name: 'whitelist-domains',
     components: {
       modal,
       DataTable
     },
     data () {
       return {
-        addEmailAddress: {
+        addDomain: {
           errors: new ValidationErrors(),
           visible: false,
-          email: '',
+          domain: '',
           source: ''
         },
         columns: {
-          'sender_name': 'Sender Name',
           'sender_domain': 'Sender Domain',
           'src': 'IP Address',
           'first_seen': 'First Seen'
@@ -126,8 +125,8 @@
       fetchItems () {
         this.$events.$emit('loading', true)
 
-        axios.get('/api/v1/whitelist/emails').then((response) => {
-          this.$refs.whitelistEmails.setItems(response.data.data)
+        axios.get('/api/v1/whitelist/domains').then((response) => {
+          this.$refs.whitelistDomains.setItems(response.data.data)
         }).catch((erros) => {
         }).then((response) => {
           this.$events.$emit('loading', false)
@@ -139,35 +138,34 @@
       deleteItems () {
         this.$events.$emit('loading', true)
 
-        axios.post('/api/v1/whitelist/emails', {
+        axios.post('/api/v1/whitelist/domains', {
           items: this.itemsChecked
         }).then((response) => {
           this.fetchItems()
         }).catch((error) => {
-          console.log(error)
           this.$events.$emit('loading', false)
         }).then((response) => {
 
         })
       },
-      showAddEmailAddressModal () {
-        this.addEmailAddress.visible = true
+      showAddDomainModal () {
+        this.addDomain.visible = true
       },
-      submitEmailAddress () {
+      submitDomain () {
         this.$events.$emit('loading', true)
 
-        axios.post('/api/v1/whitelist/emails/add', {
-          email: this.addEmailAddress.email,
-          source: this.addEmailAddress.source
+        axios.post('/api/v1/whitelist/domains/add', {
+          domain: this.addDomain.domain,
+          source: this.addDomain.source
         }).then((response) => {
           this.fetchItems()
-          this.addEmailAddress.visible = false
-          this.addEmailAddress.email = ''
-          this.addEmailAddress.source = ''
+          this.addDomain.visible = false
+          this.addDomain.domain = ''
+          this.addDomain.source = ''
 
-          this.addEmailAddress.errors.clear()
+          this.addDomain.errors.clear()
         }).catch((error) => {
-          this.addEmailAddress.errors.set(error.response.data)
+          this.addDomain.errors.set(error.response.data)
           this.$events.$emit('loading', false)
         }).then((response) => {
           //

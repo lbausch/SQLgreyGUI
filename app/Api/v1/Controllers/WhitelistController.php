@@ -5,11 +5,10 @@ namespace SQLgreyGUI\Api\v1\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SQLgreyGUI\Api\v1\Exceptions\ValidationException;
+use SQLgreyGUI\Api\v1\Transformers\WhitelistDomainTransformer;
 use SQLgreyGUI\Api\v1\Transformers\WhitelistEmailTransformer;
 use SQLgreyGUI\Repositories\AwlEmailRepositoryInterface as Emails;
 use SQLgreyGUI\Repositories\AwlDomainRepositoryInterface as Domains;
-use SQLgreyGUI\Models\AwlEmail as Email;
-use SQLgreyGUI\Models\AwlDomain as Domain;
 
 class WhitelistController extends Controller
 {
@@ -70,7 +69,7 @@ class WhitelistController extends Controller
                 'required',
                 'regex:/^([0-9]{1,3})(\.[0-9]{1,3})(\.[0-9]{1,3})(\.[0-9]{1,3})?$/',
             ],
-        ]);
+        ], [], ['source' => 'IP Address']);
 
         $tmp_email = explode('@', $request->input('email'));
 
@@ -81,7 +80,6 @@ class WhitelistController extends Controller
             'first_seen' => Carbon::now(),
             'last_seen' => Carbon::now(),
         ]);
-
 
         if ($this->emails->findByNameDomainSource($email->getSenderName(), $email->getSenderDomain(), $email->getSource())) {
             throw new ValidationException('This combination of email address and source is already whitelisted');
@@ -122,60 +120,78 @@ class WhitelistController extends Controller
     }
 
     /**
-     * Show domains.
+     * Get domains.
      *
      * @return \Illuminate\Http\Response
      */
-    public function showDomains()
+    public function domains()
     {
         $domains = $this->domains->findAll();
 
-        return view('whitelist.domains')
-            ->with('whitelist_domains', $domains);
+        return $this->respondCollection($domains, new WhitelistDomainTransformer());
     }
 
     /**
      * Add domain.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
+     *
+     * @throws ValidationException
      */
-    public function addDomain(Request $req)
+    public function addDomain(Request $request)
     {
-        $this->validate($req, Domain::$rules);
+        $this->validate($request, [
+            'domain' => 'required',
+            'source' => [
+                'required',
+                'regex:/^([0-9]{1,3})(\.[0-9]{1,3})(\.[0-9]{1,3})(\.[0-9]{1,3})?$/',
+            ],
+        ], [], ['source' => 'IP Address']);
 
-        $domain = $this->domains->instance($req->input());
-        $domain->first_seen = Carbon::now();
-        $domain->last_seen = Carbon::now();
+        $domain = $this->domains->instance([
+            'sender_domain' => $request->input('domain'),
+            'src' => $request->input('source'),
+            'first_seen' => Carbon::now(),
+            'last_seen' => Carbon::now(),
+        ]);
 
         if ($this->domains->findByDomainSource($domain->getSenderDomain(), $domain->getSource())) {
-            return redirect(action('WhitelistController@showDomains'))
-                ->withWarning($domain->getSenderDomain().' from '.$domain->getSource().' is already whitelisted');
+            throw new ValidationException('Domain and Source IP is alread whitelisted');
         }
 
         $this->domains->store($domain);
 
-        return redirect(action('WhitelistController@showDomains'))
-            ->withSuccess($domain->getSenderDomain().' from '.$domain->getSource().' added');
+        return $this->respondSuccess();
     }
 
     /**
      * Delete domains.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function deleteDomains()
+    public function deleteDomains(Request $request)
     {
-        $items = $this->parseEntries('whitelist_domains', \SQLgreyGUI\Repositories\AwlDomainRepositoryInterface::class);
+        $delete_entries = collect();
 
-        $message = [];
+        $raw_items = $request->input('items');
 
-        foreach ($items as $key => $val) {
-            $this->domains->destroy($val);
+        // Try to convert the data
+        foreach ($raw_items as $item) {
+            $tmp_item = $this->convertData($item);
 
-            $message[] = '<li>'.$val->getSenderDomain().' from '.$val->getSource().'</li>';
+            if ($tmp_item) {
+                $delete_entries->push($this->domains->instance($tmp_item));
+            }
         }
 
-        return redirect(action('WhitelistController@showDomains'))
-            ->withSuccess('deleted the following entries:<ul>'.implode(PHP_EOL, $message).'</ul>');
+        foreach ($delete_entries as $item) {
+            $this->domains->destroy($item);
+        }
+
+        return $this->respondSuccess();
     }
 }

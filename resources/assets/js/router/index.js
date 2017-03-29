@@ -8,6 +8,7 @@ import Full from '../containers/Full'
 import Dashboard from '../views/Dashboard'
 import Greylist from '../views/Greylist'
 import WhitelistEmails from '../views/WhitelistEmails'
+import WhitelistDomains from '../views/WhitelistDomains'
 import SettingsAccount from '../views/SettingsAccount'
 import SettingsApi from '../views/SettingsApi'
 
@@ -59,7 +60,7 @@ export default new VueRouter({
             {
               path: 'domains',
               name: 'Auto-Whitelist Domains',
-              component: Greylist
+              component: WhitelistDomains
             }
           ]
         },

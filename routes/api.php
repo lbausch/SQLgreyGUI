@@ -27,5 +27,9 @@ $router->group(['prefix' => 'v1'], function ($router) {
         $router->get('whitelist/emails', 'v1\Controllers\WhitelistController@emails');
         $router->post('whitelist/emails/add', 'v1\Controllers\WhitelistController@addEmail');
         $router->post('whitelist/emails', 'v1\Controllers\WhitelistController@deleteEmails');
+
+        $router->get('whitelist/domains', 'v1\Controllers\WhitelistController@domains');
+        $router->post('whitelist/domains/add', 'v1\Controllers\WhitelistController@addDomain');
+        $router->post('whitelist/domains', 'v1\Controllers\WhitelistController@deleteDomains');
     });
 });
