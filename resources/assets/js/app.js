@@ -37,10 +37,10 @@ const store = new Vuex.Store({
     user (state, user) {
       state.user = user
     }
-  },
+  }
 })
 
-/* eslint-disable no-new */
+/* eslint-disable no-new, no-unused-vars */
 let vue = new Vue({
   el: '#app',
   router: VueRouter,

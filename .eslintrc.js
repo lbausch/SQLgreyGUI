@@ -3,6 +3,7 @@ module.exports = {
     "globals": {
         "_": true,
         "axios": true,
+        "document": true,
         "window": true
     },
     "plugins": [
