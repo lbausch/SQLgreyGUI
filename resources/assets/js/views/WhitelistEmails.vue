@@ -5,20 +5,20 @@
                 <i class="fa fa-info-circle"></i>List of auto-whitelisted emails
             </div>
             <div class="card-block">
-                <div class="mb-1">
-                    <button class="btn btn-primary" @click.prevent="showAddEmailAddressModal">
-                        <i class="fa fa-plus"></i> Add Email Address
-                    </button>
-                    <button class="btn btn-default" @click.prevent="fetchItems">
-                        <i class="fa fa-refresh"></i> Refresh
-                    </button>
-                    <button class="btn btn-danger" @click.prevent="deleteItems" :disabled="itemsChecked.length == 0">
-                        <i class="fa fa-trash"></i> Delete <span v-if="itemsChecked.length > 0">
+                <data-table ref="whitelistEmails" :columns="columns" :sorting="sorting" @itemsChecked="updateItemsChecked">
+                    <div slot="controls">
+                        <button class="btn btn-primary" @click.prevent="showAddEmailAddressModal">
+                            <i class="fa fa-plus"></i> Add Email Address
+                        </button>
+                        <button class="btn btn-default" @click.prevent="fetchItems">
+                            <i class="fa fa-refresh"></i> Refresh
+                        </button>
+                        <button class="btn btn-danger" @click.prevent="deleteItems" :disabled="itemsChecked.length == 0">
+                            <i class="fa fa-trash"></i> Delete <span v-if="itemsChecked.length > 0">
                                 {{ itemsChecked.length}} {{ itemsChecked.length == 1 ? 'record' : 'records' }}</span>
-                    </button>
-                </div>
-
-                <data-table ref="whitelistEmails" :columns="columns" :sorting="sorting" @itemsChecked="updateItemsChecked"/>
+                        </button>
+                    </div>
+                </data-table>
             </div>
         </div>
 
