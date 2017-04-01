@@ -34,28 +34,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * validation rules.
-     *
-     * @var array
-     */
-    public static $rules = [
-        'store' => array(
-            'username' => 'required|unique:users,username',
-            'email' => 'required',
-            'enabled' => 'required',
-            'password' => 'required|confirmed',
-            'password_confirmation' => 'required_with:password',
-        ),
-        'update' => array(
-            'username' => 'required|unique:users,username,', // id is appended dynamically
-            'email' => 'required',
-            'enabled' => 'required',
-            'password' => 'sometimes|required|confirmed',
-            'password_confirmation' => 'sometimes|required_with:password',
-        ),
-    ];
-
-    /**
      * get id.
      *
      * @return int

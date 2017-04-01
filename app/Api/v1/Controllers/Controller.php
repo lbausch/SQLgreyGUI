@@ -17,15 +17,12 @@ abstract class Controller extends CornerstoneController
 {
     use ValidatesRequests;
 
-    /**
-     * Controller constructor.
-     */
     public function __construct()
     {
         parent::__construct();
 
         if (app()->environment('local')) {
-            sleep(1);
+            sleep(rand(0, 1));
         }
     }
 

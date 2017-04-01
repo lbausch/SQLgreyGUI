@@ -1,42 +1,26 @@
 <template>
     <div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-md-6 mb-1">
-                        <button class="btn btn-primary" @click.prevent="showAddEmailAddressModal">
-                            <i class="fa fa-plus"></i> Add Email Address
-                        </button>
-                        <button class="btn btn-default" @click.prevent="fetchItems">
-                            <i class="fa fa-refresh"></i> Refresh
-                        </button>
-                        <button class="btn btn-danger" @click.prevent="deleteItems"
-                                :disabled="itemsChecked.length == 0">
-                            <i class="fa fa-trash"></i> Delete <span
-                                v-if="itemsChecked.length > 0">
-                                    {{ itemsChecked.length}} {{ itemsChecked.length == 1 ? 'record' : 'records' }}
-                            </span>
-                        </button>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="input-group mb-1">
-                            <div class="input-group-addon" v-if="filter.length == 0">
-                                <i class="fa fa-search"></i>
-                            </div>
-                            <div class="input-group-addon" v-if="filter.length > 0" @click="filter = ''">
-                                <i class="fa fa-eraser"></i>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Search..." v-model="filter"
-                                   ref="filterInput">
-                        </div>
-                    </div>
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-info-circle"></i>List of auto-whitelisted emails
+            </div>
+            <div class="card-block">
+                <div class="mb-1">
+                    <button class="btn btn-primary" @click.prevent="showAddEmailAddressModal">
+                        <i class="fa fa-plus"></i> Add Email Address
+                    </button>
+                    <button class="btn btn-default" @click.prevent="fetchItems">
+                        <i class="fa fa-refresh"></i> Refresh
+                    </button>
+                    <button class="btn btn-danger" @click.prevent="deleteItems" :disabled="itemsChecked.length == 0">
+                        <i class="fa fa-trash"></i> Delete <span v-if="itemsChecked.length > 0">
+                                {{ itemsChecked.length}} {{ itemsChecked.length == 1 ? 'record' : 'records' }}</span>
+                    </button>
                 </div>
 
-                <data-table ref="whitelistEmails" :columns="columns" :sorting="sorting" :filter="filter"
-                            @itemsChecked="updateItemsChecked"></data-table>
+                <data-table ref="whitelistEmails" :columns="columns" :sorting="sorting" @itemsChecked="updateItemsChecked"/>
             </div>
         </div>
-
 
         <modal title="Add Email Address" :value="addEmailAddress.visible" @cancel="addEmailAddress.visible = false"
                @keyup.esc="addEmailAddress.visible = false">
@@ -102,7 +86,6 @@
         },
         items: [],
         itemsChecked: [],
-        filter: '',
         sorting: {
           column: 'first_seen',
           order: 'desc'
@@ -120,8 +103,6 @@
         this.$nextTick(() => {
           this.$events.$emit('loading', true)
         })
-
-        this.$refs.filterInput.focus()
       },
       fetchItems () {
         this.$events.$emit('loading', true)

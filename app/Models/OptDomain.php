@@ -2,7 +2,7 @@
 
 namespace SQLgreyGUI\Models;
 
-class OptDomain extends SQLgreyConnection
+abstract class OptDomain extends SQLgreyConnection
 {
     /**
      * The primary key for the model.
@@ -32,15 +32,6 @@ class OptDomain extends SQLgreyConnection
      */
     protected $fillable = [
         'domain',
-    ];
-
-    /**
-     * validation rules.
-     *
-     * @var array
-     */
-    public $rules = [
-        'domain' => 'required',
     ];
 
     /**

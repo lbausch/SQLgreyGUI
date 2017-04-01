@@ -9,6 +9,10 @@ import Dashboard from '../views/Dashboard'
 import Greylist from '../views/Greylist'
 import WhitelistEmails from '../views/WhitelistEmails'
 import WhitelistDomains from '../views/WhitelistDomains'
+import OptInEmails from '../views/OptInEmails'
+import OptOutEmails from '../views/OptOutEmails'
+import OptInDomains from '../views/OptInDomains'
+import OptOutDomains from '../views/OptOutDomains'
 import SettingsAccount from '../views/SettingsAccount'
 import SettingsApi from '../views/SettingsApi'
 
@@ -77,12 +81,12 @@ export default new VueRouter({
             {
               path: 'emails',
               name: 'Opt-Out Emails',
-              component: Greylist
+              component: OptOutEmails
             },
             {
               path: 'domains',
               name: 'Opt-Out Domains',
-              component: Greylist
+              component: OptOutDomains
             }
           ]
         },
@@ -99,12 +103,12 @@ export default new VueRouter({
             {
               path: 'emails',
               name: 'Opt-In Emails',
-              component: Greylist
+              component: OptInEmails
             },
             {
               path: 'domains',
               name: 'Opt-In Domains',
-              component: Greylist
+              component: OptInDomains
             }
           ]
         },
@@ -129,7 +133,7 @@ export default new VueRouter({
               component: SettingsApi
             }
           ]
-        },
+        }
       ]
     },
     // catch all redirect
