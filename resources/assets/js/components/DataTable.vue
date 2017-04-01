@@ -23,7 +23,7 @@
                     <thead>
                     <tr>
                         <th></th>
-                        <th :colspan="columns.length">
+                        <th :colspan="Object.keys(columns).length">
                             Records: {{ items.length }} <span v-if="itemsFiltered.length != items.length">({{ itemsFiltered.length}} displayed)</span>
                         </th>
                     </tr>
