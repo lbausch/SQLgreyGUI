@@ -16,7 +16,7 @@ $factory->define(SQLgreyGUI\Models\Greylist::class, function (Faker\Generator $f
     return [
         'sender_name' => $faker->word,
         'sender_domain' => $faker->safeEmailDomain,
-        'src' => $faker->ipv4,
+        'src' => $faker->localIpv4,
         'rcpt' => $faker->safeEmail,
         'first_seen' => $faker->dateTime,
     ];
