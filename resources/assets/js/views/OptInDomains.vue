@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header">
-            <i class="fa fa-info-circle"></i>These domains are never greylisted
+            <i class="fa fa-info-circle"></i>These domains are always greylisted unless they are present in the opt-out list
         </div>
         <div class="card-block">
             <data-table ref="optOutDomains" :columns="columns" :sorting="sorting" @itemsChecked="updateItemsChecked">
