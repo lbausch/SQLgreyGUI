@@ -4,6 +4,7 @@ namespace SQLgreyGUI\Http\Controllers\Auth;
 
 use SQLgreyGUI\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -33,5 +34,20 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        $credentials = $request->only($this->username(), 'password');
+        $credentials['enabled'] = true;
+
+        return $credentials;
     }
 }
