@@ -1,7 +1,7 @@
 {
     "name": "lbausch/SQLgreyGUI",
     "description": " Web interface for SQLgrey built on Laravel 5.",
-    "keywords": ["sqlgreygui", "laravel"],
+    "keywords": ["sqlgreygui", "sqlgrey", "greylisting", "laravel"],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -20,6 +20,7 @@
         "barryvdh/laravel-debugbar": "~2.0",
         "barryvdh/laravel-ide-helper": "^2.1",
         "fzaninotto/faker": "~1.4",
+        "laravel/dusk": "^1.0",
         "laravel/homestead": "^5.0",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.7"

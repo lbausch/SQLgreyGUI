@@ -1,15 +1,15 @@
 <?php
 
-use Carbon\Carbon;
+namespace Tests\Browser;
+
+use Tests\DuskTestCase;
+use Laravel\Dusk\Browser;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class GreylistTest extends TestCase
+class GreylistTest extends DuskTestCase
 {
     use DatabaseTransactions;
-
-    protected $connectionsToTransact = [
-        'sqlite_sqlgrey',
-    ];
 
     public function test_greylist_is_displayed()
     {
