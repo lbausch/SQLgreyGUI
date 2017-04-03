@@ -2,6 +2,7 @@ SQLgreyGUI
 ==========
 
 [![Build Status](https://travis-ci.org/lbausch/SQLgreyGUI.svg?branch=master)](https://travis-ci.org/lbausch/SQLgreyGUI)
+[![CircleCI](https://circleci.com/gh/lbausch/SQLgreyGUI/tree/master.svg?style=shield&circle-token=a1aa5f540878177c22252802a2725e2ed93e6d43)](https://circleci.com/gh/lbausch/SQLgreyGUI/tree/master)
 
 Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel 5](https://laravel.com/) Framework.
 
