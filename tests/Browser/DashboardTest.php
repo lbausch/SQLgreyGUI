@@ -23,6 +23,7 @@ class DashboardTest extends DuskTestCase
 
             $browser->loginAs($this->getUser())
                  ->visit('/')
+                ->waitForText($greylist->count())
                 ->screenshot('dashboard')
                 ->assertSee('Dashboard')
 

@@ -1,0 +1,40 @@
+machine:
+  pre:
+    - sudo apt-get update; USE_PRECOMPILE=true sudo -E circleci-install php 7.1.0
+    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo dpkg -i google-chrome-stable_current_amd64.deb
+  node:
+    version: 6.10.1
+  php:
+    version: 7.1.0
+  environment:
+    APP_URL: "http://localhost:8000"
+
+database:
+  override:
+    - mysql -uubuntu -e "CREATE DATABASE IF NOT EXISTS testing;"
+    - mysql -uubuntu -e "GRANT ALL ON testing.* to 'homestead'@'%' IDENTIFIED BY 'secret';"
+    - mysql -uubuntu --database testing < ci/sqlgrey.sql
+
+general:
+  artifacts:
+    - "tests/Browser/screenshots"
+
+dependencies:
+  override:
+    - composer install --no-interaction
+    - yarn install
+    - yarn run dev
+test:
+  pre:
+    - "./vendor/laravel/dusk/bin/chromedriver-linux":
+        background: true
+    - cp ci/.env.testing .env
+    - php artisan key:generate
+    - php artisan migrate
+    - php artisan passport:install
+    - "php artisan serve":
+        background: true
+
+  override:
+    - php artisan dusk
+    - ./vendor/bin/phpunit

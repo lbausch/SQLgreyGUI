@@ -9,22 +9,31 @@ php:
   - '7.0'
   - '7.1'
 
+env:
+  - APP_URL="http://localhost:8000"
+
 before_install:
   - mysql -e "CREATE DATABASE IF NOT EXISTS testing;"
   - mysql -e "GRANT ALL ON testing.* to 'homestead'@'%' IDENTIFIED BY 'secret';"
-  - mysql -e --database testing < ci/sqlgrey.sql
+  - mysql --database testing < ci/sqlgrey.sql
+  - . $HOME/.nvm/nvm.sh
+  - nvm install stable
+  - nvm use stable
+  - npm install -g yarn
 
 install:
   - cp -nv ci/.env.testing .env
+  - composer install --no-interaction
   - php artisan key:generate
   - php artisan migrate --force
-  - mysql -uroot --database testing < sqlgrey.sql
+  - php artisan passport:install
+  - yarn install
+  - yarn run dev
 
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - ./vendor/laravel/dusk/bin/chromedriver-linux &
-  - cp .env.testing .env
   - php artisan serve &
 
 script:
