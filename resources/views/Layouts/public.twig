@@ -17,13 +17,12 @@
 
 <body class="app flex-row align-items-center">
 
-{#<div id="app" style="width: 100%;">#}
 <div style="width: 100%;">
     {% block content %}{% endblock %}
 </div>
 
-{#<script src="{{ mix("/js/manifest.js", "assets") }}"></script>#}
-{#<script src="{{ mix("/js/vendor.js", "assets") }}"></script>#}
+<script src="{{ mix("/js/manifest.js", "assets") }}"></script>
+<script src="{{ mix("/js/vendor.js", "assets") }}"></script>
 <script src="{{ mix("/js/public.js", "assets") }}"></script>
 </body>
 </html>
