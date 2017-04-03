@@ -33,7 +33,7 @@ abstract class Controller extends CornerstoneController
      *
      * @return array
      */
-    protected function convertData($string)
+    protected function decodeData($string)
     {
         return json_decode(base64_decode($string, $strict = true), $assoc = true);
     }

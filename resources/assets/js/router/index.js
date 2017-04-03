@@ -15,6 +15,7 @@ import OptInDomains from '../views/OptInDomains'
 import OptOutDomains from '../views/OptOutDomains'
 import SettingsAccount from '../views/SettingsAccount'
 import SettingsApi from '../views/SettingsApi'
+import Users from '../views/Users'
 
 Vue.use(VueRouter)
 
@@ -109,6 +110,23 @@ export default new VueRouter({
               path: 'domains',
               name: 'Opt-In Domains',
               component: OptInDomains
+            }
+          ]
+        },
+        {
+          path: 'admin',
+          redirect: '/admin/users',
+          name: 'Administration',
+          component: {
+            render (c) {
+              return c('router-view')
+            }
+          },
+          children: [
+            {
+              path: 'users',
+              name: 'Users',
+              component: Users
             }
           ]
         },

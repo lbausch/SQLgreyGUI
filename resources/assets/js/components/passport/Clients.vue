@@ -71,9 +71,8 @@
             <form class="form-horizontal" role="form">
                 <!-- Name -->
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Name</label>
+                    <label class="control-label">Name</label>
 
-                    <div class="col-md-7">
                         <input id="create-client-name" v-focus.lazy="showCreateClientModal" type="text"
                                class="form-control"
                                @keyup.enter="store" v-model="createForm.name">
@@ -81,21 +80,18 @@
                         <span class="help-block">
                             Something your users will recognize and trust.
                         </span>
-                    </div>
                 </div>
 
                 <!-- Redirect URL -->
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Redirect URL</label>
+                    <label class="control-label">Redirect URL</label>
 
-                    <div class="col-md-7">
                         <input type="text" class="form-control" name="redirect" @keyup.enter="store"
                                v-model="createForm.redirect">
 
                         <span class="help-block">
                             Your application's authorization callback URL.
                         </span>
-                    </div>
                 </div>
             </form>
 

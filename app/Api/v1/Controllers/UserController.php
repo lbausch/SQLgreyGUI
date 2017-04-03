@@ -48,11 +48,12 @@ class UserController extends Controller
     /**
      * Update authenticated user.
      *
-     * @param Request $request
+     * @param Request     $request
+     * @param AuthManager $authManager
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AuthManager $authManager)
+    public function updateMe(Request $request, AuthManager $authManager)
     {
         $user = $authManager->guard()->user();
 
@@ -104,136 +105,106 @@ class UserController extends Controller
         return $this->respondItem($user, new UserTransformer());
     }
 
-    /*
-     * Store a newly created resource in storage.
+    /**
+     * Get all Users.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function users()
+    {
+        $users = $this->users->findAll();
+
+        return $this->respondCollection($users, new UserTransformer());
+    }
+
+    /**
+     * Add new User.
      *
      * @param Request $request
      *
      * @return \Illuminate\Http\Response
      */
-    /*public function store(Request $request)
+    public function add(Request $request)
     {
-        $input = $request->input();
+        $this->validate($request, [
+            'username' => 'required',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email'),
+            ],
+            'enabled' => 'required|boolean',
+            'password' => 'required|min:6|confirmed',
+        ]);
 
-        $new_user = $this->users->instance($input);
-
-        if (@$input['enabled'] == 'yes') {
-            $input['enabled'] = true;
-            $new_user->setEnabled(true);
-        } else {
-            $input['enabled'] = false;
-            $new_user->setEnabled(false);
-        }
-
-        $message = 'User '.$new_user->getUsername().' ('.$new_user->getEmail().') was created.';
-
-        if (!@$input['password'] && !@$input['password_confirmation']) {
-            // Generate a random password
-            $random_password = str_random(8);
-
-            $input['password'] = $random_password;
-            $input['password_confirmation'] = $random_password;
-
-            $message .= '<br />Password: '.$random_password;
-        }
-
-        $new_user->setPassword($input['password']);
-
-        $validator = Validator::make($input, User::$rules['store']);
-
-        // @TODO: refactor
-        if (!$validator->passes()) {
-            \Input::flashExcept('password', 'password_confirmation');
-
-            return $this->create()
-                ->withErrors($validator);
-        }
+        $new_user = $this->users->instance($request->input());
+        $new_user->setPassword($request->input('password'));
 
         $this->users->store($new_user);
 
-        return alert('success', $message);
-    }*/
+        return $this->respondSuccess();
+    }
 
-    /*
-     * Update the specified resource in storage.
+    /**
+     * Update User.
      *
-     * @param int $id
+     * @param Request $request
+     * @param int     $id
      *
      * @return \Illuminate\Http\Response
      */
-    /*public function update(Request $req, $id)
+    public function update(Request $request, $id)
     {
         $user = $this->users->findById($id);
 
-        $input = $req->input();
+        $this->validate($request, [
+            'username' => 'required',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($user->getId(), 'id'),
+            ],
+            'enabled' => 'required|boolean',
+            'password' => 'nullable|min:6|confirmed',
+        ]);
 
-        if (@$input['enabled'] == 'yes') {
-            $input['enabled'] = true;
-            $user->setEnabled(true);
-        } else {
-            $input['enabled'] = false;
-            $user->setEnabled(false);
-        }
+        $this->users->fill($user, $request->input());
 
-        $user->setUsername($input['username']);
-        $user->setEmail($input['email']);
-
-        $message = 'User '.$user->getUsername().' ('.$user->getEmail().') has been updated.';
-
-        if (!@$input['password'] && !@$input['password_confirmation']) {
-            unset($input['password']);
-            unset($input['password_confirmation']);
-        }
-
-        $rules = User::$rules['update'];
-        $rules['username'] .= $id;
-
-        $validator = Validator::make($input, $rules);
-
-        if (!$validator->passes()) {
-            \Input::flashExcept('password', 'password_confirmation');
-
-            return $this->edit($id)
-                ->withErrors($validator);
-        }
-
-        if (@$input['password'] && @$input['password_confirmation']) {
-            $user->setPassword($input['password']);
-
-            $message .= '<br />Password has been changed.';
+        if ($request->input('password')) {
+            $user->setPassword($request->input('password'));
         }
 
         $this->users->update($user);
 
-        return alert('success', $message);
-    }*/
+        return $this->respondSuccess();
+    }
 
-    /*
-     * Delete multiple users.
+    /**
+     * Delete multiple Users.
+     *
+     * @param Request $request
      *
      * @return \Illuminate\Http\Response
      */
-    /*public function deleteUsers(Request $req)
+    public function delete(Request $request, AuthManager $authManager)
     {
-        $delete_ids = $req->input('userids', []);
+        $user = $authManager->guard()->user();
+
+        $delete_ids = collect($request->input('userids', []));
 
         // Prevent the logged in user from deleting his own record
-        // (thank you Stack Overflow! http://stackoverflow.com/a/7225113)
-        if (($key = array_search($this->user->getKey(), $delete_ids)) !== false) {
-            unset($delete_ids[$key]);
+        if ($delete_ids->contains($user->getId())) {
+            $delete_ids = $delete_ids->reject(function ($id) use ($user) {
+                return $id === $user->getId();
+            });
         }
 
-        $num_deletes = 0;
+        foreach ($delete_ids as $id) {
+            $delete_user = $this->users->findById($id);
 
-        foreach ($delete_ids as $key => $val) {
-            $delete_user = $this->users->findById($val);
-
-            if ($this->users->destroy($delete_user)) {
-                ++$num_deletes;
-            }
+            $this->users->destroy($delete_user);
         }
 
-        return redact('_self@index')
-            ->withSuccess('Deleted Users: '.$num_deletes);
-    }*/
+        return $this->respondSuccess();
+    }
 }

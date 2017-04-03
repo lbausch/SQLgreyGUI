@@ -55,7 +55,7 @@ class GreylistController extends Controller
 
         // Try to convert the data
         foreach ($raw_items as $item) {
-            $tmp_item = $this->convertData($item);
+            $tmp_item = $this->decodeData($item);
 
             if ($tmp_item) {
                 $delete_entries->push($this->greylisted->instance($tmp_item));

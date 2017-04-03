@@ -46,7 +46,10 @@
                         <td class="text-center">
                             <input type="checkbox" v-model="itemsChecked" :value="item.id" @click="itemClicked(item)">
                         </td>
-                        <td v-for="(colValue, colKey) in columns">{{ item[colKey] }}</td>
+                        <td v-for="(colValue, colKey) in columns">
+                            <a href="/" @click.stop.prevent="fireColumnEvent(colKey, item)" v-if="hasColumnEvent(colKey)">{{ item[colKey] }}</a>
+                            <span v-else>{{ item[colKey] }}</span>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -60,6 +63,7 @@
     name: 'data-table',
     props: [
       'columns',
+      'columnEvents',
       'sorting'
     ],
     data () {
@@ -79,11 +83,18 @@
 
         return this.items.filter((item) => {
           for (let column in this.columns) {
-            if (item[column].match(this.filter)) {
+            if (item[column].toString().match(new RegExp(this.filter, 'gim'))) {
               return true
             }
           }
         })
+      },
+      myEvents () {
+        if (this.columnEvents) {
+          return this.columnEvents
+        }
+
+        return {}
       }
     },
     mounted () {
@@ -146,6 +157,12 @@
 
         this.mySorting.column = column
         this.mySorting.order = order
+      },
+      hasColumnEvent (column) {
+        return this.myEvents.hasOwnProperty(column)
+      },
+      fireColumnEvent (column, item) {
+        this.$emit(this.myEvents[column], item)
       }
     }
   }

@@ -16,8 +16,13 @@ $router->group(['prefix' => 'v1'], function ($router) {
 
     $router->group(['middleware' => 'auth:api'], function ($router) {
         $router->get('me', 'v1\Controllers\UserController@me');
-        $router->patch('me', 'v1\Controllers\UserController@update');
+        $router->patch('me', 'v1\Controllers\UserController@updateMe');
         $router->post('me/password', 'v1\Controllers\UserController@password');
+
+        $router->get('users', 'v1\Controllers\UserController@users');
+        $router->post('user', 'v1\Controllers\UserController@add');
+        $router->post('users/delete', 'v1\Controllers\UserController@delete');
+        $router->put('user/{id}', 'v1\Controllers\UserController@update');
 
         $router->get('stats', 'v1\Controllers\StatsController@index');
 
