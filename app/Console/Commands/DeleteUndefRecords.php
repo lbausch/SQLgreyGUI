@@ -4,10 +4,19 @@ namespace SQLgreyGUI\Console\Commands;
 
 use Illuminate\Console\Command;
 use SQLgreyGUI\Repositories\AwlEmailRepositoryInterface;
+use SQLgreyGUI\Repositories\GreylistRepositoryInterface;
 
 class DeleteUndefRecords extends Command
 {
-    protected $emailWhitelist;
+    /**
+     * @var AwlEmailRepositoryInterface
+     */
+    protected $whitelistedEmails;
+
+    /**
+     * @var GreylistRepositoryInterface
+     */
+    protected $greylisted;
 
     /**
      * The name and signature of the console command.
@@ -25,28 +34,29 @@ class DeleteUndefRecords extends Command
 
     /**
      * Create a new command instance.
+     *
+     * @param AwlEmailRepositoryInterface $whitelistedEmails
+     * @param GreylistRepositoryInterface $greylisted
      */
-    public function __construct(AwlEmailRepositoryInterface $emailWhitelist)
+    public function __construct(AwlEmailRepositoryInterface $whitelistedEmails, GreylistRepositoryInterface $greylisted)
     {
         parent::__construct();
 
-        $this->emailWhitelist = $emailWhitelist;
+        $this->whitelistedEmails = $whitelistedEmails;
+        $this->greylisted = $greylisted;
     }
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
-        $records = $this->emailWhitelist->findBy([
-            'sender_name' => '-undef-',
-            'sender_domain' => '-undef-',
-        ]);
+        foreach ($this->whitelistedEmails->findUndef() as $record) {
+            $this->whitelistedEmails->destroy($record);
+        }
 
-        foreach ($records as $record) {
-            $this->emailWhitelist->destroy($record);
+        foreach ($this->greylisted->findUndef() as $record) {
+            $this->greylisted->destroy($record);
         }
     }
 }
