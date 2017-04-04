@@ -114,7 +114,7 @@ class AwlEmail extends SQLgreyConnection
      */
     public function setSource($source)
     {
-        $this->source = $source;
+        $this->src = $source;
     }
 
     /**
