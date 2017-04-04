@@ -16,6 +16,8 @@ php artisan key:generate
 php artisan migrate
 php artisan passport:install
 
+./vendor/bin/phpunit
+
 pids=$(pidof /usr/bin/Xvfb)
 
 if [ ! -n "$pids" ]; then
