@@ -28,6 +28,7 @@ $router->group(['prefix' => 'v1'], function ($router) {
 
         $router->get('greylist', 'v1\Controllers\GreylistController@index');
         $router->post('greylist', 'v1\Controllers\GreylistController@delete');
+        $router->post('greylist/move', 'v1\Controllers\GreylistController@move');
 
         $router->get('whitelist/emails', 'v1\Controllers\WhitelistController@emails');
         $router->post('whitelist/emails/add', 'v1\Controllers\WhitelistController@addEmail');

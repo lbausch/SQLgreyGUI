@@ -8,7 +8,7 @@
         </button>
         <button class="btn btn-danger" :disabled="itemsChecked.length === 0" @click="deleteItems">
             <i class="fa fa-trash"></i> Delete <span
-                v-if="itemsChecked.length > 0">{{ itemsChecked.length}} {{ itemsChecked.length == 1 ? 'record' : 'records'
+                v-if="itemsChecked.length > 0">{{ itemsChecked.length}} {{ itemsChecked.length == 1 ? 'Record' : 'Records'
             }}</span>
         </button>
 

@@ -2,7 +2,7 @@
 
 namespace SQLgreyGUI\Api\v1\Controllers;
 
-use DB;
+use Illuminate\Database\Connection as Database;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SQLgreyGUI\Repositories\GreylistRepositoryInterface as Greylisted;
@@ -93,39 +93,49 @@ class GreylistController extends Controller
             ->withSuccess('deleted entries older than '.$carbon->toDateTimeString());
     }*/
 
-    /*
+    /**
      * Move entries to whitelist.
+     *
+     * @param Request           $request
+     * @param Database          $database
+     * @param WhitelistedEmails $whitelistedEmails
      *
      * @return \Illuminate\Http\Response
      */
-    /*public function move(WhitelistedEmails $whitelistedEmails)
+    public function move(Request $request, Database $database, WhitelistedEmails $whitelistedEmails)
     {
-        $items = $this->parseEntries('greylist', Greylisted::class);
+        $move_records = collect();
 
-        $messages = [];
+        $raw_recors = $request->input('items');
 
-        foreach ($items as $key => $val) {
+        // Try to convert the data
+        foreach ($raw_recors as $record) {
+            $tmp_record = $this->decodeData($record);
+
+            if ($tmp_record) {
+                $move_records->push($this->greylisted->instance($tmp_record));
+            }
+        }
+
+        foreach ($move_records as $greylisted_record) {
             // Convert Greylist to AwlEmail
             $email = $whitelistedEmails->instance([
-                'sender_name' => $val->getSenderName(),
-                'sender_domain' => $val->getSenderDomain(),
-                'src' => $val->getSource(),
-                'first_seen' => $val->getFirstSeen(),
-                'last_seen' => $val->getFirstSeen(),
+                'sender_name' => $greylisted_record->getSenderName(),
+                'sender_domain' => $greylisted_record->getSenderDomain(),
+                'src' => $greylisted_record->getSource(),
+                'first_seen' => $greylisted_record->getFirstSeen(),
+                'last_seen' => $greylisted_record->getFirstSeen(),
             ]);
 
-            DB::transaction(function () use ($val, $email, $whitelistedEmails) {
+            $database->transaction(function () use ($greylisted_record, $email, $whitelistedEmails) {
                 // Delete from Greylist
-                $this->greylisted->destroy($val);
+                $this->greylisted->destroy($greylisted_record);
 
                 // Insert into whitelist
                 $whitelistedEmails->store($email);
             });
-
-            $messages[] = '<li>'.$email->getSenderName().'@'.$email->getSenderDomain().' from '.$email->getSource().'</li>';
         }
 
-        return redirect(action('GreylistController@index'))
-            ->withSuccess('moved the following entries to the Whitelist: <ul>'.implode(PHP_EOL, $messages).'</ul>');
-    }*/
+        return $this->respondSuccess();
+    }
 }

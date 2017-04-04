@@ -15,7 +15,7 @@
                         </button>
                         <button class="btn btn-danger" @click.prevent="deleteItems" :disabled="itemsChecked.length == 0">
                             <i class="fa fa-trash"></i> Delete <span v-if="itemsChecked.length > 0">
-                                {{ itemsChecked.length}} {{ itemsChecked.length == 1 ? 'record' : 'records' }}</span>
+                                {{ itemsChecked.length}} {{ itemsChecked.length == 1 ? 'Record' : 'Records' }}</span>
                         </button>
                     </div>
                 </data-table>
