@@ -27,8 +27,8 @@ install:
   - php artisan key:generate
   - php artisan migrate --force
   - php artisan passport:install
-  - yarn install
-  - yarn run dev
+  - yarn install --force
+  - yarn run prod
 
 before_script:
   - export DISPLAY=:99.0

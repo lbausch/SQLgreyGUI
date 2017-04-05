@@ -22,8 +22,8 @@ general:
 dependencies:
   override:
     - composer install --no-interaction
-    - yarn install
-    - yarn run dev
+    - yarn install --force
+    - yarn run prod
 test:
   pre:
     - "./vendor/laravel/dusk/bin/chromedriver-linux":
