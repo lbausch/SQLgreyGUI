@@ -35,6 +35,10 @@ mix.sass('resources/assets/sass/style.scss', 'css')
     'axios',
     'lodash',
     'vue',
+    'vuex',
+    'vue-events',
+    'vue-focus',
+    'vue-sweetalert',
     'vue-strap'
   ])
 
