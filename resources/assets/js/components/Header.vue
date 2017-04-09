@@ -75,7 +75,7 @@
                         <i class="fa fa-user"></i> Account
                     </router-link>
                     <router-link :to="'/settings/api'" class="dropdown-item" exact>
-                        <i class="fa fa-wrench"></i> API
+                        <i class="fa fa-exchange"></i> API
                     </router-link>
 
                     <div class="divider"></div>
