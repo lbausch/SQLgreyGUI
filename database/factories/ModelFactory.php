@@ -5,16 +5,17 @@ $factory->define(SQLgreyGUI\Models\User::class, function (Faker\Generator $faker
     static $password;
 
     return [
-        'username' => $faker->name,
+        'username' => $faker->userName,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('joh316'),
+        'enabled' => true,
         'remember_token' => str_random(10),
     ];
 });
 
 $factory->define(SQLgreyGUI\Models\Greylist::class, function (Faker\Generator $faker) {
     return [
-        'sender_name' => $faker->word,
+        'sender_name' => $faker->userName,
         'sender_domain' => $faker->safeEmailDomain,
         'src' => $faker->localIpv4,
         'rcpt' => $faker->safeEmail,
@@ -24,7 +25,7 @@ $factory->define(SQLgreyGUI\Models\Greylist::class, function (Faker\Generator $f
 
 $factory->define(SQLgreyGUI\Models\AwlEmail::class, function (Faker\Generator $faker) {
     return [
-        'sender_name' => $faker->word,
+        'sender_name' => $faker->unique()->userName,
         'sender_domain' => $faker->safeEmailDomain,
         'src' => $faker->ipv4,
         'first_seen' => $faker->dateTime,
@@ -43,33 +44,24 @@ $factory->define(SQLgreyGUI\Models\AwlDomain::class, function (Faker\Generator $
 
 $factory->define(SQLgreyGUI\Models\OptOutEmail::class, function (Faker\Generator $faker) {
     return [
-        'email' => $faker->safeEmail,
+        'email' => $faker->unique()->userName.'@'.$faker->safeEmailDomain,
     ];
 });
 
 $factory->define(SQLgreyGUI\Models\OptOutDomain::class, function (Faker\Generator $faker) {
     return [
-        'domain' => $faker->randomLetter.$faker->domainWord.$faker->safeEmailDomain,
+        'domain' => $faker->domainWord.$faker->unique()->randomNumber.$faker->safeEmailDomain,
     ];
 });
 
 $factory->define(SQLgreyGUI\Models\OptInEmail::class, function (Faker\Generator $faker) {
     return [
-        'email' => $faker->safeEmail,
+        'email' => $faker->unique()->userName.'@'.$faker->safeEmailDomain,
     ];
 });
 
 $factory->define(SQLgreyGUI\Models\OptInDomain::class, function (Faker\Generator $faker) {
     return [
-        'domain' => $faker->randomLetter.$faker->domainWord.$faker->safeEmailDomain,
-    ];
-});
-
-$factory->define(SQLgreyGUI\Models\User::class, function (Faker\Generator $faker) {
-    return [
-        'username' => $faker->userName,
-        'email' => $faker->safeEmail,
-        'enabled' => true,
-        'password' => bcrypt('joh316'),
+        'domain' => $faker->domainWord.$faker->unique()->randomNumber.$faker->safeEmailDomain,
     ];
 });
