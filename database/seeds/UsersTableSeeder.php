@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
 
         $user->setUsername('admin');
         $user->setPassword('joh316');
-        $user->setEmail('root@localhost.tld');
+        $user->setEmail('root@localhost.local');
         $user->setEnabled(true);
 
         // Save the new user
