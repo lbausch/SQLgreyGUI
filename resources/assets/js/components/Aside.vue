@@ -96,7 +96,7 @@
 </template>
 
 <script>
-    export default {
-        name: 'aside'
-    }
+  export default {
+    name: 'aside'
+  }
 </script>

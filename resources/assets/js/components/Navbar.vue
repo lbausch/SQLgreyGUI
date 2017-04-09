@@ -5,10 +5,10 @@
 </template>
 
 <script>
-    export default {
-        name: 'navbar',
-        created () {
-            this._navbar = true
-        }
+  export default {
+    name: 'navbar',
+    created () {
+      this._navbar = true
     }
+  }
 </script>

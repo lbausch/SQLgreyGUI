@@ -98,34 +98,34 @@
 </template>
 
 <script>
-    import navbar from './Navbar'
-    import {dropdown} from 'vue-strap'
+  import navbar from './Navbar'
+  import { dropdown } from 'vue-strap'
 
-    export default {
-        name: 'header',
-        components: {
-            navbar,
-            dropdown,
-        },
-        methods: {
-            click () {
-                // do nothing
-            },
-            sidebarToggle (e) {
-                e.preventDefault()
-                document.body.classList.toggle('sidebar-hidden')
-            },
-            mobileSidebarToggle (e) {
-                e.preventDefault()
-                document.body.classList.toggle('sidebar-mobile-show')
-            },
-            asideToggle (e) {
-                e.preventDefault()
-                document.body.classList.toggle('aside-menu-hidden')
-            },
-            doLogout(e) {
-                document.getElementById('logout-form').submit();
-            }
-        }
+  export default {
+    name: 'header',
+    components: {
+      navbar,
+      dropdown
+    },
+    methods: {
+      click () {
+        // do nothing
+      },
+      sidebarToggle (e) {
+        e.preventDefault()
+        document.body.classList.toggle('sidebar-hidden')
+      },
+      mobileSidebarToggle (e) {
+        e.preventDefault()
+        document.body.classList.toggle('sidebar-mobile-show')
+      },
+      asideToggle (e) {
+        e.preventDefault()
+        document.body.classList.toggle('aside-menu-hidden')
+      },
+      doLogout (e) {
+        document.getElementById('logout-form').submit()
+      }
     }
+  }
 </script>

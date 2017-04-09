@@ -81,15 +81,15 @@
 </template>
 
 <script>
-    export default {
-        name: 'sidebar',
-        methods: {
-            handleClick (e) {
-                e.preventDefault()
-                e.target.parentElement.classList.toggle('open')
-            }
-        }
+  export default {
+    name: 'sidebar',
+    methods: {
+      handleClick (e) {
+        e.preventDefault()
+        e.target.parentElement.classList.toggle('open')
+      }
     }
+  }
 </script>
 
 <style lang="css">

@@ -8,22 +8,22 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            list: {
-                type: Array,
-                required: true,
-                default: () => []
-            },
-            separator: String
-        },
-        methods: {
-            isLast (index) {
-                return index === this.list.length - 1
-            },
-            showName (item) {
-                return item.meta && item.meta.label || item.name
-            }
-        }
+  export default {
+    props: {
+      list: {
+        type: Array,
+        required: true,
+        default: () => []
+      },
+      separator: String
+    },
+    methods: {
+      isLast (index) {
+        return index === this.list.length - 1
+      },
+      showName (item) {
+        return item.meta && item.meta.label || item.name
+      }
     }
+  }
 </script>
