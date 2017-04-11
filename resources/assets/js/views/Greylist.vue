@@ -6,14 +6,17 @@
         <div class="card-block">
             <data-table ref="greylist" :columns="columns" :sorting="sorting" @itemsChecked="updateItemsChecked">
                 <div slot="controls">
-                    <button class="btn btn-primary" @click.prevent="moveToWhitelist" :disabled="itemsChecked.length === 0">
+                    <button class="btn btn-primary greylist-move-records-to-whitelist" @click.prevent="moveToWhitelist"
+                            :disabled="itemsChecked.length === 0">
                         <i class="fa fa-thumbs-up"></i> Move <span v-if="itemsChecked.length > 0">
-                            {{ itemsChecked.length}} {{ itemsChecked.length == 1 ? 'Record' : 'Records' }}</span> To Whitelist
+                            {{ itemsChecked.length}} {{ itemsChecked.length == 1 ? 'Record' : 'Records' }}</span>
+                        To Whitelist
                     </button>
                     <button class="btn btn-default" @click.prevent="fetchItems">
                         <i class="fa fa-refresh"></i> Refresh
                     </button>
-                    <button class="btn btn-danger" @click.prevent="deleteItems" :disabled="itemsChecked.length === 0">
+                    <button class="btn btn-danger greylist-delete-records" @click.prevent="deleteItems"
+                            :disabled="itemsChecked.length === 0">
                         <i class="fa fa-trash"></i> Delete <span v-if="itemsChecked.length > 0">
                             {{ itemsChecked.length}} {{ itemsChecked.length == 1 ? 'Record' : 'Records' }}</span>
                     </button>
