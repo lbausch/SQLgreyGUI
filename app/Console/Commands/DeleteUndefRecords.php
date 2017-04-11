@@ -23,7 +23,7 @@ class DeleteUndefRecords extends Command
      *
      * @var string
      */
-    protected $signature = 'sqlgrey:undef';
+    protected $signature = 'sqlgreygui:undef';
 
     /**
      * The console command description.
