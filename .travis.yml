@@ -12,6 +12,11 @@ php:
 env:
   - APP_URL="http://localhost:8000"
 
+cache:
+  directories:
+  - $HOME/.composer/cache/files
+  - $HOME/.cache/yarn
+
 before_install:
   - mysql -e "CREATE DATABASE IF NOT EXISTS testing;"
   - mysql -e "GRANT ALL ON testing.* to 'homestead'@'%' IDENTIFIED BY 'secret';"
