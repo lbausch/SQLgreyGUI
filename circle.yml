@@ -18,12 +18,14 @@ database:
 general:
   artifacts:
     - "tests/Browser/screenshots"
+    - "public/assets"
 
 dependencies:
   override:
     - composer install --no-interaction
     - yarn install --force
     - yarn run prod
+
 test:
   pre:
     - "./vendor/laravel/dusk/bin/chromedriver-linux":
