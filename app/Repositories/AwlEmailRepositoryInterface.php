@@ -14,4 +14,11 @@ interface AwlEmailRepositoryInterface extends BaseRepositoryInterface
      * @return \SQLgreyGUI\Models\AwlEmail
      */
     public function findByNameDomainSource($name, $domain, $source);
+
+    /**
+     * Find -undef- records.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function findUndef();
 }

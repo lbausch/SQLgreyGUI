@@ -1,1 +1,0 @@
-../../../vendor/eonasdan/bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js

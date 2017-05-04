@@ -32,6 +32,14 @@ class GreylistRepositoryEloquent extends BaseRepositoryEloquent implements Greyl
         return $data;
     }
 
+    public function findUndef()
+    {
+        return $this->model->where([
+            'sender_name' => '-undef-',
+            'sender_domain' => '-undef-',
+        ])->get();
+    }
+
     public function destroy($greylist)
     {
         return $this->model->where('sender_name', $greylist->getSenderName())

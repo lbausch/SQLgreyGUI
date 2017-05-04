@@ -1,38 +1,37 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use SQLgreyGUI\Repositories\UserRepositoryInterface;
 
 class UsersTableSeeder extends Seeder
 {
     /**
-     * user repository.
+     * Users.
      *
-     * @var \Bausch\Repositories\UserRepositoryInterface
+     * @var \SQLgreyGUI\Repositories\UserRepositoryInterface
      */
-    private $repo;
+    protected $users;
 
     /**
      * Constructor.
      *
-     * @param Bausch\Repositories\UserRepositoryInterface $repo
+     * @param UserRepositoryInterface $users
      */
-    public function __construct(SQLgreyGUI\Repositories\UserRepositoryInterface $repo)
+    public function __construct(UserRepositoryInterface $users)
     {
-        $this->repo = $repo;
+        $this->users = $users;
     }
 
     public function run()
     {
-        DB::table('users')->delete();
-
-        $user = $this->repo->instance();
+        $user = $this->users->instance();
 
         $user->setUsername('admin');
         $user->setPassword('joh316');
-        $user->setEmail('root@localhost.tld');
+        $user->setEmail('root@localhost.local');
         $user->setEnabled(true);
 
-        // save the new user
-        $this->repo->store($user);
+        // Save the new user
+        $this->users->store($user);
     }
 }

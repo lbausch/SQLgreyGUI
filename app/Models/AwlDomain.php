@@ -57,16 +57,6 @@ class AwlDomain extends SQLgreyConnection
     ];
 
     /**
-     * Validation rules.
-     *
-     * @var array
-     */
-    public static $rules = [
-        'sender_domain' => 'required',
-        'src' => 'required',
-    ];
-
-    /**
      * Get sender domain.
      *
      * @return string
@@ -74,6 +64,16 @@ class AwlDomain extends SQLgreyConnection
     public function getSenderDomain()
     {
         return $this->sender_domain;
+    }
+
+    /**
+     * Set sender_domain.
+     *
+     * @param $sender_domain
+     */
+    public function setSenderDomain($sender_domain)
+    {
+        $this->sender_domain = $sender_domain;
     }
 
     /**
@@ -87,6 +87,16 @@ class AwlDomain extends SQLgreyConnection
     }
 
     /**
+     * Set source.
+     *
+     * @param $source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+    }
+
+    /**
      * Get first seen.
      *
      * @return Carbon|null
@@ -97,6 +107,16 @@ class AwlDomain extends SQLgreyConnection
     }
 
     /**
+     * Set first_seen.
+     *
+     * @param $first_seen
+     */
+    public function setFirstSeen($first_seen)
+    {
+        $this->first_seen = $first_seen;
+    }
+
+    /**
      * Get last seen.
      *
      * @return Carbon|null
@@ -104,5 +124,15 @@ class AwlDomain extends SQLgreyConnection
     public function getLastSeen()
     {
         return $this->last_seen;
+    }
+
+    /**
+     * Set last_seen.
+     *
+     * @param $last_seen
+     */
+    public function setLastSeen($last_seen)
+    {
+        $this->last_seen = $last_seen;
     }
 }

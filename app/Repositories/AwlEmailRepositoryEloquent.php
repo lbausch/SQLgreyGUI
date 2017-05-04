@@ -29,6 +29,14 @@ class AwlEmailRepositoryEloquent extends BaseRepositoryEloquent implements AwlEm
         return $email;
     }
 
+    public function findUndef()
+    {
+        return $this->model->where([
+            'sender_name' => '-undef-',
+            'sender_domain' => '-undef-',
+        ])->get();
+    }
+
     public function store($email)
     {
         return $this->model->insert(array(

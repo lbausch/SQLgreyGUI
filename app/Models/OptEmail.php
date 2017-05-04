@@ -2,7 +2,7 @@
 
 namespace SQLgreyGUI\Models;
 
-class OptEmail extends SQLgreyConnection
+abstract class OptEmail extends SQLgreyConnection
 {
     /**
      * The primary key for the model.
@@ -32,15 +32,6 @@ class OptEmail extends SQLgreyConnection
      */
     protected $fillable = [
         'email',
-    ];
-
-    /**
-     * Validation rules.
-     *
-     * @var array
-     */
-    public $rules = [
-        'email' => 'required',
     ];
 
     /**

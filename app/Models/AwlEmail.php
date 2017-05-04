@@ -58,17 +58,6 @@ class AwlEmail extends SQLgreyConnection
     ];
 
     /**
-     * Validation rules.
-     *
-     * @var array
-     */
-    public static $rules = [
-        'sender_name' => 'required',
-        'sender_domain' => 'required',
-        'src' => 'required',
-    ];
-
-    /**
      * Get sender name.
      *
      * @return string
@@ -76,6 +65,16 @@ class AwlEmail extends SQLgreyConnection
     public function getSenderName()
     {
         return $this->sender_name;
+    }
+
+    /**
+     * Set sender_name.
+     *
+     * @param $sender_name
+     */
+    public function setSenderName($sender_name)
+    {
+        $this->sender_name = $sender_name;
     }
 
     /**
@@ -89,6 +88,16 @@ class AwlEmail extends SQLgreyConnection
     }
 
     /**
+     * Set sender_domain.
+     *
+     * @param $sender_domain
+     */
+    public function setSenderDomain($sender_domain)
+    {
+        $this->sender_domain = $sender_domain;
+    }
+
+    /**
      * Get source.
      *
      * @return string
@@ -96,6 +105,16 @@ class AwlEmail extends SQLgreyConnection
     public function getSource()
     {
         return $this->src;
+    }
+
+    /**
+     * Set source.
+     *
+     * @param $source
+     */
+    public function setSource($source)
+    {
+        $this->src = $source;
     }
 
     /**
@@ -109,12 +128,32 @@ class AwlEmail extends SQLgreyConnection
     }
 
     /**
-     * Get last seen.
+     * Set first_seen.
+     *
+     * @param Carbon $first_seen
+     */
+    public function setFirstSeen($first_seen)
+    {
+        $this->first_seen = $first_seen;
+    }
+
+    /**
+     * Get last_seen.
      *
      * @return Carbon|null
      */
     public function getLastSeen()
     {
         return $this->last_seen;
+    }
+
+    /**
+     * Set last_seen.
+     *
+     * @param Carbon $last_seen
+     */
+    public function setLastSeen($last_seen)
+    {
+        $this->last_seen = $last_seen;
     }
 }

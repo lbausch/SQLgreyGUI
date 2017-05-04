@@ -7,8 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
-     * Bindings for Repositories
-     * Interface => Implementation.
+     * Bindings for Repositories: Interface => Implementation.
      *
      * @var array
      */
@@ -21,6 +20,7 @@ class RepositoryServiceProvider extends ServiceProvider
         \SQLgreyGUI\Repositories\OptInEmailRepositoryInterface::class => \SQLgreyGUI\Repositories\OptInEmailRepositoryEloquent::class,
         \SQLgreyGUI\Repositories\OptInDomainRepositoryInterface::class => \SQLgreyGUI\Repositories\OptInDomainRepositoryEloquent::class,
         \SQLgreyGUI\Repositories\UserRepositoryInterface::class => \SQLgreyGUI\Repositories\UserRepositoryEloquent::class,
+        \SQLgreyGUI\Repositories\UserProviderInterface::class => \SQLgreyGUI\Repositories\UserProviderEloquent::class,
     ];
 
     /**
@@ -28,7 +28,6 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
     }
 
     /**
