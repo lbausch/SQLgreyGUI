@@ -1,1 +1,4 @@
 theme: jekyll-theme-minimal
+title: SQLgreyGUI
+description: Web interface for SQLgrey built on Laravel 5
+show_downloads: "true"
