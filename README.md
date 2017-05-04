@@ -18,23 +18,22 @@ Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel 
 
 
 ## Requirements
-* working SQLgrey setup
+* Working SQLgrey setup
 * Webserver (e.g. Apache) and Database (e.g. MySQL)
-* PHP >= 5.5.9
+* PHP >= 5.6.4
 
 
-## Installation in 7 simple steps
-1. grab a copy of the code (download [master.zip](https://github.com/lbausch/SQLgreyGUI/archive/master.zip) or use `git clone https://github.com/lbausch/SQLgreyGUI.git`)
-2. make your webserver use the `public` directory as document root
-3. copy `.env.example` to `.env` and adjust it to your needs (`APP_URL`, `APP_TIMEZONE`, `APP_KEY` and database settings)
-4. run `composer install --no-dev` to install all necessary dependencies
-5. set a new application key with `php artisan key:generate`
-6. run `php artisan migrate --seed --force` to create the database tables and an admin user
-7. login with the username `admin` and the password `joh316` (you can change the password in "Settings")
+## Installation
+1. Download and extract [master.zip](https://github.com/lbausch/SQLgreyGUI/archive/master.zip) or clone the repository (`git clone https://github.com/lbausch/SQLgreyGUI.git`)
+2. Make your webserver use the `public` directory as document root
+3. Copy `.env.example` to `.env` and adjust it to your needs (`APP_URL`, `APP_TIMEZONE`, `APP_KEY` and database settings)
+4. Run `composer install --no-dev` to install all necessary dependencies
+5. Set a new application key with `php artisan key:generate`
+6. Run `php artisan migrate --seed --force` to create the database tables and an admin user
+7. Login with the username `admin` and the password `joh316` (you can change the password in "Settings")
 
 
-## Screenshots
-![Dasboard](/../screenshots/dashboard.png?raw=true "Dashboard")
-![Auto-Whitelist](/../screenshots/auto-whitelist.png?raw=true "Auto-Whitelist")
+## Demo
+![Demo](docs/demo.gif?raw=true "Demo")
 
 Follow [@SQLgreyGUI](https://twitter.com/sqlgreygui) on Twitter
