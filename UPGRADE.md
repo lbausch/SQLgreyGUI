@@ -4,7 +4,7 @@
 + Backup everything
 + Get the latest code from GitHub (`git fetch` and `git checkout master`)
 + Update your `.env` file based on `.env.example`
-+ Install PHP packages: `composer install`
++ Install PHP packages: `composer install --no-dev`
 + Install npm packages: `yarn install` (if you don't use yarn `npm install` should work as well)
 + Generate frontend assets: `yarn run prod` (or `npm run prod`)
 + Upgrade database: `php artisan migrate`
