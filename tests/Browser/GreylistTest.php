@@ -12,7 +12,7 @@ class GreylistTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
-    protected function setUp()
+    public function setUp()
     {
         parent::setUp();
 
