@@ -24,7 +24,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "font-awesome": "^4.7.0",
-    "laravel-mix": "^0.10.0",
+    "laravel-mix": "^0.11.4",
     "lodash": "^4.17.4",
     "simple-line-icons": "^2.4.1",
     "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
