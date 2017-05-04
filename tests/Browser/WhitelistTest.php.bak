@@ -1,0 +1,147 @@
+<?php
+
+namespace Tests\Browser;
+
+use Tests\DuskTestCase;
+use Laravel\Dusk\Browser;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class WhitelistTest extends DuskTestCase
+{
+    use DatabaseTransactions;
+
+    protected $connectionsToTransact = [
+        'sqlite_sqlgrey',
+    ];
+
+    public function test_whitelist_emails_are_displayed()
+    {
+        $emails = factory(\SQLgreyGUI\Models\AwlEmail::class, 5)->create();
+
+        $this->actingAsAdmin()
+            ->visit(action('WhitelistController@showEmails'));
+
+        foreach ($emails as $email) {
+            $this->see($email->getSenderName())
+                ->see($email->getSenderDomain())
+                ->see($email->getSource())
+                ->see($email->getFirstSeen())
+                ->see($email->getLastSeen());
+        }
+    }
+
+    public function test_add_email_to_whitelist()
+    {
+        $this->actingAsAdmin()
+            ->visit(action('WhitelistController@showEmails'))
+            ->type('foo', 'sender_name')
+            ->type('bar.baz', 'sender_domain')
+            ->type('127.0.0.1', 'src')
+            ->press('save')
+            ->see('foo@bar.baz from 127.0.0.1 added')
+            ->see('foo')
+            ->see('bar.baz')
+            ->see('127.0.0.1')
+            ->seeInDatabase('from_awl', [
+                'sender_name' => 'foo',
+                'sender_domain' => 'bar.baz',
+                'src' => '127.0.0.1',
+            ], 'sqlite_sqlgrey');
+    }
+
+    public function test_duplicate_emails_are_ignored()
+    {
+        $email = factory(\SQLgreyGUI\Models\AwlEmail::class)->create();
+
+        $this->actingAsAdmin()
+            ->visit(action('WhitelistController@showEmails'))
+            ->type($email->getSenderName(), 'sender_name')
+            ->type($email->getSenderDomain(), 'sender_domain')
+            ->type($email->getSource(), 'src')
+            ->press('save')
+            ->see($email->getSenderName().'@'.$email->getSenderDomain().' from '.$email->getSource().' is already whitelisted');
+    }
+
+    public function test_delete_email_from_whitelist()
+    {
+        $email = factory(\SQLgreyGUI\Models\AwlEmail::class)->create();
+
+        $this->actingAsAdmin()
+            ->visit(action('WhitelistController@showEmails'))
+            ->see(cval($email))
+            ->submitForm('delete selected', [
+                'whitelist_emails' => [
+                    cval($email),
+                ],
+            ])
+            ->see('deleted the following entries')
+            ->notSeeInDatabase('from_awl', [
+                'sender_name' => $email->getSenderName(),
+                'sender_domain' => $email->getSenderDomain(),
+                'src' => $email->getSource(),
+            ], 'sqlite_sqlgrey');
+    }
+
+    public function test_whitelist_domains_are_displayed()
+    {
+        $domains = factory(\SQLgreyGUI\Models\AwlDomain::class, 5)->create();
+
+        $this->actingAsAdmin()
+            ->visit(action('WhitelistController@showDomains'));
+
+        foreach ($domains as $domain) {
+            $this->see($domain->getSenderDomain())
+                ->see($domain->getSource())
+                ->see($domain->getFirstSeen())
+                ->see($domain->getLastSeen());
+        }
+    }
+
+    public function test_add_domain_to_whitelist()
+    {
+        $this->actingAsAdmin()
+            ->visit(action('WhitelistController@showDomains'))
+            ->type('foobar.baz', 'sender_domain')
+            ->type('127.0.0.1', 'src')
+            ->press('save')
+            ->see('foobar.baz from 127.0.0.1 added')
+            ->see('foobar.baz')
+            ->see('127.0.0.1')
+            ->seeInDatabase('domain_awl', [
+                'sender_domain' => 'foobar.baz',
+                'src' => '127.0.0.1',
+            ], 'sqlite_sqlgrey');
+    }
+
+    public function test_duplicate_domains_are_ignored()
+    {
+        $domain = factory(\SQLgreyGUI\Models\AwlDomain::class)->create();
+
+        $this->actingAsAdmin()
+            ->visit(action('WhitelistController@showDomains'))
+            ->type($domain->getSenderDomain(), 'sender_domain')
+            ->type($domain->getSource(), 'src')
+            ->press('save')
+            ->see($domain->getSenderDomain().' from '.$domain->getSource().' is already whitelisted');
+    }
+
+    public function test_delete_domain_from_whitelist()
+    {
+        $domain = factory(\SQLgreyGUI\Models\AwlDomain::class)->create();
+
+        $this->actingAsAdmin()
+            ->visit(action('WhitelistController@showDomains'))
+            ->see(cval($domain))
+            ->submitForm('delete selected', [
+                'whitelist_domains' => [
+                    cval($domain),
+                ],
+            ])
+            ->see('deleted the following entries')
+            ->notSeeInDatabase('domain_awl', [
+                'sender_domain' => $domain->getSenderDomain(),
+                'src' => $domain->getSource(),
+            ], 'sqlite_sqlgrey');
+    }
+}

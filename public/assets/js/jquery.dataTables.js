@@ -1,1 +1,0 @@
-../../../vendor/datatables/datatables/media/js/jquery.dataTables.js

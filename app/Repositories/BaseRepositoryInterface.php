@@ -8,4 +8,6 @@ interface BaseRepositoryInterface extends \Bausch\LaravelCornerstone\Repositorie
      * Find all.
      */
     public function findAll();
+
+    public function findBy(array $criteria);
 }

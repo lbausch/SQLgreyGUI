@@ -1,40 +1,58 @@
-{% extends "layouts.public" %}
-
-{% block title %}
-    {{ parent() }}Login
-{% endblock %}
+{% extends "Layouts.public" %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">SQLgreyGUI: Please Sign In</h3>
-                    </div>
-                    <div class="panel-body">
-                        {{ form_open({ action: 'Auth\\AuthController@login', method: 'POST', role: 'form' }) }}
-                        <fieldset>
-                            <div class="form-group {{ errors.has('username') ? 'has-error' }}">
-                                {{ form_text('username', old('username'), { class: 'form-control', placeholder: 'Username', autofocus: 'autofocus' } ) }}
-                                {% if errors.has('username') %}
-                                    <span class="help-block">{{ errors.first('username') }}</span>
-                                {% endif %}
+    <div class="app flex-row align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card-group mb-0">
+                        <div class="card p-2">
+                            <div class="card-block">
+                                <form action="{{ action("Auth\\LoginController@login") }}" method="POST">
+                                    {{ csrf_field() }}
+                                    <h1>{{ config('app.name') }}: Login</h1>
+                                    <p class="text-muted">Sign In to your account</p>
+                                    <div class="form-group {{ errors.has('email') ? 'has-danger' }}">
+                                        {% if errors.has('email') %}
+                                            <div class="form-control-feedback">{{ errors.first('email') }}</div>
+                                        {% endif %}
+                                        <div class="input-group mb-1">
+                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                            <input name="email" type="text" class="form-control" placeholder="Email"
+                                                   autofocus>
+                                        </div>
+                                    </div>
+                                    <div class="form-group {{ errors.has('password') ? 'has-danger' }}">
+                                        {% if errors.has('password') %}
+                                            <div class="form-control-feedback">{{ errors.first('password') }}</div>
+                                        {% endif %}
+                                        <div class="input-group mb-1 {{ errors.has('password') ? 'has-danger' }}">
+                                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                            <input name="password" type="password" class="form-control"
+                                                   placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <label class="form-check-label">
+                                            <input name="remember" class="form-check-input" type="checkbox" value="yes">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button type="submit" class="btn btn-primary px-2">
+                                                <i class="fa fa-sign-in"></i> Login
+                                            </button>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <a href="{{ action('Auth\\ForgotPasswordController@showLinkRequestForm') }}"
+                                               class="btn btn-link px-0">Forgot password?
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="form-group {{ errors.has('password') ? 'has-error' }}">
-                                {{ form_password('password', { class: 'form-control', placeholder: 'Password'} ) }}
-                                {% if errors.has('password') %}
-                                    <span class="help-block">{{ errors.first('password') }}</span>
-                                {% endif %}
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    {{ form_checkbox('remember', 'yes', (old('remember', 'yes') == 'yes' ? true : false)) }} Remember Me
-                                </label>
-                            </div>
-                            {{ form_submit('Login', { class: 'btn btn-success btn-block' }) }}
-                        </fieldset>
-                        {{ form_close() }}
+                        </div>
                     </div>
                 </div>
             </div>

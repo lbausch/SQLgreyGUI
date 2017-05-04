@@ -1,11 +1,46 @@
+sudo: required
 language: php
+dist: trusty
+
+services: mysql
 
 php:
-  - '5.5'
   - '5.6'
   - '7.0'
+  - '7.1'
+
+env:
+  - APP_URL="http://localhost:8000"
+
+cache:
+  directories:
+  - $HOME/.composer/cache/files
+  - $HOME/.cache/yarn
+
+before_install:
+  - mysql -e "CREATE DATABASE IF NOT EXISTS testing;"
+  - mysql -e "GRANT ALL ON testing.* to 'homestead'@'%' IDENTIFIED BY 'secret';"
+  - mysql --database testing < ci/sqlgrey.sql
+  - . $HOME/.nvm/nvm.sh
+  - nvm install stable
+  - nvm use stable
+  - npm install -g yarn
 
 install:
-  - ./ci/setup_environment.sh
+  - cp -nv ci/.env.testing .env
+  - composer install --no-interaction
+  - php artisan key:generate
+  - php artisan migrate --force
+  - php artisan passport:install
+  - yarn install --force
+  - yarn run prod
 
-script: ./ci/run_tests.sh
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - ./vendor/laravel/dusk/bin/chromedriver-linux &
+  - php artisan serve &
+
+script:
+  - php artisan dusk
+  - ./vendor/bin/phpunit

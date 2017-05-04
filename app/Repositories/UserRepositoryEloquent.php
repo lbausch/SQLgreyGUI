@@ -2,7 +2,7 @@
 
 namespace SQLgreyGUI\Repositories;
 
-use SQLgreyGUI\Models\User as User;
+use SQLgreyGUI\Models\User;
 
 class UserRepositoryEloquent extends BaseRepositoryEloquent implements UserRepositoryInterface
 {

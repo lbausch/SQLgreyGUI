@@ -1,16 +1,15 @@
-/vendor
 /node_modules
+/public/hot
 /public/storage
-ci/Homestead.yaml
-ci/Homestead.json
+/storage/*.key
+/vendor
+Homestead.json
+Homestead.yaml
 .env
 
 ## Development
-/.idea/
-/.vagrant/
-.phpstorm.meta.php
 _ide_helper.php
 _ide_helper_models.php
 
 ## Assets
-/public/assets/min
+/public/assets

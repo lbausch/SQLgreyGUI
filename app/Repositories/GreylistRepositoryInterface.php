@@ -17,6 +17,13 @@ interface GreylistRepositoryInterface extends BaseRepositoryInterface
     public function findBetween(Carbon $start, Carbon $end = null);
 
     /**
+     * Find -undef- records.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function findUndef();
+
+    /**
      * Destroy entries older than given date.
      *
      * @param Carbon $date

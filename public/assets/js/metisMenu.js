@@ -1,1 +1,0 @@
-../../../vendor/onokumus/metismenu/dist/metisMenu.js

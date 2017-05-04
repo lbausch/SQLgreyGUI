@@ -2,8 +2,11 @@
 
 namespace SQLgreyGUI\Providers;
 
-use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+use Carbon\Carbon;
+use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use SQLgreyGUI\Repositories\UserProviderInterface;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,18 +16,28 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        //'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
-     * Register any application authentication / authorization services.
-     *
-     * @param \Illuminate\Contracts\Auth\Access\Gate $gate
+     * Register any authentication / authorization services.
      */
-    public function boot(GateContract $gate)
+    public function boot()
     {
-        $this->registerPolicies($gate);
+        $this->registerPolicies();
 
-        //
+        Passport::routes();
+
+        Passport::enableImplicitGrant();
+
+        Passport::tokensExpireIn(Carbon::now()->addDays(15));
+
+        Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
+
+        // Custom User Provider
+        Auth::provider('sqlgreygui', function ($app, array $config) {
+            // Return an instance of Illuminate\Contracts\Auth\UserProvider...
+
+            return $app->make(UserProviderInterface::class);
+        });
     }
 }
