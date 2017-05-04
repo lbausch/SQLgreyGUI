@@ -24,13 +24,16 @@ Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel 
 
 
 ## Installation
-1. Download and extract [master.zip](https://github.com/lbausch/SQLgreyGUI/archive/master.zip) or clone the repository (`git clone https://github.com/lbausch/SQLgreyGUI.git`)
-2. Make your webserver use the `public` directory as document root
-3. Copy `.env.example` to `.env` and adjust it to your needs (`APP_URL`, `APP_TIMEZONE`, `APP_KEY` and database settings)
-4. Run `composer install --no-dev` to install all necessary dependencies
-5. Set a new application key with `php artisan key:generate`
-6. Run `php artisan migrate --seed --force` to create the database tables and an admin user
-7. Login with the username `admin` and the password `joh316` (you can change the password in "Settings")
++ Download and extract [master.zip](https://github.com/lbausch/SQLgreyGUI/archive/master.zip) or clone the repository (`git clone https://github.com/lbausch/SQLgreyGUI.git`)
++ Make your webserver use the `public` directory as document root
++ Copy `.env.example` to `.env` and adjust it to your needs (`APP_URL`, `APP_TIMEZONE`, `APP_KEY` and database settings)
++ Run `composer install --no-dev` to install all necessary PHP dependencies
++ Set a new application key with `php artisan key:generate`
++ Run `php artisan migrate --force` to create the database tables
++ Install Laravel Passport: `php artisan passport:install`
++ Install and generate frontend assets: `yarn install && yarn run prod` (or `npm install && npm run prod`)
++ Create user: `php artisan sqlgreygui:user`
++ Add cron entry `* * * * * php /path/to/sqlgreygui/artisan schedule:run >> /dev/null 2>&1` which will delete _undef_ records from the database
 
 
 ## Demo

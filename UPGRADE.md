@@ -9,3 +9,4 @@
 + Generate frontend assets: `yarn run prod` (or `npm run prod`)
 + Install Laravel Passport: `php artisan passport:install`
 + Upgrade database: `php artisan migrate`
++ Add cron entry as mentioned in installation instructions (`README.md`)
