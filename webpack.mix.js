@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+let mix = require('laravel-mix')
 
 /*
  |--------------------------------------------------------------------------
@@ -42,6 +42,6 @@ mix.sass('resources/assets/sass/style.scss', 'css')
     'vue-strap'
   ])
 
-if (mix.config.inProduction) {
+if (mix.inProduction()) {
   mix.version()
 }
