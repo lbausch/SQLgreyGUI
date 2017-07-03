@@ -32,7 +32,7 @@ install:
   - php artisan key:generate
   - php artisan migrate --force
   - php artisan passport:install
-  - yarn install --force
+  - yarn install --check-files
   - yarn run prod
 
 before_script:
