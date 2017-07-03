@@ -23,7 +23,7 @@ general:
 dependencies:
   override:
     - composer install --no-interaction
-    - yarn install --force
+    - yarn install --check-files
     - yarn run prod
 
 test:
