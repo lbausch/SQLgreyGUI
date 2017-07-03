@@ -2,10 +2,10 @@
 
 namespace SQLgreyGUI\Api\v1\Controllers;
 
-use SQLgreyGUI\Repositories\OptInEmailRepositoryInterface as Emails;
-use SQLgreyGUI\Repositories\OptInDomainRepositoryInterface as Domains;
-use SQLgreyGUI\Api\v1\Transformers\OptInEmailTransformer as EmailTransformer;
 use SQLgreyGUI\Api\v1\Transformers\OptInDomainTransformer as DomainTransformer;
+use SQLgreyGUI\Api\v1\Transformers\OptInEmailTransformer as EmailTransformer;
+use SQLgreyGUI\Repositories\OptInDomainRepositoryInterface as Domains;
+use SQLgreyGUI\Repositories\OptInEmailRepositoryInterface as Emails;
 
 class OptInController extends OptController
 {

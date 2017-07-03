@@ -2,13 +2,13 @@
 
 namespace SQLgreyGUI\Api\v1\Controllers;
 
-use SQLgreyGUI\Repositories\GreylistRepositoryInterface as Greylist;
-use SQLgreyGUI\Repositories\AwlEmailRepositoryInterface as AwlEmail;
 use SQLgreyGUI\Repositories\AwlDomainRepositoryInterface as AwlDomain;
-use SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface as OptOutEmail;
-use SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface as OptOutDomain;
-use SQLgreyGUI\Repositories\OptInEmailRepositoryInterface as OptInEmail;
+use SQLgreyGUI\Repositories\AwlEmailRepositoryInterface as AwlEmail;
+use SQLgreyGUI\Repositories\GreylistRepositoryInterface as Greylist;
 use SQLgreyGUI\Repositories\OptInDomainRepositoryInterface as OptInDomain;
+use SQLgreyGUI\Repositories\OptInEmailRepositoryInterface as OptInEmail;
+use SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface as OptOutDomain;
+use SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface as OptOutEmail;
 
 class StatsController extends Controller
 {

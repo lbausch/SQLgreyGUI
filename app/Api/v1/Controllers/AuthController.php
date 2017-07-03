@@ -2,9 +2,9 @@
 
 namespace SQLgreyGUI\Api\v1\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 use League\OAuth2\Server\AuthorizationServer;
 
 class AuthController extends Controller

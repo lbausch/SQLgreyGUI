@@ -2,13 +2,13 @@
 
 namespace SQLgreyGUI\Api\v1\Controllers;
 
+use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use SQLgreyGUI\Api\v1\Exceptions\ValidationException;
 use SQLgreyGUI\Api\v1\Transformers\UserTransformer;
 use SQLgreyGUI\Repositories\UserRepositoryInterface as Users;
-use Illuminate\Auth\AuthManager;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {

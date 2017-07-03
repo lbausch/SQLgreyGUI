@@ -2,8 +2,8 @@
 
 namespace SQLgreyGUI\Http\Controllers\Auth;
 
-use SQLgreyGUI\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use SQLgreyGUI\Http\Controllers\Controller;
 
 class ResetPasswordController extends Controller
 {

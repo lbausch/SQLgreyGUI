@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use SQLgreyGUI\Api\v1\Exceptions\ValidationException;
 use SQLgreyGUI\Api\v1\Transformers\WhitelistDomainTransformer;
 use SQLgreyGUI\Api\v1\Transformers\WhitelistEmailTransformer;
-use SQLgreyGUI\Repositories\AwlEmailRepositoryInterface as Emails;
 use SQLgreyGUI\Repositories\AwlDomainRepositoryInterface as Domains;
+use SQLgreyGUI\Repositories\AwlEmailRepositoryInterface as Emails;
 
 class WhitelistController extends Controller
 {

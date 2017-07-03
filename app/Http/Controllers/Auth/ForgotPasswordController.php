@@ -2,8 +2,8 @@
 
 namespace SQLgreyGUI\Http\Controllers\Auth;
 
-use SQLgreyGUI\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use SQLgreyGUI\Http\Controllers\Controller;
 
 class ForgotPasswordController extends Controller
 {

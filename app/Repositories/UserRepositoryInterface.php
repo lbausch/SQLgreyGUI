@@ -4,5 +4,4 @@ namespace SQLgreyGUI\Repositories;
 
 interface UserRepositoryInterface extends BaseRepositoryInterface
 {
-    //
 }

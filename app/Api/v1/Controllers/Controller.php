@@ -2,15 +2,15 @@
 
 namespace SQLgreyGUI\Api\v1\Controllers;
 
+use Bausch\LaravelCornerstone\Http\Controllers\CornerstoneController;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Http\Request;
-use Bausch\LaravelCornerstone\Http\Controllers\CornerstoneController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use League\Fractal\Resource\Item;
+use Illuminate\Http\Request;
 use League\Fractal\Manager;
-use League\Fractal\Serializer\DataArraySerializer;
 use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
+use League\Fractal\Serializer\DataArraySerializer;
 use League\Fractal\TransformerAbstract;
 
 abstract class Controller extends CornerstoneController
