@@ -24,7 +24,6 @@ dependencies:
   override:
     - composer install --no-interaction
     - yarn install --check-files --force
-    - yarn run prod
 
 test:
   pre:
