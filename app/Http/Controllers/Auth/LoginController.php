@@ -2,9 +2,9 @@
 
 namespace SQLgreyGUI\Http\Controllers\Auth;
 
-use SQLgreyGUI\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use SQLgreyGUI\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {

@@ -2,10 +2,10 @@
 
 namespace SQLgreyGUI\Http\Controllers\Auth;
 
-use SQLgreyGUI\User;
-use SQLgreyGUI\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Validator;
+use SQLgreyGUI\Http\Controllers\Controller;
+use SQLgreyGUI\User;
 
 class RegisterController extends Controller
 {

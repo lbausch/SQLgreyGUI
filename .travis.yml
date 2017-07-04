@@ -32,8 +32,7 @@ install:
   - php artisan key:generate
   - php artisan migrate --force
   - php artisan passport:install
-  - yarn install --force
-  - yarn run prod
+  - yarn install --check-files
 
 before_script:
   - export DISPLAY=:99.0

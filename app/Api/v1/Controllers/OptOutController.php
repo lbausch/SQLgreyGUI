@@ -2,10 +2,10 @@
 
 namespace SQLgreyGUI\Api\v1\Controllers;
 
-use SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface as Emails;
-use SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface as Domains;
-use SQLgreyGUI\Api\v1\Transformers\OptOutEmailTransformer as EmailTransformer;
 use SQLgreyGUI\Api\v1\Transformers\OptOutDomainTransformer as DomainTransformer;
+use SQLgreyGUI\Api\v1\Transformers\OptOutEmailTransformer as EmailTransformer;
+use SQLgreyGUI\Repositories\OptOutDomainRepositoryInterface as Domains;
+use SQLgreyGUI\Repositories\OptOutEmailRepositoryInterface as Emails;
 
 class OptOutController extends OptController
 {
