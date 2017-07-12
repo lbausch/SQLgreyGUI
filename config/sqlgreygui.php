@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'connection' => env('DB_CONNECTION_SQLGREY', 'mysql_sqlgrey'),
+    'connection' => env('SQLGREY_DB_CONNECTION', 'sqlgrey'),
 ];

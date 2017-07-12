@@ -20,14 +20,14 @@ cache:
 before_install:
   - mysql -e "CREATE DATABASE IF NOT EXISTS testing;"
   - mysql -e "GRANT ALL ON testing.* to 'homestead'@'%' IDENTIFIED BY 'secret';"
-  - mysql --database testing < ci/sqlgrey.sql
+  - mysql --database testing < tests/fixtures/sqlgrey.sql
   - . $HOME/.nvm/nvm.sh
   - nvm install stable
   - nvm use stable
   - npm install -g yarn
 
 install:
-  - cp -nv ci/.env.testing .env
+  - cp -nv tests/fixtures/.env.testing .env
   - composer install --no-interaction
   - php artisan key:generate
   - php artisan migrate --force

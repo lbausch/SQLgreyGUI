@@ -14,4 +14,3 @@ Web interface for [SQLgrey](http://sqlgrey.sourceforge.net/) using the [Laravel 
 
 ## Documentation
 Visit the [official homepage](https://lbausch.github.io/SQLgreyGUI/) for requirements, installation instructions and further information.
-
