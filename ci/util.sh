@@ -4,12 +4,12 @@ create_database() {
     mysql -uroot -e "DROP DATABASE IF EXISTS testing"
     mysql -uroot -e "CREATE DATABASE testing"
     mysql -uroot -e "GRANT ALL ON testing.* to 'homestead'@'%';"
-    mysql -uroot --database testing < sqlgrey.sql
+    mysql -uroot --database testing < tests/fixtures/sqlgrey.sql
 }
 
 copy_configuration() {
     cp -n .env .env.bak
-    cp -v ci/.env.testing .env
+    cp -v tests/fixtures/.env.testing .env
 }
 
 configure_application() {

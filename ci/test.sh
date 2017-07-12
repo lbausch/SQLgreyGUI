@@ -4,9 +4,9 @@ cd $(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
 . util.sh
 
-create_database
-
 cd ..
+
+create_database
 
 copy_configuration
 

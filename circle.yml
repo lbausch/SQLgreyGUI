@@ -13,7 +13,7 @@ database:
   override:
     - mysql -uubuntu -e "CREATE DATABASE IF NOT EXISTS testing;"
     - mysql -uubuntu -e "GRANT ALL ON testing.* to 'homestead'@'%' IDENTIFIED BY 'secret';"
-    - mysql -uubuntu --database testing < ci/sqlgrey.sql
+    - mysql -uubuntu --database testing < tests/fixtures/sqlgrey.sql
 
 general:
   artifacts:
@@ -29,7 +29,7 @@ test:
   pre:
     - "./vendor/laravel/dusk/bin/chromedriver-linux":
         background: true
-    - cp ci/.env.testing .env
+    - cp tests/fixtures/.env.testing .env
     - php artisan key:generate
     - php artisan migrate
     - php artisan passport:install
