@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'sqlgreygui'),
 
     /*
     |--------------------------------------------------------------------------
@@ -33,14 +33,8 @@ return [
 
     'connections' => [
 
-        'sqlite' => [
-            'driver' => 'sqlite',
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
-            'prefix' => '',
-        ],
-
-        'mysql' => [
-            'driver' => 'mysql',
+        'sqlgreygui' => [
+            'driver' => env('DB_DRIVER', 'mysql'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'forge'),
@@ -49,13 +43,14 @@ return [
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => env('DB_PREFIX', 'sg_'),
             'strict' => true,
             'engine' => null,
-            'prefix' => env('DB_PREFIX', 'sg_'),
         ],
 
-        'mysql_sqlgrey' => [
-            'driver' => 'mysql',
+
+        'sqlgrey' => [
+            'driver' => env('SQLGREY_DB_DRIVER', env('DB_DRIVER', 'mysql')),
             'host' => env('SQLGREY_DB_HOST', env('DB_HOST')),
             'port' => env('SQLGREY_DB_PORT', env('DB_PORT')),
             'database' => env('SQLGREY_DB_DATABASE', env('DB_DATABASE')),
@@ -80,6 +75,12 @@ return [
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'prefer',
+        ],
+
+        'sqlite' => [
+            'driver' => 'sqlite',
+            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'prefix' => '',
         ],
 
         'sqlsrv' => [

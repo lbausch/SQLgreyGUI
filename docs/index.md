@@ -4,7 +4,7 @@
 * Whitelist: Add sender emails or sender domains to prevent them from being greylisted and delivered directly
 * Opt-Out: Define emails or domains you don't want greylisting to be enabled for
 * Opt-In: Define  emails or domains for which you want to enforce greylisting permanently
-* Option of using seperate databases for SQLgrey and the application itself. This way you can maintain a user database in a single place and use it with all installations of SQLgreyGUI. In addition you don't need to alter the SQLgrey database at all.
+* Option of using separate databases for SQLgrey and the application itself. This way you can maintain a user database in a single place and use it with all installations of SQLgreyGUI. In addition you don't need to alter the SQLgrey database at all.
 
 
 ## Requirements
@@ -25,5 +25,12 @@
 * Create user: `php artisan sqlgreygui:user`
 * Add cron entry `* * * * * php /path/to/sqlgreygui/artisan schedule:run >> /dev/null 2>&1` which will delete _undef_ records from the database
 
+
+## Using separate databases for SQLgrey and SQLgreyGUI
+Adjust the values starting with `SQLGREY_DB_` in the `.env` file.
+Refer to the `.env.example` file for possible entries.
+The default configuration in `config/database.php` is designed to work with MySQL out of the box.
+If you need different settings, e.g. for PostgreSQL, take a look at the existing config blocks in `config/database.php`.
+Additional documentation for available configuration possibilities may be found in the [Laravel documentation](https://laravel.com/docs/5.4/database#configuration).
 
 Follow [@SQLgreyGUI](https://twitter.com/sqlgreygui) on Twitter
