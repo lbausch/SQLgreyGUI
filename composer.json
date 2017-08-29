@@ -11,7 +11,7 @@
         "laravel/passport": "^2.0",
         "laravel/tinker": "~1.0",
         "lbausch/laravel-cornerstone": "^5.1",
-        "league/fractal": "^0.16.0",
+        "league/fractal": "^0.17.0",
         "rcrowe/twigbridge": "^0.9.4",
         "roave/security-advisories": "dev-master",
         "spatie/laravel-tail": "^1.1.1"
