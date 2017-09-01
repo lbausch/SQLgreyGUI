@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App'
+import BootstrapVue from 'bootstrap-vue'
 import VueEvents from 'vue-events'
 import VueRouter from './router'
 import Vuex from 'vuex'
@@ -17,6 +18,8 @@ window.axios.defaults.headers.common = {
 }
 
 Vue.directive('focus', focus)
+
+Vue.use(BootstrapVue)
 Vue.use(VueEvents)
 Vue.use(Vuex)
 Vue.use(VueSweetAlert)

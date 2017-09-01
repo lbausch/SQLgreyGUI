@@ -12,44 +12,39 @@
             }}</span>
         </button>
 
-        <modal v-model="addModalVisible" title="Add Email Address">
-            <alert type="danger" v-if="errors.hasGeneral()">
+        <b-modal v-model="addModalVisible" title="Add Email Address">
+            <b-alert type="danger" v-if="errors.hasGeneral()">
                 {{ errors.firstGeneral() }}
-            </alert>
+            </b-alert>
 
             <form @submit.prevent="addItem">
                 <div class="form-group" :class="{ 'has-danger': errors.has('domain') }">
                     <label class="form-control-label">Domain</label>
-                    <div v-if="errors.has('domain')" class="form-control-feedback">
+                    <input type="text" name="email" v-model="domain" v-focus.lazy="addModalVisible" class="form-control"
+                           :class="{'is-invalid': errors.has('domain')}" placeholder="Domain">
+                    <div v-if="errors.has('domain')" class="invalid-feedback">
                         {{ errors.first('domain') }}
                     </div>
-                    <input type="text" name="email" v-model="domain" v-focus.lazy="addModalVisible" class="form-control"
-                           placeholder="Domain">
                 </div>
-                <button type="submit" class="hidden-xs-up"></button>
+                <button type="submit" class="d-none"></button>
             </form>
 
-            <div slot="modal-footer" class="modal-footer">
+            <div slot="modal-footer">
                 <button type="button" class="btn btn-primary" @click.prevent="addItem">Add Domain</button>
                 <button type="button" class="btn btn-default" @click.prevent="addModalVisible = false">
                     Cancel
                 </button>
             </div>
-        </modal>
+        </b-modal>
     </div>
 </template>
 
 <script>
-  import alert from 'vue-strap/src/Alert'
-  import modal from 'vue-strap/src/Modal'
   import ValidationErrors from '../utils/ValidationErrors'
 
   export default {
     name: 'domain-controls',
-    components: {
-      alert,
-      modal
-    },
+    components: {},
     props: [
       'api',
       'itemsChecked'

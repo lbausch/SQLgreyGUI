@@ -5,7 +5,8 @@
                 <i class="fa fa-info-circle"></i>List of auto-whitelisted domains
             </div>
             <div class="card-block">
-                <data-table ref="whitelistDomains" :columns="columns" :sorting="sorting" @itemsChecked="updateItemsChecked">
+                <data-table ref="whitelistDomains" :columns="columns" :sorting="sorting"
+                            @itemsChecked="updateItemsChecked">
                     <div slot="controls">
                         <button class="btn btn-primary" @click.prevent="showAddDomainModal">
                             <i class="fa fa-plus"></i> Add Domain
@@ -13,7 +14,8 @@
                         <button class="btn btn-default" @click.prevent="fetchItems">
                             <i class="fa fa-refresh"></i> Refresh
                         </button>
-                        <button class="btn btn-danger" @click.prevent="deleteItems" :disabled="itemsChecked.length == 0">
+                        <button class="btn btn-danger" @click.prevent="deleteItems"
+                                :disabled="itemsChecked.length == 0">
                             <i class="fa fa-trash"></i> Delete <span v-if="itemsChecked.length > 0">
                             {{ itemsChecked.length}} {{ itemsChecked.length == 1 ? 'Record' : 'Records' }}</span>
                         </button>
@@ -22,30 +24,31 @@
             </div>
         </div>
 
-        <modal title="Add Domain" :value="addDomain.visible" @cancel="addDomain.visible = false"
-               @keyup.esc="addDomain.visible = false">
-            <alert type="danger" v-if="addDomain.errors.hasGeneral()">
+        <b-modal title="Add Domain" v-model="addDomain.visible" @cancel="addDomain.visible = false"
+                 @keyup.esc="addDomain.visible = false">
+            <b-alert type="danger" v-if="addDomain.errors.hasGeneral()">
                 {{ addDomain.errors.firstGeneral() }}
-            </alert>
+            </b-alert>
 
             <form @submit.prevent="submitDomain">
                 <div class="form-group" :class="{ 'has-danger': addDomain.errors.has('domain') }">
                     <label class="form-control-label">Domain</label>
-                    <div v-if="addDomain.errors.has('domain')" class="form-control-feedback">
+                    <input type="text" v-model="addDomain.domain" v-focus.lazy="addDomain.visible"
+                           class="form-control" :class="{'is-invalid': addDomain.errors.has('domain')}"
+                           placeholder="Domain">
+                    <div v-if="addDomain.errors.has('domain')" class="invalid-feedback">
                         {{ addDomain.errors.first('domain') }}
                     </div>
-                    <input type="text" v-model="addDomain.domain" v-focus.lazy="addDomain.visible"
-                           class="form-control" placeholder="Domain">
                 </div>
                 <div class="form-group" :class="{ 'has-danger': addDomain.errors.has('source') }">
                     <label class="form-control-label">IP Address</label>
-                    <div v-if="addDomain.errors.has('source')" class="form-control-feedback">
+                    <input type="text" v-model="addDomain.source" class="form-control"
+                           :class="{'is-invalid': addDomain.errors.has('source')}" placeholder="Source (Class C or D)">
+                    <div v-if="addDomain.errors.has('source')" class="invalid-feedback">
                         {{ addDomain.errors.first('source') }}
                     </div>
-                    <input type="text" v-model="addDomain.source" class="form-control"
-                           placeholder="Source (Class C or D)">
                 </div>
-                <button type="submit" class="hidden-xs-up"></button>
+                <button type="submit" class="d-none"></button>
             </form>
             <div slot="modal-footer" class="modal-footer">
                 <button type="submit" class="btn btn-primary" @click="submitDomain">
@@ -55,19 +58,17 @@
                     Cancel
                 </button>
             </div>
-        </modal>
+        </b-modal>
     </div>
 </template>
 
 <script>
-  import modal from 'vue-strap/src/Modal'
   import DataTable from '../components/DataTable'
   import ValidationErrors from '../utils/ValidationErrors'
 
   export default {
     name: 'whitelist-domains',
     components: {
-      modal,
       DataTable
     },
     data () {

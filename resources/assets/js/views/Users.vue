@@ -3,7 +3,8 @@
         <div class="card">
             <div class="card-header"></div>
             <div class="card-block">
-                <data-table ref="users" :columns="columns" :sorting="sorting" :columnEvents="columnEvents" @itemsChecked="updateItemsChecked" @edit="editUser">
+                <data-table ref="users" :columns="columns" :sorting="sorting" :columnEvents="columnEvents"
+                            @itemsChecked="updateItemsChecked" @edit="editUser">
                     <div slot="controls">
                         <button class="btn btn-primary" @click="addUser">
                             <i class="fa fa-plus"></i> Add User
@@ -11,7 +12,8 @@
                         <button class="btn btn-default" @click="refresh">
                             <i class="fa fa-refresh"></i> Refresh
                         </button>
-                        <button class="btn btn-danger" @click.prevent="deleteUsers" :disabled="itemsChecked.length === 0">
+                        <button class="btn btn-danger" @click.prevent="deleteUsers"
+                                :disabled="itemsChecked.length === 0">
                             <i class="fa fa-trash"></i> Delete <span v-if="itemsChecked.length > 0">
                             {{ itemsChecked.length}} {{ itemsChecked.length == 1 ? 'User' : 'Users' }}</span>
                         </button>
@@ -20,77 +22,79 @@
             </div>
         </div>
 
-        <modal v-model="modal.visible" :title="modal.title">
-            <alert type="danger" v-if="errors.hasGeneral()">
+        <b-modal v-model="modal.visible" :title="modal.title">
+            <b-alert type="danger" v-if="errors.hasGeneral()">
                 {{ errors.firstGeneral() }}
-            </alert>
+            </b-alert>
 
             <form @submit.prevent="submitUser">
                 <div class="form-group" :class="{ 'has-danger': errors.has('username') }">
                     <label class="form-control-label">Username</label>
-                    <div v-if="errors.has('username')" class="form-control-feedback">
+                    <input type="text" v-model="user.username" v-focus.lazy="modal.visible" class="form-control"
+                           :class="{'is-invalid': errors.has('username')}" placeholder="Username">
+                    <div v-if="errors.has('username')" class="invalid-feedback">
                         {{ errors.first('username') }}
                     </div>
-                    <input type="text" v-model="user.username" v-focus.lazy="modal.visible" class="form-control" placeholder="Username">
                 </div>
                 <div class="form-group" :class="{ 'has-danger': errors.has('email') }">
                     <label class="form-control-label">Email</label>
-                    <div v-if="errors.has('email')" class="form-control-feedback">
+                    <input type="email" v-model="user.email" class="form-control"
+                           :class="{'is-invalid': errors.has('email')}" placeholder="Email">
+                    <div v-if="errors.has('email')" class="invalid-feedback">
                         {{ errors.first('email') }}
                     </div>
-                    <input type="email" v-model="user.email" class="form-control" placeholder="Email">
                 </div>
                 <div class="form-group" v-if="modal.mode === 'edit'">
-                    <alert type="info">
-                        <i class="fa fa-info-circle"></i> If you don't want to change the password leave the corresponding fields empty
-                    </alert>
+                    <b-alert type="info">
+                        <i class="fa fa-info-circle"></i>
+                        If you don't want to change the password leave the corresponding fields empty
+                    </b-alert>
                 </div>
                 <div class="form-group" :class="{ 'has-danger': errors.has('password') }">
                     <label class="form-control-label">Password</label>
-                    <div v-if="errors.has('password')" class="form-control-feedback">
+                    <input type="password" v-model="user.password" class="form-control"
+                           :class="{'is-invalid': errors.has('password')}" placeholder="Password">
+                    <div v-if="errors.has('password')" class="invalid-feedback">
                         {{ errors.first('password') }}
                     </div>
-                    <input type="password" v-model="user.password" class="form-control" placeholder="Password">
                 </div>
                 <div class="form-group" :class="{ 'has-danger': errors.has('password_confirmation') }">
                     <label class="form-control-label">Confirm Password</label>
-                    <div v-if="errors.has('password_confirmation')" class="form-control-feedback">
+                    <input type="password" v-model="user.password_confirmation" class="form-control"
+                           :class="{'is-invalid': errors.has('password_confirmation')}" placeholder="Confirm Password">
+                    <div v-if="errors.has('password_confirmation')" class="invalid-feedback">
                         {{ errors.first('password_confirmation') }}
                     </div>
-                    <input type="password" v-model="user.password_confirmation" class="form-control" placeholder="Confirm Password">
                 </div>
                 <div class="form-check" :class="{ 'has-danger': errors.has('enabled') }">
-                    <div v-if="errors.has('enabled')" class="form-control-feedback">
+                    <label class="form-check-label">
+                        <input class="form-check-input" :class="{'is-invalid': errors.has('enabled')}"
+                               type="checkbox" v-model="user.enabled" value="yes"> Enabled
+                    </label>
+                    <div v-if="errors.has('enabled')" class="invalid-feedback">
                         {{ errors.first('enabled') }}
                     </div>
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" v-model="user.enabled" value="yes"> Enabled
-                      </label>
                 </div>
 
-                <button type="submit" class="hidden-xs-up"></button>
+                <button type="submit" class="d-none"></button>
             </form>
 
-            <div slot="modal-footer" class="modal-footer">
+            <div slot="modal-footer">
                 <button class="btn btn-primary" @click.prevent="submitUser">{{ modal.submitButtonText }}</button>
                 <button class="btn btn-default" @click.prevent="modal.visible = false">Cancel</button>
             </div>
-        </modal>
+        </b-modal>
     </div>
 </template>
 
 <script>
   import DataTable from '../components/DataTable'
-  import modal from 'vue-strap/src/Modal'
-  import alert from 'vue-strap/src/Alert'
   import ValidationErrors from '../utils/ValidationErrors'
 
   export default {
     name: 'users',
     components: {
-      DataTable,
-      alert,
-      modal
+      DataTable
     },
     data () {
       return {

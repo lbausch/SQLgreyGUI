@@ -12,45 +12,40 @@
             }}</span>
         </button>
 
-        <modal v-model="addModalVisible" title="Add Email Address">
-            <alert type="danger" v-if="errors.hasGeneral()">
+        <b-modal v-model="addModalVisible" title="Add Email Address">
+            <b-alert type="danger" v-if="errors.hasGeneral()">
                 {{ errors.firstGeneral() }}
-            </alert>
+            </b-alert>
 
             <form @submit.prevent="addItem">
                 <div class="form-group" :class="{ 'has-danger': errors.has('email') }">
                     <label class="form-control-label">Email Address</label>
-                    <div v-if="errors.has('email')" class="form-control-feedback">
+                    <input type="text" name="email" v-model="email" v-focus.lazy="addModalVisible" class="form-control"
+                           :class="{'is-invalid': errors.has('email')}" placeholder="Email Address">
+                    <div v-if="errors.has('email')" class="invalid-feedback">
                         {{ errors.first('email') }}
                     </div>
-                    <input type="text" name="email" v-model="email" v-focus.lazy="addModalVisible" class="form-control"
-                           placeholder="Email Address">
                 </div>
-                <button type="submit" class="hidden-xs-up"></button>
+                <button type="submit" class="d-none"></button>
             </form>
 
-            <div slot="modal-footer" class="modal-footer">
+            <div slot="modal-footer">
                 <button type="button" class="btn btn-primary" @click.prevent="addItem">Add Email Address
                 </button>
                 <button type="button" class="btn btn-default" @click.prevent="addModalVisible = false">
                     Cancel
                 </button>
             </div>
-        </modal>
+        </b-modal>
     </div>
 </template>
 
 <script>
-  import alert from 'vue-strap/src/Alert'
-  import modal from 'vue-strap/src/Modal'
   import ValidationErrors from '../utils/ValidationErrors'
 
   export default {
     name: 'email-controls',
-    components: {
-      alert,
-      modal
-    },
+    components: {},
     props: [
       'api',
       'itemsChecked'

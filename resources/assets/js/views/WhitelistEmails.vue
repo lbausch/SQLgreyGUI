@@ -5,7 +5,8 @@
                 <i class="fa fa-info-circle"></i>List of auto-whitelisted emails
             </div>
             <div class="card-block">
-                <data-table ref="whitelistEmails" :columns="columns" :sorting="sorting" @itemsChecked="updateItemsChecked">
+                <data-table ref="whitelistEmails" :columns="columns" :sorting="sorting"
+                            @itemsChecked="updateItemsChecked">
                     <div slot="controls">
                         <button class="btn btn-primary" @click.prevent="showAddEmailAddressModal">
                             <i class="fa fa-plus"></i> Add Email Address
@@ -13,7 +14,8 @@
                         <button class="btn btn-default" @click.prevent="fetchItems">
                             <i class="fa fa-refresh"></i> Refresh
                         </button>
-                        <button class="btn btn-danger" @click.prevent="deleteItems" :disabled="itemsChecked.length == 0">
+                        <button class="btn btn-danger" @click.prevent="deleteItems"
+                                :disabled="itemsChecked.length == 0">
                             <i class="fa fa-trash"></i> Delete <span v-if="itemsChecked.length > 0">
                                 {{ itemsChecked.length}} {{ itemsChecked.length == 1 ? 'Record' : 'Records' }}</span>
                         </button>
@@ -22,32 +24,33 @@
             </div>
         </div>
 
-        <modal title="Add Email Address" :value="addEmailAddress.visible" @cancel="addEmailAddress.visible = false"
-               @keyup.esc="addEmailAddress.visible = false">
-            <alert type="danger" v-if="addEmailAddress.errors.hasGeneral()">
+        <b-modal title="Add Email Address" v-model="addEmailAddress.visible" @cancel="addEmailAddress.visible = false"
+                 @keyup.esc="addEmailAddress.visible = false">
+            <b-alert type="danger" v-if="addEmailAddress.errors.hasGeneral()">
                 {{ addEmailAddress.errors.firstGeneral() }}
-            </alert>
+            </b-alert>
 
             <form @submit.prevent="submitEmailAddress">
                 <div class="form-group" :class="{ 'has-danger': addEmailAddress.errors.has('email') }">
                     <label class="form-control-label">Email Address</label>
-                    <div v-if="addEmailAddress.errors.has('email')" class="form-control-feedback">
+                    <input type="text" v-model="addEmailAddress.email" v-focus.lazy="addEmailAddress.visible"
+                           class="form-control" :class="{'is-invalid': addEmailAddress.errors.has('email')}"
+                           placeholder="Email Address">
+                    <div v-if="addEmailAddress.errors.has('email')" class="invalid-feedback">
                         {{ addEmailAddress.errors.first('email') }}
                     </div>
-                    <input type="text" v-model="addEmailAddress.email" v-focus.lazy="addEmailAddress.visible"
-                           class="form-control" placeholder="Email Address">
                 </div>
                 <div class="form-group" :class="{ 'has-danger': addEmailAddress.errors.has('source') }">
                     <label class="form-control-label">IP Address</label>
-                    <div v-if="addEmailAddress.errors.has('source')" class="form-control-feedback">
+                    <input type="text" v-model="addEmailAddress.source" class="form-control"
+                           :class="{'is-invalid': addEmailAddress.errors.has('source')}" placeholder="Source (Class C or D)">
+                    <div v-if="addEmailAddress.errors.has('source')" class="invalid-feedback">
                         {{ addEmailAddress.errors.first('source') }}
                     </div>
-                    <input type="text" v-model="addEmailAddress.source" class="form-control"
-                           placeholder="Source (Class C or D)">
                 </div>
-                <button type="submit" class="hidden-xs-up"></button>
+                <button type="submit" class="d-none"></button>
             </form>
-            <div slot="modal-footer" class="modal-footer">
+            <div slot="modal-footer">
                 <button type="submit" class="btn btn-primary" @click="submitEmailAddress">
                     Add Email Address
                 </button>
@@ -55,19 +58,17 @@
                     Cancel
                 </button>
             </div>
-        </modal>
+        </b-modal>
     </div>
 </template>
 
 <script>
-  import modal from 'vue-strap/src/Modal'
   import DataTable from '../components/DataTable'
   import ValidationErrors from '../utils/ValidationErrors'
 
   export default {
     name: 'whitelist-emails',
     components: {
-      modal,
       DataTable
     },
     data () {

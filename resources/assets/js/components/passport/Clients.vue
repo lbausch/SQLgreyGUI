@@ -55,7 +55,7 @@
         </table>
 
         <!-- Create Client Modal -->
-        <modal v-model="showCreateClientModal" title="Create Client" @ok="showCreateClientModal = false">
+        <b-modal v-model="showCreateClientModal" title="Create Client" @ok="showCreateClientModal = false">
             <!-- Form Errors -->
             <div class="alert alert-danger" v-if="createForm.errors.length > 0">
                 <p><strong>Whoops!</strong> Something went wrong!</p>
@@ -105,10 +105,10 @@
                     Create
                 </button>
             </div>
-        </modal>
+        </b-modal>
 
         <!-- Edit Client Modal -->
-        <modal v-model="showEditClientModal" title="Edit Client" @ok="showEditClientModal = false">
+        <b-modal v-model="showEditClientModal" title="Edit Client" @ok="showEditClientModal = false">
             <!-- Form Errors -->
             <div class="alert alert-danger" v-if="editForm.errors.length > 0">
                 <p><strong>Whoops!</strong> Something went wrong!</p>
@@ -161,16 +161,13 @@
                     Save Changes
                 </button>
             </div>
-        </modal>
+        </b-modal>
     </div>
 </template>
 
 <script>
-  import modal from 'vue-strap/src/Modal'
-
   export default {
-    /**     *
-
+    /**
      * The component's data.
      */
     data () {
@@ -193,9 +190,7 @@
         }
       }
     },
-    components: {
-      modal
-    },
+    components: {},
 
     /**
      * Prepare the component (Vue 2.x).

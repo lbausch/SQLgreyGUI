@@ -36,7 +36,7 @@
         </table>
 
         <!-- Create Token Modal -->
-        <modal v-model="showCreateTokenModal" title="Create Token" @ok="showCreateTokenModal = false">
+        <b-modal v-model="showCreateTokenModal" title="Create Token" @ok="showCreateTokenModal = false">
             <!-- Form Errors -->
             <div class="alert alert-danger" v-if="form.errors.length > 0">
                 <p><strong>Whoops!</strong> Something went wrong!</p>
@@ -81,11 +81,11 @@
                 <button type="button" class="btn btn-default" @click="showCreateTokenModal = false">Cancel</button>
                 <button type="button" class="btn btn-primary" @click="store">Create Token</button>
             </div>
-        </modal>
+        </b-modal>
 
 
         <!-- Access Token Modal -->
-        <modal v-model="showAccessTokenModal" title="Personal Access Token" @ok="showAccessTokenModal = false">
+        <b-modal v-model="showAccessTokenModal" title="Personal Access Token" @ok="showAccessTokenModal = false">
             <p>
                 Here is your new personal access token. This is the only time it will be shown so don't lose
                 it!
@@ -98,13 +98,11 @@
             <div slot="modal-footer" class="modal-footer">
                 <button type="button" class="btn btn-default" @click="showAccessTokenModal = false">Close</button>
             </div>
-        </modal>
+        </b-modal>
     </div>
 </template>
 
 <script>
-  import modal from 'vue-strap/src/Modal'
-
   export default {
     /**
      * The component's data.
@@ -134,9 +132,7 @@
       this.prepareComponent()
     },
 
-    components: {
-      modal
-    },
+    components: {},
 
     methods: {
       /**
