@@ -44,7 +44,7 @@
                     <tr v-for="item in itemsFiltered" :key="item.id" @click="itemClicked(item)"
                         :class="{ 'table-success': itemsChecked.includes(item.id)}">
                         <td class="text-center">
-                            <input type="checkbox" v-model="itemsChecked" :value="item.id" @click="itemClicked(item)">
+                            <input type="checkbox" v-model="itemsChecked" :value="item.id" @click.stop="itemClicked(item)">
                         </td>
                         <td v-for="(colValue, colKey) in columns">
                             <a href="/" @click.stop.prevent="fireColumnEvent(colKey, item)" v-if="hasColumnEvent(colKey)">{{ item[colKey] }}</a>
