@@ -16,7 +16,6 @@ image: lbausch/laravel-ci:latest
 
 
 cache:
-  key: "$CI_COMMIT_REF_NAME"
   paths:
     - node_modules/
     - vendor/
@@ -36,3 +35,50 @@ build:default:
       - storage/app/
 
 
+test:default:
+  stage: test
+  tags:
+    - docker
+  dependencies:
+    - build:default
+  services:
+    - name: mysql:5.5
+      alias: mysql
+  before_script:
+    - if [ -f "$TEST_COVERAGE_FILE" ]; then rm -f $TEST_COVERAGE_FILE; fi
+    - cp tests/.env.testing .env
+    - composer install --no-ansi --no-interaction --no-progress
+    - php artisan key:generate
+    - php artisan config:cache
+    - php artisan migrate:refresh --force --seed
+  script:
+    - ./vendor/bin/phpunit --coverage-text=$TEST_COVERAGE_FILE --dont-report-useless-tests --stop-on-failure
+    - if [ -f "$TEST_COVERAGE_FILE" ]; then head $TEST_COVERAGE_FILE; fi
+  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+
+
+test:dusk:
+  stage: test
+  tags:
+    - docker
+  dependencies:
+    - build:default
+  services:
+    - name: mysql:5.5
+      alias: mysql
+  before_script:
+    - cp tests/.env.testing .env
+    - composer install --no-ansi --no-interaction --no-progress
+    - php artisan key:generate
+    - php artisan config:cache
+    - php artisan migrate:refresh --force --seed
+    - Xvfb :0 -screen 0 1366x768x24 &
+    - php artisan serve --port=80 &
+  script:
+    - script -e -c "php artisan dusk"
+  artifacts:
+    when: always
+    expire_in: 1 hours
+    paths:
+      - tests/Browser/console
+      - tests/Browser/screenshots
