@@ -5,7 +5,7 @@ machine:
   node:
     version: 6.10.1
   php:
-    version: 7.1.0
+    version: 7.1.15
   environment:
     APP_URL: "http://localhost:8000"
 
