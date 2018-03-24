@@ -1,0 +1,38 @@
+variables:
+  TEST_COVERAGE_FILE: "./tests/test-coverage-output.txt"
+  COMPOSER_ALLOW_SUPERUSER: "1"
+  MYSQL_ROOT_PASSWORD: test
+  MYSQL_DATABASE: homestead
+  MYSQL_USER: homestead
+  MYSQL_PASSWORD: secret
+
+
+stages:
+  - build
+  - test
+
+
+image: lbausch/laravel-ci:latest
+
+
+cache:
+  key: "$CI_COMMIT_REF_NAME"
+  paths:
+    - node_modules/
+    - vendor/
+
+
+build:default:
+  stage: build
+  tags:
+    - docker
+  script:
+    - composer install --no-ansi --no-interaction --no-progress
+    - yarn install --check-files
+    - yarn run prod
+  artifacts:
+    paths:
+      - public/assets/
+      - storage/app/
+
+
