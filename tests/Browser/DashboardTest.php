@@ -2,13 +2,14 @@
 
 namespace Tests\Browser;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class DashboardTest extends DuskTestCase
 {
-    use DatabaseMigrations;
+    //use DatabaseMigrations;
 
     public function test_dashboard_is_displayed()
     {

@@ -29,7 +29,7 @@ mix.setPublicPath('public/assets')
 mix.setResourceRoot('/assets/')
 
 mix.sass('resources/assets/scss/style.scss', 'css')
-  .js('resources/assets/js/app.js', 'js')
+  .js('resources/assets/js/main.js', 'js')
   .js('resources/assets/js/public.js', 'js')
   .extract([
     'axios',

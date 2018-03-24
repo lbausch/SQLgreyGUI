@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import BootstrapVue from 'bootstrap-vue'
 import VueEvents from 'vue-events'
-import VueRouter from './router'
+import router from './router'
 import Vuex from 'vuex'
 import VueSweetAlert from 'vue-sweetalert'
 import Alert from './utils/Alert'
@@ -44,7 +44,7 @@ const store = new Vuex.Store({
 /* eslint-disable no-new, no-unused-vars */
 let vue = new Vue({
   el: '#app',
-  router: VueRouter,
+  router,
   store,
   directives: {focus: focus},
   template: '<App/>',

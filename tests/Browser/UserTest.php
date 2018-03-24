@@ -2,13 +2,13 @@
 
 namespace Tests\Browser;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class UserTest extends DuskTestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function test_users_are_displayed()
     {

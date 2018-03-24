@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Router from 'vue-router'
 
 // Containers
 import Full from '../containers/Full'
@@ -17,9 +17,9 @@ import SettingsAccount from '../views/SettingsAccount'
 import SettingsApi from '../views/SettingsApi'
 import Users from '../views/Users'
 
-Vue.use(VueRouter)
+Vue.use(Router)
 
-export default new VueRouter({
+export default new Router({
   mode: 'hash',
   linkActiveClass: 'open active',
   scrollBehavior: () => ({y: 0}), // scrollBehavior (to, from, savedPosition)

@@ -2,26 +2,18 @@
 
 namespace Tests\Browser;
 
+use Laravel\Dusk\Browser;
 use SQLgreyGUI\Models\AwlEmail;
 use SQLgreyGUI\Models\Greylist;
 use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class GreylistTest extends DuskTestCase
 {
-    use DatabaseMigrations;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        Greylist::truncate();
-        AwlEmail::truncate();
-    }
-
     public function test_greylist_is_displayed()
     {
+        Greylist::truncate();
+        AwlEmail::truncate();
+
         $this->browse(function (Browser $browser) {
             $greylisted = factory(\SQLgreyGUI\Models\Greylist::class, 20)->create();
 
@@ -47,8 +39,11 @@ class GreylistTest extends DuskTestCase
 
     public function test_entries_can_be_deleted()
     {
+        Greylist::truncate();
+        AwlEmail::truncate();
+
         $this->browse(function (Browser $browser) {
-            $greylisted = factory(\SQLgreyGUI\Models\Greylist::class, 5)->create();
+            $greylisted = factory(\SQLgreyGUI\Models\Greylist::class, 3)->create();
 
             $browser->loginAs($this->getUser())
                 ->visit('#/greylist')
@@ -66,9 +61,12 @@ class GreylistTest extends DuskTestCase
 
             foreach ($elements as $element) {
                 $element->click();
+                $browser->pause(1000);
             }
 
-            $browser->click('.greylist-delete-records')
+            $browser->screenshot('greylist_entries_delete_checked')
+                ->pause(2000)
+                ->click('.greylist-delete-records')
                 ->waitUntilMissing('#loader-modal');
 
             foreach ($greylisted as $record) {
@@ -83,6 +81,9 @@ class GreylistTest extends DuskTestCase
 
     public function test_entries_can_be_moved_to_whitelist()
     {
+        Greylist::truncate();
+        AwlEmail::truncate();
+
         $this->browse(function (Browser $browser) {
             $greylisted = factory(\SQLgreyGUI\Models\Greylist::class, 5)->create();
 
