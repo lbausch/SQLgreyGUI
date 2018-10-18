@@ -38,5 +38,8 @@
     "vue-strap": "github:wffranco/vue-strap",
     "vue-sweetalert": "^0.1.17",
     "vuex": "^2.2.1"
+  },
+  "dependencies": {
+    "uglify-es": "git+https://github.com/mishoo/UglifyJS2.git#harmony"
   }
 }
