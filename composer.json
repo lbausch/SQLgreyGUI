@@ -1,5 +1,5 @@
 {
-    "name": "lbausch/SQLgreyGUI",
+    "name": "lbausch/sqlgreygui",
     "description": " Web interface for SQLgrey built on Laravel 5.",
     "keywords": ["sqlgreygui", "sqlgrey", "greylisting", "laravel"],
     "license": "MIT",
